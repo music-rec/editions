@@ -123,7 +123,7 @@ const useFetchableResponse = <T>(
 
     useEffect(() => {
         fetcher(true, responseHookCallbacks)
-    }, [])
+    }, [fetcher, responseHookCallbacks])
 
     return {
         ...response,
