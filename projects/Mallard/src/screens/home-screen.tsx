@@ -158,6 +158,25 @@ export const HomeScreen = ({
                         />
                     </>
                 )}
+                {
+                    <>
+                        <Heading>Purchase</Heading>
+                        <List
+                            data={[
+                                {
+                                    key: 'Purchase',
+                                    title: 'Purchase',
+                                    explainer: 'Purchase',
+                                    data: {},
+                                },
+                            ]}
+                            onPress={() => {
+                                console.log('pchs')
+                                navigation.navigate('Purchase')
+                            }}
+                        />
+                    </>
+                }
                 {isUsingProdDevtools ? (
                     <>
                         <Heading>Hardcoded issues</Heading>

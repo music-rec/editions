@@ -3,6 +3,7 @@ package com.guardian.editions;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.dooboolab.RNIap.RNIapPackage;
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.rnziparchive.RNZipArchivePackage;
@@ -31,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNIapPackage(),
             new RNCMaskedViewPackage(),
             new RNCWebViewPackage(),
             new RNZipArchivePackage(),

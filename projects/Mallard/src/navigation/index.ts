@@ -18,6 +18,7 @@ import {
     OnboardingConsentScreen,
 } from 'src/screens/onboarding-screen'
 import { GdprConsentScreen } from 'src/screens/settings/gdpr-consent-screen'
+import { PurchaseScreen } from 'src/screens/purchase-screen'
 import { NavigationScreenProp } from 'react-navigation'
 import { mapNavigationToProps } from './helpers'
 import { shouldShowOnboarding } from 'src/helpers/settings'
@@ -41,6 +42,7 @@ const AppStack = createStackNavigator(
                 Settings: SettingsScreen,
                 Endpoints: ApiScreen,
                 GdprConsent: GdprConsentScreen,
+                Purchase: PurchaseScreen,
             },
             {
                 defaultNavigationOptions: {
