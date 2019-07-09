@@ -136,9 +136,11 @@ const maybeAcknowledgePurchaseAndroid = async (purchase: ProductPurchase) => {
 
 const useSubscribe = ({
     onPurchase = () => {},
+    onWarning = () => {},
     onError = () => {},
 }: {
     onPurchase?: (newSubscription: CurrentPurchaseInfo | false) => void
+    onWarning?: (warning: string) => void
     onError?: (newSubscription: PurchaseError) => void
 } = {}): [
     CurrentPurchaseInfo | false | null,
@@ -175,6 +177,7 @@ const useSubscribe = ({
                 if (!wasAcknowledged) {
                     // TODO: what do we do in this case? the purchase has still gone through but will
                     // be cancelled in a few days
+                    onWarning('Purchase was not acknowledged')
                 }
 
                 setCurrentSubscriptionInfo(info)
@@ -189,7 +192,7 @@ const useSubscribe = ({
             const errorListener = purchaseErrorSubscription.current
             errorListener && errorListener.remove()
         }
-    }, [onPurchase, onError])
+    }, [onPurchase, onWarning, onError])
 
     const subscribeToSKU = useCallback((productId: string) => {
         try {
