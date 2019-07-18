@@ -162,7 +162,7 @@ export class EditionsStack extends cdk.Stack {
         })
 
         const archiverPolicy = new iam.PolicyStatement({
-            actions: ['*'],
+            actions: ['s3:List*', 's3:Put*', 's3:get*'],
             resources: [archive.arnForObjects('*'), archive.bucketArn],
         })
 
