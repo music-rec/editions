@@ -4,7 +4,7 @@
 
 import AsyncStorage from '@react-native-community/async-storage'
 import React from 'react'
-import { StatusBar, StyleSheet, View } from 'react-native'
+import { NativeModules, StatusBar, StyleSheet, View } from 'react-native'
 import { useScreens } from 'react-native-screens'
 import { FileSystemProvider } from 'src/hooks/use-fs'
 import { SettingsProvider } from 'src/hooks/use-settings'
@@ -70,6 +70,10 @@ const WithProviders = nestProviders(
 )
 
 export default class App extends React.Component<{}, {}> {
+    state = {
+        greeting: '',
+    }
+
     async componentDidCatch(e: Error) {
         /**
          * use an heuristic to check whether this is a react-nav error
@@ -79,6 +83,12 @@ export default class App extends React.Component<{}, {}> {
             await AsyncStorage.removeItem(persistenceKey)
             this.forceUpdate()
         }
+    }
+
+    componentDidMount() {
+        NativeModules.Greeting.getGreeting((greeting: string) =>
+            this.setState(prev => ({ greeting: greeting })),
+        )
     }
     /**
      * When the component is mounted. This happens asynchronously and simply

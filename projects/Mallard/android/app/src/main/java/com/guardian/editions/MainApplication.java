@@ -11,6 +11,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.guardian.editions.greeting.GreetingPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +56,24 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
+    }
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+            new ReactNativeConfigPackage(),
+            new KeychainPackage(),
+            new RNCMaskedViewPackage(),
+            new RNCWebViewPackage(),
+            new RNZipArchivePackage(),
+            new SvgPackage(),
+            new AsyncStoragePackage(),
+            new RNFetchBlobPackage(),
+            new RNScreensPackage(),
+            new RNGestureHandlerPackage(),
+            new GreetingPackage()
+      );
     }
 
     @Override
