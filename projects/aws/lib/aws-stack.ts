@@ -50,7 +50,11 @@ export class EditionsStack extends cdk.Stack {
                 allowedValues: ['editions-store', 'editions-store-code'],
             },
         )
-
+        const archive = s3.Bucket.fromBucketName(
+            this,
+            'archive-bucket',
+            archiveBucketParameter.valueAsString,
+        )
         const deploy = s3.Bucket.fromBucketName(
             this,
             'editions-dist',
@@ -87,12 +91,19 @@ export class EditionsStack extends cdk.Stack {
             },
         })
 
-        const policy = new iam.PolicyStatement({
+        const frontsRolePolicy = new iam.PolicyStatement({
             actions: ['sts:AssumeRole'],
             resources: [frontsAccess.roleArn],
         })
 
-        backend.addToRolePolicy(policy)
+        backend.addToRolePolicy(frontsRolePolicy)
+
+        const backendReadArchivePolicy = new iam.PolicyStatement({
+            actions: ['s3:List*', 's3:get*'],
+            resources: [archive.arnForObjects('*'), archive.bucketArn],
+        })
+
+        backend.addToRolePolicy(backendReadArchivePolicy)
 
         const atomPolicy = new iam.PolicyStatement({
             resources: [atomLambdaParam.valueAsString],
@@ -137,12 +148,6 @@ export class EditionsStack extends cdk.Stack {
             description: 'URL for distribution',
             value: `https://${dist.domainName}`,
         })
-
-        const archive = s3.Bucket.fromBucketName(
-            this,
-            'archive-bucket',
-            archiveBucketParameter.valueAsString,
-        )
 
         const archiver = new lambda.Function(this, 'EditionsArchiver', {
             functionName: `editions-archiver-${stageParameter.valueAsString}`,

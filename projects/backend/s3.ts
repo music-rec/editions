@@ -9,23 +9,27 @@ import {
     S3,
     SharedIniFileCredentials,
     ChainableTemporaryCredentials,
+    CredentialProviderChain,
 } from 'aws-sdk'
 import { notNull } from './common'
 
 const s3 = new S3({
     region: 'eu-west-1',
-    credentials: process.env.arn
-        ? new ChainableTemporaryCredentials({
-              params: {
-                  RoleArn: process.env.arn as string,
-                  RoleSessionName: 'front-assume-role-access',
-              },
-          })
-        : new SharedIniFileCredentials({ profile: 'cmsFronts' }),
+    credentialProvider: new CredentialProviderChain([
+        () => new SharedIniFileCredentials({ profile: 'cmsFronts' }),
+        () =>
+            new ChainableTemporaryCredentials({
+                params: {
+                    RoleArn: process.env.arn as string,
+                    RoleSessionName: 'front-assume-role-access',
+                },
+            }),
+        ...CredentialProviderChain.defaultProviders,
+    ]),
 })
 
-const stage = process.env.stage || 'code'
-const bucket = `published-editions-${stage.toLowerCase()}`
+const stage = (process.env.stage || 'code').toLowerCase()
+const bucket = `published-editions-${stage}`
 
 interface S3Response {
     text: () => Promise<string>
