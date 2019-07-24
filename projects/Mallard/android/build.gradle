@@ -37,6 +37,7 @@ allprojects {
         maven {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
+            url('https://dl.bintray.com/guardian/kotlin')
         }
         maven {
             //react-native-image-filter-kit
