@@ -6,8 +6,7 @@ debug-android:
 
 debug-ios:
 	yarn bundle-ios
-	xcodebuild archive -allowProvisioningUpdates -project ios/Mallard.xcodeproj -configuration Debug -scheme Mallard -derivedDataPath ./ -archivePath "./Mallard.xcarchive" > build.log
-	xcodebuild -exportArchive -allowProvisioningUpdates -exportOptionsPlist ios/exports-plists/debug.plist -archivePath "./Mallard.xcarchive" -exportPath ./ >> build.log
+	fastlane ios debug
 
 beta-ios:
 	yarn bundle-ios

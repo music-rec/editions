@@ -43,6 +43,17 @@ platform :ios do
         groups: ["GNM"]
     )
   end
+
+  lane :debug do
+    build_app(
+        scheme: "Mallard",
+        project: "ios/Mallard.xcodeproj",
+        xcargs: "-allowProvisioningUpdates",
+        export_options: {
+            exportOptionsPlist: "exports-plists/debug.plist"
+        }
+    )
+  end
 end
 
 platform :android do
