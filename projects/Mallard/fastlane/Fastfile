@@ -44,7 +44,7 @@ platform :ios do
     )
   end
 
-  lane :debug do
+  lane :test_build do
     build_app(
         scheme: "Mallard",
         project: "ios/Mallard.xcodeproj",

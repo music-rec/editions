@@ -6,7 +6,7 @@ debug-android:
 
 debug-ios:
 	yarn bundle-ios
-	fastlane ios debug
+	fastlane ios test_build
 
 beta-ios:
 	yarn bundle-ios
