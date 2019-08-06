@@ -68,6 +68,10 @@ const Lozenge = ({
             ]}
         >
             <Animated.Text
+                onLayout={(ev: any) => {
+                    console.log(ev.nativeEvent.layout.width)
+                    width.current = ev.nativeEvent.layout.width
+                }}
                 accessibilityRole="header"
                 style={[
                     styles.text,
@@ -90,9 +94,6 @@ const Lozenge = ({
                 {children}
             </Animated.Text>
             <Animated.View
-                onLayout={(ev: any) => {
-                    width.current = ev.nativeEvent.layout.width
-                }}
                 style={[
                     styles.bubble,
                     position && {
