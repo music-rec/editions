@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Alert } from 'react-native'
+import { View } from 'react-native'
 import { List, BaseList } from 'src/components/lists/list'
 import { NavigationScreenProp, NavigationEvents } from 'react-navigation'
 import { ApiState } from './settings/api-screen'
@@ -74,6 +74,7 @@ const IssueList = withNavigation(
         issueList: IssueSummary[]
     } & NavigationInjectedProps) => {
         const [{ isUsingProdDevtools }] = useSettings()
+
         return (
             <>
                 <BaseList
@@ -81,18 +82,6 @@ const IssueList = withNavigation(
                     data={issueList}
                     renderItem={({ item }) => (
                         <IssueRow
-                            proxy={
-                                <Button
-                                    onPress={() => {
-                                        Alert.alert(
-                                            'Sorry, downloading is not supported yet',
-                                        )
-                                    }}
-                                    icon={'\uE077'}
-                                    alt={'Download'}
-                                    appearance={ButtonAppearance.skeleton}
-                                ></Button>
-                            }
                             onPress={() => {
                                 navigateToIssue(navigation, {
                                     path: {
@@ -101,7 +90,7 @@ const IssueList = withNavigation(
                                 })
                             }}
                             issue={item}
-                        ></IssueRow>
+                        />
                     )}
                 />
                 {isUsingProdDevtools ? (
