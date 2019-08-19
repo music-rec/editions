@@ -11,10 +11,14 @@ const APIPaths = {
 const issuesDir = `${RNFetchBlob.fs.dirs.DocumentDir}/issues`
 
 const issueRoot = (issueId: string) => `${issuesDir}/${issueId}`
+const mediaRoot = (issueId: string) => `${issueRoot(issueId)}/media`
 
 const FSPaths = {
     issuesDir,
     issueRoot,
+    mediaRoot,
+    media: (issueId: string, source: string, path: string) =>
+        `${mediaRoot(issueId)}/cached/${source}/${path}`,
     issueZip: (issueId: string) => `${issueRoot(issueId)}.zip`,
     issue: (issueId: string) => `${issueRoot(issueId)}/issue`,
     collection: (issueId: string, collectionId: string) =>
