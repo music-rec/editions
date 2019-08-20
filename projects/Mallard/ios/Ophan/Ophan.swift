@@ -20,7 +20,8 @@ class Ophan: NSObject {
     deviceId: "testDeviceId",
     userId: "testUserId",
     logger: SimpleLogger(),
-    recordStore: DictRecordStore()
+    recordStorePath: "ophan"
+    //recordStore: DictRecordStore()
   )
   
   override init() {
@@ -43,7 +44,7 @@ class Ophan: NSObject {
   
     DispatchQueue.main.async {
       print("Current thread \(Thread.current)")
-      self.ophanApi.sendTestAppScreenEvent(screenName: screenName)
+      self.ophanApi.sendTestAppScreenEvent(screenName: screenName, eventId: UUID().uuidString)
     }
   }
 }

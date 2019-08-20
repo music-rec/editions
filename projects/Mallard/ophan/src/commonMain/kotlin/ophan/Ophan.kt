@@ -16,7 +16,6 @@ expect object Platform {
 
 fun hello(): String = "Hello from ${Platform.name()}!"
 
-@UseExperimental(io.ktor.util.InternalAPI::class)
 class OphanApi(
         private val dispatcher: OphanDispatcher
 ) {
@@ -39,9 +38,9 @@ class OphanApi(
             recordStore
     ))
 
-    fun sendTestAppScreenEvent(screenName: String) {
+    fun sendTestAppScreenEvent(screenName: String, eventId: String) {
         val event = Event.Builder()
-                .eventId("ffdfdfdfdssfdsf")
+                .eventId(eventId)
                 .eventType(EventType.COMPONENT_EVENT)
                 .viewId(null) /* TODO */
                 .componentEvent(ComponentEvent.Builder()

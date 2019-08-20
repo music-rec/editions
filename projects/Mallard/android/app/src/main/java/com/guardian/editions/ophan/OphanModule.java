@@ -6,6 +6,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.gu.ophan.InMemoryRecordStore;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 
 import ophan.OphanApi;
@@ -43,7 +45,7 @@ class OphanModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void sendTestAppScreenEvent(String screenName) {
         try {
-            ophanApi.sendTestAppScreenEvent(screenName);
+            ophanApi.sendTestAppScreenEvent(screenName, UUID.randomUUID().toString());
             //promise.resolve(null);
         } catch (Throwable e) {
             //promise.reject(e);

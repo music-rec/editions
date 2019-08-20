@@ -1,5 +1,6 @@
 package ophan
 
+import com.gu.ophan.FileRecordStore
 import com.gu.ophan.Logger
 import com.gu.ophan.RecordStore
 import kotlin.native.concurrent.freeze
@@ -16,5 +17,6 @@ fun getThreadSafeOphanApi(
         deviceId: String,
         userId: String,
         logger: Logger,
-        recordStore: RecordStore
-): OphanApi = OphanApi(appVersion, appOs, deviceName, deviceManufacturer, deviceId, userId, logger, recordStore).freeze()
+        recordStorePath: String
+        //recordStore: RecordStore
+): OphanApi = OphanApi(appVersion, appOs, deviceName, deviceManufacturer, deviceId, userId, logger, /*recordStore*/ FileRecordStore(recordStorePath)).freeze()
