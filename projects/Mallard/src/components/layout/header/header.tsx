@@ -1,14 +1,18 @@
-import React, { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Issue } from 'src/common';
-import { Highlight } from 'src/components/highlight';
-import { GridRowSplit, IssueTitle, IssueTitleProps } from 'src/components/issue/issue-title';
-import { useIssueDate } from 'src/helpers/issues';
-import { useInsets } from 'src/hooks/use-screen';
-import { WithAppAppearance } from 'src/theme/appearance';
-import { color } from 'src/theme/color';
-import { metrics } from 'src/theme/spacing';
-import { getFont } from 'src/theme/typography';
+import React, { ReactNode } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Issue } from 'src/common'
+import { Highlight } from 'src/components/highlight'
+import {
+    GridRowSplit,
+    IssueTitle,
+    IssueTitleProps,
+} from 'src/components/issue/issue-title'
+import { useIssueDate } from 'src/helpers/issues'
+import { useInsets } from 'src/hooks/use-screen'
+import { WithAppAppearance } from 'src/theme/appearance'
+import { color } from 'src/theme/color'
+import { metrics } from 'src/theme/spacing'
+import { getFont } from 'src/theme/typography'
 
 const styles = StyleSheet.create({
     background: {
@@ -117,5 +121,4 @@ const IssueHeader = ({
     return <Header {...headerProps} title={weekday} subtitle={date} />
 }
 
-export { Header, IssueHeader };
-
+export { Header, IssueHeader }
