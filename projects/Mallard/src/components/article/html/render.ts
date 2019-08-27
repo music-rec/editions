@@ -5,6 +5,7 @@ import {
     ArticlePillar,
     BlockElement,
     ImageElement,
+    TweetElement,
     MediaAtomElement,
 } from 'src/common'
 import { getPillarColors } from 'src/hooks/use-article'
@@ -135,6 +136,15 @@ const renderImageElement = (imageElement: ImageElement) => {
     `
 }
 
+const renderTweet = (tweetElement: TweetElement) => html`
+    <figure style="overflow: hidden;">
+        ${tweetElement.html}
+        <figcaption>
+            ${tweetElement.url}
+        </figcaption>
+    </figure>
+`
+
 export const render = (
     article: BlockElement[],
     {
@@ -148,10 +158,6 @@ export const render = (
     },
 ) => {
     const body = article
-        .filter(
-            el =>
-                el.id === 'html' || el.id === 'media-atom' || el.id === 'image',
-        )
         .map((el, i) => {
             switch (el.id) {
                 case 'html':
@@ -170,6 +176,8 @@ export const render = (
                     return renderMediaAtom(el)
                 case 'image':
                     return renderImageElement(el)
+                case 'tweet':
+                    return renderTweet(el)
                 default:
                     return ''
             }
