@@ -28,7 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
-
+            packages.add(new OphanPackage());
             // packages.add(new MainReactPackage());
             // packages.add(new RNDeviceInfo());
             // packages.add(new NetInfoPackage());
@@ -56,24 +56,6 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
-    }
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new ReactNativeConfigPackage(),
-            new KeychainPackage(),
-            new RNCMaskedViewPackage(),
-            new RNCWebViewPackage(),
-            new RNZipArchivePackage(),
-            new SvgPackage(),
-            new AsyncStoragePackage(),
-            new RNFetchBlobPackage(),
-            new RNScreensPackage(),
-            new RNGestureHandlerPackage(),
-            new OphanPackage()
-      );
     }
 
     @Override

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MallardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MallardTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -19,11 +20,10 @@
 		2DCD954D1E0B4F2C00145EB5 /* MallardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MallardTests.m */; };
 		30A65E2732C54D5E94DFE6CD /* GuardianWeatherIcons-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B8F9A4ED48041FBB588FDD5 /* GuardianWeatherIcons-Regular.ttf */; };
 		5073D175FC076F04450602A9 /* libPods-Mallard-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1718C639A1EF002E7C79BB89 /* libPods-Mallard-tvOS.a */; };
-		C3AFA83DBB499222700C0947 /* libPods-Mallard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70480AB7A981F7550F9B8A02 /* libPods-Mallard.a */; };
 		95347B4A22E7625B00E81EE0 /* Ophan.m in Sources */ = {isa = PBXBuildFile; fileRef = 95347B1522E7625B00E81EE0 /* Ophan.m */; };
 		95347B4B22E7625B00E81EE0 /* Ophan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95347B1622E7625B00E81EE0 /* Ophan.swift */; };
 		954D271A22E76BDB001DCAA2 /* ophan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95347B4D22E7650E00E81EE0 /* ophan.framework */; };
-		954D271B22E76BDB001DCAA2 /* ophan.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95347B4D22E7650E00E81EE0 /* ophan.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C3AFA83DBB499222700C0947 /* libPods-Mallard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70480AB7A981F7550F9B8A02 /* libPods-Mallard.a */; };
 		C51056C322D60C1700ED3078 /* crosswords.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C51056C222D60C1700ED3078 /* crosswords.bundle */; };
 		C549378022B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		C549378122B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
@@ -93,20 +93,6 @@
 			remoteInfo = "Mallard-tvOS";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		954D271C22E76BDB001DCAA2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				954D271B22E76BDB001DCAA2 /* ophan.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -664,15 +650,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Mallard/Pods-Mallard-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageFilterKit/RNImageFilterKitBundle.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNImageFilterKitBundle.bundle",
 			);
@@ -846,8 +828,8 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 998P9U5NGJ;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../ophan/build/bin/ios/debugFramework";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Mallard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -871,8 +853,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 998P9U5NGJ;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../ophan/build/bin/ios/releaseFramework";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Mallard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
