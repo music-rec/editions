@@ -1,5 +1,6 @@
 package ophan
 
+import com.gu.ophan.FileRecordStore
 import com.gu.ophan.Logger
 import com.gu.ophan.OphanDispatcher
 import ophan.thrift.componentEvent.Action
@@ -28,13 +29,15 @@ class OphanApi(
             deviceManufacturer: String,
             deviceId: String,
             userId: String,
-            logger: Logger
+            logger: Logger,
+            recordStorePath: String
     ) : this(OphanDispatcher(
             App(appVersion, "TestEditions", appOs, Edition.UK),
             Device(deviceName, deviceManufacturer),
             deviceId,
             userId,
-            logger
+            logger,
+            FileRecordStore(recordStorePath)
     ))
 
     fun sendPageView() {

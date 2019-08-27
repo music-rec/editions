@@ -20,7 +20,8 @@ class OphanModule extends ReactContextBaseJavaModule {
             "Unknown",
             "testDeviceId",
             "testUserId",
-            new LogcatLogger()
+            new LogcatLogger(),
+            "ophan"
     );
 
     public OphanModule(@Nonnull ReactApplicationContext reactContext) {
