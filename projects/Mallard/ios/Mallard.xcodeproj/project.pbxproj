@@ -25,29 +25,29 @@
 		954D271A22E76BDB001DCAA2 /* ophan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95347B4D22E7650E00E81EE0 /* ophan.framework */; };
 		C3AFA83DBB499222700C0947 /* libPods-Mallard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70480AB7A981F7550F9B8A02 /* libPods-Mallard.a */; };
 		C51056C322D60C1700ED3078 /* crosswords.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C51056C222D60C1700ED3078 /* crosswords.bundle */; };
-		C549378022B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378122B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378222B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378322B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378422B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378522B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378622B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378722B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378822B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378922B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378A22B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378B22B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378C22B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378D22B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378E22B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549378F22B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549379022B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549379122B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549379222B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		C549378022B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378122B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378222B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378322B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378422B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378522B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378622B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378722B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378822B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378922B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378A22B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378B22B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378C22B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378D22B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378E22B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549378F22B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549379022B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549379122B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549379222B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C549379322B149BB00B1D9A2 /* SpaceMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95AD4DE12520484BA6D0363B /* SpaceMono-Regular.ttf */; };
-		C549379422B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549379522B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		C549379622B149BB00B1D9A2 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		C549379422B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549379522B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C549379622B149BB00B1D9A2 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		C549379722B149BB00B1D9A2 /* GHGuardianHeadline-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 49561E0DB7FA414FA55A9C83 /* GHGuardianHeadline-Black.ttf */; };
 		C549379822B149BB00B1D9A2 /* GHGuardianHeadline-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DB496EF7E68447CA16BCCA0 /* GHGuardianHeadline-BlackItalic.ttf */; };
 		C549379922B149BB00B1D9A2 /* GHGuardianHeadline-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C9D849C88374564AA777EF3 /* GHGuardianHeadline-Bold.ttf */; };
@@ -369,6 +369,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Mallard" */;
 			buildPhases = (
+				4F03BAD323156EF000C41BEB /* ShellScript */,
 				5E41B74A08972E65E787A4DA /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -500,29 +501,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C549378022B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378122B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378222B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378322B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378422B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378522B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378622B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378722B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378822B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378922B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378A22B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378B22B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378C22B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378D22B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378E22B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549378F22B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549379022B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549379122B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549379222B149BB00B1D9A2 /* BuildFile in Resources */,
+				C549378022B149BB00B1D9A2 /* (null) in Resources */,
+				C549378122B149BB00B1D9A2 /* (null) in Resources */,
+				C549378222B149BB00B1D9A2 /* (null) in Resources */,
+				C549378322B149BB00B1D9A2 /* (null) in Resources */,
+				C549378422B149BB00B1D9A2 /* (null) in Resources */,
+				C549378522B149BB00B1D9A2 /* (null) in Resources */,
+				C549378622B149BB00B1D9A2 /* (null) in Resources */,
+				C549378722B149BB00B1D9A2 /* (null) in Resources */,
+				C549378822B149BB00B1D9A2 /* (null) in Resources */,
+				C549378922B149BB00B1D9A2 /* (null) in Resources */,
+				C549378A22B149BB00B1D9A2 /* (null) in Resources */,
+				C549378B22B149BB00B1D9A2 /* (null) in Resources */,
+				C549378C22B149BB00B1D9A2 /* (null) in Resources */,
+				C549378D22B149BB00B1D9A2 /* (null) in Resources */,
+				C549378E22B149BB00B1D9A2 /* (null) in Resources */,
+				C549378F22B149BB00B1D9A2 /* (null) in Resources */,
+				C549379022B149BB00B1D9A2 /* (null) in Resources */,
+				C549379122B149BB00B1D9A2 /* (null) in Resources */,
+				C549379222B149BB00B1D9A2 /* (null) in Resources */,
 				C549379322B149BB00B1D9A2 /* SpaceMono-Regular.ttf in Resources */,
-				C549379422B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549379522B149BB00B1D9A2 /* BuildFile in Resources */,
-				C549379622B149BB00B1D9A2 /* BuildFile in Resources */,
+				C549379422B149BB00B1D9A2 /* (null) in Resources */,
+				C549379522B149BB00B1D9A2 /* (null) in Resources */,
+				C549379622B149BB00B1D9A2 /* (null) in Resources */,
 				C549379722B149BB00B1D9A2 /* GHGuardianHeadline-Black.ttf in Resources */,
 				C549379822B149BB00B1D9A2 /* GHGuardianHeadline-BlackItalic.ttf in Resources */,
 				C549379922B149BB00B1D9A2 /* GHGuardianHeadline-Bold.ttf in Resources */,
@@ -622,6 +623,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		4F03BAD323156EF000C41BEB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/../ophan/gradlew\" -p \"$SRCROOT/../ophan\" copyFramework \\\n-Pconfiguration.build.dir=\"$CONFIGURATION_BUILD_DIR\"          \\\n-Pkotlin.build.type=\"$KOTLIN_BUILD_TYPE\"                      \\\n-Pkotlin.target=\"$KOTLIN_TARGET\"\n";
 		};
 		5E41B74A08972E65E787A4DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
