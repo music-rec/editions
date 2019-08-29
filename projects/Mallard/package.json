@@ -45,7 +45,7 @@
         "deepmerge": "^4.0.0",
         "events": "^3.0.0",
         "invariant": "^2.2.4",
-        "jetifier": "^1.6.3",
+        "jetifier": "^1.6.4",
         "kill-port": "^1.5.1",
         "moment": "^2.24.0",
         "node-fetch": "^2.6.0",
