@@ -141,7 +141,8 @@ android {
         versionCode vcode
         versionName "1.0-alpha"
         renderscriptTargetApi 21
-        renderscriptSupportModeEnabled true
+        renderscriptSupportModeEnabled false
+        // THIS REALLY SHOULD BE TRUE TESTING BETA
     }
     splits {
         abi {
