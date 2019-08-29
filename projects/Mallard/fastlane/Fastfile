@@ -53,7 +53,7 @@ platform :android do
            project_dir: 'android/',
            properties: {
                "versionName" => version["version"]
-           }
+           },
            flags: "--scan"
     )
     supply(
