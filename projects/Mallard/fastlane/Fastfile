@@ -54,7 +54,6 @@ platform :android do
            properties: {
                "versionName" => version["version"]
            },
-           flags: "--scan"
     )
     supply(
       track: 'internal',
