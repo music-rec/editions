@@ -10,8 +10,18 @@ repositories {
 kotlin {
     jvm("android")
     // This is for iPhone emulator
+    iosX64("ios-x64") {
+        binaries {
+            framework()
+        }
+    }
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
-    iosX64("ios") {
+    iosArm32("ios-32") {
+        binaries {
+            framework()
+        }
+    }
+    iosArm64("ios") {
         binaries {
             framework()
         }
@@ -22,7 +32,7 @@ kotlin {
                 implementation kotlin('stdlib-common')
                 implementation("io.ktor:ktor-client-core:1.2.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.0-RC")
-                api 'com.gu.kotlin:multiplatform-ophan:0.1.1'
+                api 'com.gu.kotlin:multiplatform-ophan:0.1.3'
             }
         }
         androidMain {
