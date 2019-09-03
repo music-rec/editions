@@ -21,7 +21,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* MallardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MallardTests.m */; };
 		30A65E2732C54D5E94DFE6CD /* GuardianWeatherIcons-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B8F9A4ED48041FBB588FDD5 /* GuardianWeatherIcons-Regular.ttf */; };
 		4F62AA36231E8D660052ADBA /* ophan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F62AA35231E8D660052ADBA /* ophan.framework */; };
-		4F62AA37231E8D660052ADBA /* ophan.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F62AA35231E8D660052ADBA /* ophan.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4F62AA37231E8D660052ADBA /* ophan.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F62AA35231E8D660052ADBA /* ophan.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7836FF3F0ADEA9274CAD15ED /* libPods-Mallard-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C512E12ECC343D6E33F7A1 /* libPods-Mallard-tvOSTests.a */; };
 		950E1C012317E06F00F38B92 /* Ophan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E1C002317E06F00F38B92 /* Ophan.swift */; };
 		95CB9F1B2316B6E900F2F6B0 /* Ophan.m in Sources */ = {isa = PBXBuildFile; fileRef = 95CB9F192316B6E900F2F6B0 /* Ophan.m */; };
@@ -415,6 +415,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				9A2F30EB4995BA18D2B5CA7D /* [CP] Copy Pods Resources */,
 				4F62AA38231E8D660052ADBA /* Embed Frameworks */,
+				95DE4D7C231EB04C00500337 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -702,6 +703,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/../ophan/gradlew\" -p \"$SRCROOT/../ophan\" copyFatFramework \\\n-Pconfiguration.build.dir=\"$CONFIGURATION_BUILD_DIR\"          \\\n-Pkotlin.build.type=\"$KOTLIN_BUILD_TYPE\"\n";
+		};
+		95DE4D7C231EB04C00500337 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n# This script loops through the frameworks embedded in the application and\n# removes unused architectures.\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\n\nEXTRACTED_ARCHS=()\n\nfor ARCH in $ARCHS\ndo\necho \"Extracting $ARCH from $FRAMEWORK_EXECUTABLE_NAME\"\nlipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\nEXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\ndone\n\necho \"Merging extracted architectures: ${ARCHS}\"\nlipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\nrm \"${EXTRACTED_ARCHS[@]}\"\n\necho \"Replacing original executable with thinned version\"\nrm \"$FRAMEWORK_EXECUTABLE_PATH\"\nmv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
 		};
 		9A2F30EB4995BA18D2B5CA7D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
