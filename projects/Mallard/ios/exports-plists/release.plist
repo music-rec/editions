@@ -16,5 +16,9 @@
 	<string>&lt;none&gt;</string>
 	<key>iCloudContainerEnvironment</key>
 	<string>Production</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>IPhoneOS</string>
+	</array>
 </dict>
 </plist>

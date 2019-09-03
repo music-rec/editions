@@ -118,7 +118,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-		<key>CFBundleSupportedPlatforms</key>
+	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>IPhoneOS</string>
 	</array>
