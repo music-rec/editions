@@ -40,8 +40,8 @@ platform :ios do
       distribute_external: true,
       notify_external_testers: true,
       changelog: "Thanks for testing the app! We've done some improvements",
-      groups: ["GNM"]
-      skip_waiting_for_build_processing: true,
+      groups: ["GNM"],
+      skip_waiting_for_build_processing: true
     )
   end
 end
