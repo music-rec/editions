@@ -23,5 +23,9 @@
 		<key>fullSizeImageURL</key>
 		<string>https://s3-eu-west-1.amazonaws.com/builds.gutools.co.uk/Mallard.png</string>
 	</dict>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>IPhoneOS</string>
+	</array>
 </dict>
 </plist>
