@@ -79,6 +79,12 @@ export const makeCss = ({ colors, wrapLayout }: CssProps) => css`
 const renderMediaAtom = (mediaAtomElement: MediaAtomElement) => {
     return html`
         <figure style="overflow: hidden;">
+            <p>
+                <a
+                    href="${EMBED_DOMAIN}/embed/atom/media/${mediaAtomElement.atomId}"
+                    >link</a
+                >
+            </p>
             <iframe
                 scrolling="no"
                 src="${EMBED_DOMAIN}/embed/atom/media/${mediaAtomElement.atomId}"

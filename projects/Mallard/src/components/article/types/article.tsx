@@ -1,5 +1,12 @@
 import React, { useMemo, useState } from 'react'
-import { Dimensions, Linking, Platform, View, StyleSheet } from 'react-native'
+import {
+    Dimensions,
+    Linking,
+    Platform,
+    View,
+    StyleSheet,
+    Alert,
+} from 'react-native'
 import { WebView } from 'react-native-webview'
 import { ArticleFeatures, BlockElement } from 'src/common'
 import { useArticle } from 'src/hooks/use-article'
@@ -11,6 +18,7 @@ import { PropTypes as StandfirstPropTypes } from '../article-standfirst'
 import { EMBED_DOMAIN, render } from '../html/render'
 import { Wrap, WrapLayout } from '../wrap/wrap'
 import { useNetInfo } from '@react-native-community/netinfo'
+import webviewEventCallbackSetup from './webview-event-callback-setup'
 
 const urlIsNotAnEmbed = (url: string) =>
     !(
@@ -58,6 +66,8 @@ const ArticleWebview = ({
         showMedia: isConnected,
     })
 
+    webview = null
+
     return (
         <>
             <Wrap>
@@ -66,23 +76,13 @@ const ArticleWebview = ({
 
             <View style={[styles.webviewWrap]}>
                 <WebView
+                    ref={ref => (this.webview = ref)}
                     originWhitelist={['*']}
                     scrollEnabled={false}
                     useWebKit={false}
                     source={{ html: html }}
-                    onShouldStartLoadWithRequest={event => {
-                        if (
-                            Platform.select({
-                                ios: event.navigationType === 'click',
-                                android: urlIsNotAnEmbed(event.url), // android doesn't have 'click' types so check for our embed types
-                            })
-                        ) {
-                            Linking.openURL(event.url)
-                            return false
-                        }
-                        return true
-                    }}
                     onMessage={event => {
+                        // Alert.alert(event.nativeEvent.data)
                         if (parseInt(event.nativeEvent.data) > height) {
                             setHeight(parseInt(event.nativeEvent.data))
                         }
@@ -93,6 +93,8 @@ const ArticleWebview = ({
                             minHeight: height,
                         },
                     ]}
+                    onLoadEnd={() => this.webview.postMessage('hello', '*')}
+                    injectedJavaScript={`window.postMessage = function(data) {window.ReactNativeWebView.postMessage(data);};(${webviewEventCallbackSetup})({window});`}
                 />
             </View>
         </>

@@ -101,17 +101,15 @@ export const makeHtml = ({
             </div>
             <script>
                 const submitHeight = function() {
-                    window.requestAnimationFrame(function() {
-                        window.ReactNativeWebView.postMessage(
-                            document.documentElement.scrollHeight,
-                        )
-                    })
+                    window.ReactNativeWebView.postMessage(
+                        document.getElementById('app').offsetHeight,
+                    )
                 }
 
-                window.setInterval(function() {
+                window.onload = function() {
+                    console.log('things')
                     submitHeight()
-                }, 200)
-                submitHeight()
+                }
             </script>
         </body>
     </html>
