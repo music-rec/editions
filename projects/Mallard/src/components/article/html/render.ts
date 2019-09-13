@@ -90,7 +90,7 @@ const renderMediaAtom = (mediaAtomElement: MediaAtomElement) => {
     `
 }
 
-const getElementHTML = (
+export const renderElement = (
     el: BlockElement,
     {
         index,
@@ -127,23 +127,19 @@ const getElementHTML = (
     }
 }
 
-export const render = (
-    element: BlockElement,
+export const createWebViewHTML = (
+    htmlString: string,
     options: {
-        index: number
         pillar: ArticlePillar
-        features: ArticleFeatures[]
         wrapLayout: WrapLayout
-        showMedia: boolean
     },
 ) => {
-    const content = getElementHTML(element, options)
     const styles = makeCss({
         colors: getPillarColors(options.pillar),
         wrapLayout: options.wrapLayout,
     })
     const body = html`
-        <main>${content}</main>
+        <main>${htmlString}</main>
     `
     return makeHtml({ styles, body })
 }

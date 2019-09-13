@@ -6,11 +6,11 @@ import { ArticleFeatures, BlockElement } from 'src/common'
 import { Spinner } from 'src/components/spinner'
 import { useArticle } from 'src/hooks/use-article'
 import { metrics } from 'src/theme/spacing'
-import { ArticleType } from '../../../../../common/src'
+import { ArticleType, ArticlePillar } from '../../../../../common/src'
 import { ArticleHeader } from '../article-header'
 import { ArticleHeaderProps } from '../article-header/types'
 import { PropTypes as StandfirstPropTypes } from '../article-standfirst'
-import { EMBED_DOMAIN, render } from '../html/render'
+import { EMBED_DOMAIN, renderElement, createWebViewHTML } from '../html/render'
 import { Wrap, WrapLayout } from '../wrap/wrap'
 
 const urlIsNotAnEmbed = (url: string) =>
@@ -94,6 +94,54 @@ const BlockWebview = React.memo(
     },
 )
 
+const mergableTypes: BlockElement['id'][] = ['pullquote']
+
+const mergeBlockHTML = (
+    blockElement: BlockElement[],
+    {
+        showMedia,
+        pillar,
+        wrapLayout,
+    }: {
+        showMedia: boolean
+        pillar: ArticlePillar
+        wrapLayout: WrapLayout
+    },
+) =>
+    blockElement
+        .reduce(
+            ({ sections, prevId }, el, index) => {
+                const html = renderElement(el, {
+                    features,
+                    showMedia,
+                    index,
+                })
+
+                if (
+                    mergableTypes.includes(el.id) ||
+                    mergableTypes.includes(prevId)
+                ) {
+                    return {
+                        sections: [
+                            ...sections.slice(sections.length - 1),
+                            `${sections[sections.length - 1]}${html}`,
+                        ],
+                        prevId: el.id,
+                    }
+                }
+
+                return {
+                    sections: [...sections, html],
+                    prevId: el.id,
+                }
+            },
+            { sections: [''], prevId: 'unknown' } as {
+                sections: string[]
+                prevId: BlockElement['id']
+            },
+        )
+        .sections.map(html => createWebViewHTML(html, { pillar, wrapLayout }))
+
 const ArticleWebview = ({
     article,
     wrapLayout,
@@ -113,19 +161,18 @@ const ArticleWebview = ({
     const [renderIndex, setRenderIndex] = useState(1)
 
     const blockStrings = useMemo(
-        () => [
-            { string: '', key: '' },
-            ...article.map((el, index) => ({
-                string: render(el, {
+        () =>
+            [
+                '', // placeholder for the header
+                ...mergeBlockHTML(article, {
                     pillar,
-                    features,
                     wrapLayout,
                     showMedia: isConnected,
-                    index,
                 }),
-                key: index.toString(),
+            ].map((string, i) => ({
+                string,
+                key: i,
             })),
-        ],
         [article, pillar, wrapLayout, isConnected],
     )
 
@@ -137,6 +184,8 @@ const ArticleWebview = ({
             onScroll={ev => {
                 onTopPositionChange(ev.nativeEvent.contentOffset.y <= 0)
             }}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             windowSize={5}
             renderItem={info => {
                 if (info.index === 0) {
