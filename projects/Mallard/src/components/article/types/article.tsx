@@ -1,16 +1,15 @@
 import { useNetInfo } from '@react-native-community/netinfo'
-import React, { useMemo, useRef, useState } from 'react'
-import { FlatList, Linking, Platform, StyleSheet, View } from 'react-native'
+import React, { useMemo, useState } from 'react'
+import { FlatList, Linking, Platform, StyleSheet } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { ArticleFeatures, BlockElement } from 'src/common'
-import { Spinner } from 'src/components/spinner'
 import { useArticle } from 'src/hooks/use-article'
 import { metrics } from 'src/theme/spacing'
-import { ArticleType, ArticlePillar } from '../../../../../common/src'
+import { ArticlePillar, ArticleType } from '../../../../../common/src'
 import { ArticleHeader } from '../article-header'
 import { ArticleHeaderProps } from '../article-header/types'
 import { PropTypes as StandfirstPropTypes } from '../article-standfirst'
-import { EMBED_DOMAIN, renderElement, createWebViewHTML } from '../html/render'
+import { createWebViewHTML, EMBED_DOMAIN, renderElement } from '../html/render'
 import { Wrap, WrapLayout } from '../wrap/wrap'
 
 const urlIsNotAnEmbed = (url: string) =>
@@ -38,23 +37,16 @@ const styles = StyleSheet.create({
     },
 })
 
+// use this to cache heights without causing a memory leak
+const heights = new WeakMap()
+
 const BlockWebview = React.memo(
-    ({
-        blockString,
-        onFirstHeightUpdate,
-    }: {
-        blockString: string
-        onFirstHeightUpdate: () => void
-    }) => {
-        const [height, _setHeight] = useState(1)
-        const hasUpdatedHeight = useRef(false)
+    ({ item }: { item: { string: string; key: string } }) => {
+        const [height, _setHeight] = useState(heights.get(item) || 1)
 
         function setHeight(h: number) {
+            heights.set(item, h)
             _setHeight(h)
-            if (!hasUpdatedHeight.current) {
-                onFirstHeightUpdate()
-                hasUpdatedHeight.current = true
-            }
         }
 
         return (
@@ -62,7 +54,7 @@ const BlockWebview = React.memo(
                 originWhitelist={['*']}
                 scrollEnabled={false}
                 useWebKit={false}
-                source={{ html: blockString }}
+                source={{ html: item.string }}
                 onShouldStartLoadWithRequest={event => {
                     if (
                         Platform.select({
@@ -76,10 +68,7 @@ const BlockWebview = React.memo(
                     return true
                 }}
                 onMessage={event => {
-                    if (
-                        !hasUpdatedHeight.current ||
-                        parseInt(event.nativeEvent.data) !== height
-                    ) {
+                    if (parseInt(event.nativeEvent.data) !== height) {
                         setHeight(parseInt(event.nativeEvent.data))
                     }
                 }}
@@ -117,10 +106,11 @@ const mergeBlockHTML = (
                     index,
                 })
 
-                if (
+                const shouldMergeWithPrevious =
                     mergableTypes.includes(el.id) ||
                     mergableTypes.includes(prevId)
-                ) {
+
+                if (shouldMergeWithPrevious) {
                     return {
                         sections: [
                             ...sections.slice(sections.length - 1),
@@ -157,27 +147,22 @@ const ArticleWebview = ({
     const { isConnected } = useNetInfo()
     const [, { pillar }] = useArticle()
 
-    // This ensures that the webviews in the flat list render in serial initally so that
-    const [renderIndex, setRenderIndex] = useState(1)
-
     const blockStrings = useMemo(
         () =>
-            [
-                '', // placeholder for the header
-                ...mergeBlockHTML(article, {
-                    pillar,
-                    wrapLayout,
-                    showMedia: isConnected,
-                }),
-            ].map((string, i) => ({
+            mergeBlockHTML(article, {
+                pillar,
+                wrapLayout,
+                showMedia: isConnected,
+            }).map((string, i) => ({
                 string,
-                key: i,
+                key: i.toString(),
             })),
         [article, pillar, wrapLayout, isConnected],
     )
 
     return (
         <FlatList
+            debug
             style={{ flex: 1 }}
             data={blockStrings}
             initialNumToRender={3}
@@ -186,32 +171,12 @@ const ArticleWebview = ({
             }}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
+            ListHeaderComponent={() => (
+                <ArticleHeader {...headerProps} type={type} />
+            )}
             windowSize={5}
-            renderItem={info => {
-                if (info.index === 0) {
-                    return <ArticleHeader {...headerProps} type={type} />
-                }
-                if (info.index <= renderIndex) {
-                    return (
-                        <BlockWebview
-                            blockString={info.item.string}
-                            onFirstHeightUpdate={() => {
-                                setRenderIndex(curr =>
-                                    Math.max(curr, info.index + 1),
-                                )
-                            }}
-                        />
-                    )
-                } else if (info.index === renderIndex + 1) {
-                    return (
-                        <View style={{ alignItems: 'center' }}>
-                            <Spinner />
-                        </View>
-                    )
-                }
-                return null
-            }}
-            extraData={JSON.stringify({ type, headerProps, renderIndex })}
+            renderItem={info => <BlockWebview item={info.item} />}
+            extraData={JSON.stringify({ type, headerProps })}
         />
     )
 }
