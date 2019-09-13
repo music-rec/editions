@@ -6,6 +6,7 @@ import { Article } from './types/article'
 import { Crossword } from './types/crossword'
 import { Gallery } from './types/gallery'
 import { Cartoon } from './types/cartoon'
+import { ArticleScrollWrapper } from 'src/screens/article/body'
 
 /*
 This is the article view! For all of the articles.
@@ -16,19 +17,54 @@ export interface ArticleControllerPropTypes {
     article: CAPIArticle
 }
 
-const ArticleController = ({ article }: { article: CAPIArticle }) => {
+const ArticleController = ({
+    article,
+    width,
+    onTopPositionChange,
+}: {
+    article: CAPIArticle
+    width: number
+    onTopPositionChange: (isAtTop: boolean) => void
+}) => {
     switch (article.type) {
         case 'article':
-            return <Article article={article.elements} {...article} />
+            return (
+                <Article
+                    article={article.elements}
+                    onTopPositionChange={onTopPositionChange}
+                    {...article}
+                />
+            )
 
         case 'gallery':
-            return <Gallery gallery={article} />
+            return (
+                <ArticleScrollWrapper
+                    onTopPositionChange={onTopPositionChange}
+                    width={width}
+                >
+                    <Gallery gallery={article} />
+                </ArticleScrollWrapper>
+            )
 
         case 'picture':
-            return <Cartoon article={article} />
+            return (
+                <ArticleScrollWrapper
+                    onTopPositionChange={onTopPositionChange}
+                    width={width}
+                >
+                    <Cartoon article={article} />
+                </ArticleScrollWrapper>
+            )
 
         case 'crossword':
-            return <Crossword crosswordArticle={article} />
+            return (
+                <ArticleScrollWrapper
+                    onTopPositionChange={onTopPositionChange}
+                    width={width}
+                >
+                    <Crossword crosswordArticle={article} />
+                </ArticleScrollWrapper>
+            )
 
         default:
             const message: never = article
