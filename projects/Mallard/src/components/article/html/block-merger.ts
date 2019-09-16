@@ -9,10 +9,10 @@ const features: ArticleFeatures[] = [ArticleFeatures.HasDropCap]
  * it means that they are merged with the next webview and the floated
  * styles don't collapse in their own webview
  */
-const mergableTypes: BlockElement['id'][] = ['pullquote', 'image']
-
-const shouldMergeWithPrevious = (prevId: BlockElement['id'] | null) =>
-    prevId !== null && mergableTypes.includes(prevId)
+const shouldMergeWithPrevious = (
+    prevId: BlockElement['id'] | null,
+    mergableTypes: BlockElement['id'][],
+) => prevId !== null && mergableTypes.includes(prevId)
 
 const mergeLastStr = (arr: string[], val: string) => [
     ...arr.slice(0, arr.length - 1),
@@ -23,7 +23,11 @@ const mergeOrAppendString = (
     arr: string[],
     val: string,
     prevId: BlockElement['id'] | null,
-) => (shouldMergeWithPrevious(prevId) ? mergeLastStr(arr, val) : [...arr, val])
+    mergableTypes: BlockElement['id'][],
+) =>
+    shouldMergeWithPrevious(prevId, mergableTypes)
+        ? mergeLastStr(arr, val)
+        : [...arr, val]
 
 type Accumulator = {
     sections: string[]
@@ -43,23 +47,28 @@ const createMergedHTMLStrings = (
         pillar: ArticlePillar
         wrapLayout: WrapLayout
     },
+    /** for tests */
+    mergableTypes: BlockElement['id'][] = ['pullquote', 'image'],
+    renderer = renderElement,
+    renderHTML = createWebViewHTML,
 ) =>
     blockElement
         .reduce(
             ({ sections, prevId }, el, index) => ({
                 sections: mergeOrAppendString(
                     sections,
-                    renderElement(el, {
+                    renderer(el, {
                         features,
                         showMedia,
                         index,
                     }),
                     prevId,
+                    mergableTypes,
                 ),
                 prevId: el.id,
             }),
             initialAccumulator,
         )
-        .sections.map(html => createWebViewHTML(html, { pillar, wrapLayout }))
+        .sections.map(html => renderHTML(html, { pillar, wrapLayout }))
 
 export { createMergedHTMLStrings }
