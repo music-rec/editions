@@ -11,6 +11,7 @@ import { PropTypes as StandfirstPropTypes } from '../article-standfirst'
 import { EMBED_DOMAIN } from '../html/render'
 import { createMergedHTMLStrings } from '../html/block-merger'
 import { Wrap, WrapLayout } from '../wrap/wrap'
+import { Fader } from 'src/components/layout/animators/fader'
 
 const urlIsNotAnEmbed = (url: string) =>
     !(
@@ -147,10 +148,12 @@ const Article = ({
     return (
         <>
             <ArticleHeader {...headerProps} type={type} />
-            {wrapLayout && (
-                <ArticleWebview article={article} wrapLayout={wrapLayout} />
-            )}
-            <Wrap onWrapLayout={setWrapLayout}></Wrap>
+            <Fader>
+                {wrapLayout && (
+                    <ArticleWebview article={article} wrapLayout={wrapLayout} />
+                )}
+                <Wrap onWrapLayout={setWrapLayout}></Wrap>
+            </Fader>
         </>
     )
 }
