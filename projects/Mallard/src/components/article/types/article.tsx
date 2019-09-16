@@ -1,11 +1,11 @@
 import { useNetInfo } from '@react-native-community/netinfo'
-import React, { useMemo, useState } from 'react'
-import { FlatList, Linking, Platform, StyleSheet } from 'react-native'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { Dimensions, Linking, Platform, StyleSheet } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { ArticleFeatures, BlockElement } from 'src/common'
 import { useArticle } from 'src/hooks/use-article'
 import { metrics } from 'src/theme/spacing'
-import { ArticlePillar, ArticleType } from '../../../../../common/src'
+import { ArticlePillar } from '../../../../../common/src'
 import { ArticleHeader } from '../article-header'
 import { ArticleHeaderProps } from '../article-header/types'
 import { PropTypes as StandfirstPropTypes } from '../article-standfirst'
@@ -37,16 +37,25 @@ const styles = StyleSheet.create({
     },
 })
 
-// use this to cache heights without causing a memory leak
-const heights = new WeakMap()
-
 const BlockWebview = React.memo(
-    ({ item }: { item: { string: string; key: string } }) => {
-        const [height, _setHeight] = useState(heights.get(item) || 1)
+    ({
+        children,
+        index,
+        onFirstHeight,
+    }: {
+        children: string
+        index: number
+        onFirstHeight: (index: number) => void
+    }) => {
+        const [height, _setHeight] = useState(Dimensions.get('window').height)
+        const hasSetHeight = useRef(false)
 
-        function setHeight(h: number) {
-            heights.set(item, h)
-            _setHeight(h)
+        const setHeight = (height: number) => {
+            _setHeight(height)
+            if (!hasSetHeight.current) {
+                onFirstHeight(index)
+                hasSetHeight.current = true
+            }
         }
 
         return (
@@ -54,7 +63,7 @@ const BlockWebview = React.memo(
                 originWhitelist={['*']}
                 scrollEnabled={false}
                 useWebKit={false}
-                source={{ html: item.string }}
+                source={{ html: children }}
                 onShouldStartLoadWithRequest={event => {
                     if (
                         Platform.select({
@@ -68,8 +77,9 @@ const BlockWebview = React.memo(
                     return true
                 }}
                 onMessage={event => {
-                    if (parseInt(event.nativeEvent.data) !== height) {
-                        setHeight(parseInt(event.nativeEvent.data))
+                    const h = parseInt(event.nativeEvent.data)
+                    if (h !== height) {
+                        setHeight(h)
                     }
                 }}
                 style={[
@@ -83,7 +93,26 @@ const BlockWebview = React.memo(
     },
 )
 
-const mergableTypes: BlockElement['id'][] = ['pullquote']
+/**
+ * Any types that might need to be floated should be in this array
+ * it means that they are merged with the next webview and the floated
+ * styles don't collapse in their own webview
+ */
+const mergableTypes: BlockElement['id'][] = ['pullquote', 'image']
+
+const shouldMergeWithPrevious = (prevId: BlockElement['id'] | null) =>
+    prevId !== null && mergableTypes.includes(prevId)
+
+const mergeLastStr = (arr: string[], val: string) => [
+    ...arr.slice(0, arr.length - 1),
+    `${arr[arr.length - 1]}${val}`,
+]
+
+const maybeMergeLastStr = (
+    arr: string[],
+    val: string,
+    prevId: BlockElement['id'] | null,
+) => (shouldMergeWithPrevious(prevId) ? mergeLastStr(arr, val) : [...arr, val])
 
 const mergeBlockHTML = (
     blockElement: BlockElement[],
@@ -99,35 +128,21 @@ const mergeBlockHTML = (
 ) =>
     blockElement
         .reduce(
-            ({ sections, prevId }, el, index) => {
-                const html = renderElement(el, {
-                    features,
-                    showMedia,
-                    index,
-                })
-
-                const shouldMergeWithPrevious =
-                    mergableTypes.includes(el.id) ||
-                    mergableTypes.includes(prevId)
-
-                if (shouldMergeWithPrevious) {
-                    return {
-                        sections: [
-                            ...sections.slice(sections.length - 1),
-                            `${sections[sections.length - 1]}${html}`,
-                        ],
-                        prevId: el.id,
-                    }
-                }
-
-                return {
-                    sections: [...sections, html],
-                    prevId: el.id,
-                }
-            },
-            { sections: [''], prevId: 'unknown' } as {
+            ({ sections, prevId }, el, index) => ({
+                sections: maybeMergeLastStr(
+                    sections,
+                    renderElement(el, {
+                        features,
+                        showMedia,
+                        index,
+                    }),
+                    prevId,
+                ),
+                prevId: el.id,
+            }),
+            { sections: [], prevId: null } as {
                 sections: string[]
-                prevId: BlockElement['id']
+                prevId: BlockElement['id'] | null
             },
         )
         .sections.map(html => createWebViewHTML(html, { pillar, wrapLayout }))
@@ -135,59 +150,58 @@ const mergeBlockHTML = (
 const ArticleWebview = ({
     article,
     wrapLayout,
-    type,
-    onTopPositionChange,
-    ...headerProps
 }: {
     article: BlockElement[]
     wrapLayout: WrapLayout
-    type: ArticleType
-    onTopPositionChange: (isAtTop: boolean) => void
-} & ArticleHeaderProps) => {
+}) => {
     const { isConnected } = useNetInfo()
     const [, { pillar }] = useArticle()
+    const [renderIndex, setRenderIndex] = useState(0)
 
     const blockStrings = useMemo(
         () =>
-            mergeBlockHTML(article, {
-                pillar,
-                wrapLayout,
-                showMedia: isConnected,
-            }).map((string, i) => ({
-                string,
-                key: i.toString(),
-            })),
+            mergeBlockHTML(
+                // [
+                //     // { id: 'html', html: '<p>here is some text</p>' },
+                //     // { id: 'html', html: '<p>here is some more text</p>' },
+                // ],
+                article,
+                {
+                    pillar,
+                    wrapLayout,
+                    showMedia: isConnected,
+                },
+            ),
         [article, pillar, wrapLayout, isConnected],
     )
 
+    const onFirstHeight = useCallback((i: number) => {
+        setRenderIndex(curr => Math.max(i + 1 || curr))
+    }, [])
+
     return (
-        <FlatList
-            debug
-            style={{ flex: 1 }}
-            data={blockStrings}
-            initialNumToRender={3}
-            onScroll={ev => {
-                onTopPositionChange(ev.nativeEvent.contentOffset.y <= 0)
-            }}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={() => (
-                <ArticleHeader {...headerProps} type={type} />
+        <>
+            {blockStrings.map(
+                (str, i) =>
+                    i <= renderIndex && (
+                        <BlockWebview
+                            key={i}
+                            index={i}
+                            onFirstHeight={onFirstHeight}
+                        >
+                            {str}
+                        </BlockWebview>
+                    ),
             )}
-            windowSize={5}
-            renderItem={info => <BlockWebview item={info.item} />}
-            extraData={JSON.stringify({ type, headerProps })}
-        />
+        </>
     )
 }
 
 const Article = ({
     article,
-    onTopPositionChange,
     ...headerProps
 }: {
     article: BlockElement[]
-    onTopPositionChange: (isAtTop: boolean) => void
 } & ArticleHeaderProps &
     StandfirstPropTypes) => {
     const [wrapLayout, setWrapLayout] = useState<WrapLayout | null>(null)
@@ -195,14 +209,9 @@ const Article = ({
 
     return (
         <>
+            <ArticleHeader {...headerProps} type={type} />
             {wrapLayout && (
-                <ArticleWebview
-                    article={article}
-                    onTopPositionChange={onTopPositionChange}
-                    wrapLayout={wrapLayout}
-                    type={type}
-                    {...headerProps}
-                />
+                <ArticleWebview article={article} wrapLayout={wrapLayout} />
             )}
             <Wrap onWrapLayout={setWrapLayout}></Wrap>
         </>

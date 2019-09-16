@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { ScrollView } from 'react-navigation'
 import { ArticleType, ArticlePillar } from 'src/common'
 import { ArticleController } from 'src/components/article'
@@ -16,27 +16,6 @@ const styles = StyleSheet.create({
     container: { height: '100%' },
 })
 
-const ArticleScrollWrapper = ({
-    children,
-    onTopPositionChange,
-    width,
-}: {
-    children: React.ReactNode
-    onTopPositionChange: (isAtTop: boolean) => void
-    width: number
-}) => (
-    <ScrollView
-        scrollEventThrottle={8}
-        onScroll={ev => {
-            onTopPositionChange(ev.nativeEvent.contentOffset.y <= 0)
-        }}
-        style={[styles.container, { width }]}
-        contentContainerStyle={styles.flex}
-    >
-        {children}
-    </ScrollView>
-)
-
 const ArticleScreenBody = React.memo<{
     path: PathToArticle
     onTopPositionChange: (isAtTop: boolean) => void
@@ -49,7 +28,14 @@ const ArticleScreenBody = React.memo<{
     const previewNotice = preview ? `${path.collection}:${position}` : undefined
 
     return (
-        <View style={[styles.container, { width }]}>
+        <ScrollView
+            scrollEventThrottle={8}
+            onScroll={ev => {
+                onTopPositionChange(ev.nativeEvent.contentOffset.y <= 0)
+            }}
+            style={[styles.container, { width }]}
+            contentContainerStyle={styles.flex}
+        >
             {articleResponse({
                 error: ({ message }) => (
                     <FlexErrorMessage
@@ -75,16 +61,13 @@ const ArticleScreenBody = React.memo<{
                             }
                             pillar={pillar}
                         >
-                            <ArticleController
-                                article={article.article}
-                                {...{ width, onTopPositionChange }}
-                            />
+                            <ArticleController article={article.article} />
                         </WithArticle>
                     </>
                 ),
             })}
-        </View>
+        </ScrollView>
     )
 })
 
-export { ArticleScreenBody, ArticleScrollWrapper }
+export { ArticleScreenBody }

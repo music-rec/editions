@@ -6,7 +6,6 @@ import { Article } from './types/article'
 import { Crossword } from './types/crossword'
 import { Gallery } from './types/gallery'
 import { Cartoon } from './types/cartoon'
-import { ArticleScrollWrapper } from 'src/screens/article/body'
 
 /*
 This is the article view! For all of the articles.
@@ -17,54 +16,19 @@ export interface ArticleControllerPropTypes {
     article: CAPIArticle
 }
 
-const ArticleController = ({
-    article,
-    width,
-    onTopPositionChange,
-}: {
-    article: CAPIArticle
-    width: number
-    onTopPositionChange: (isAtTop: boolean) => void
-}) => {
+const ArticleController = ({ article }: { article: CAPIArticle }) => {
     switch (article.type) {
         case 'article':
-            return (
-                <Article
-                    article={article.elements}
-                    onTopPositionChange={onTopPositionChange}
-                    {...article}
-                />
-            )
+            return <Article article={article.elements} {...article} />
 
         case 'gallery':
-            return (
-                <ArticleScrollWrapper
-                    onTopPositionChange={onTopPositionChange}
-                    width={width}
-                >
-                    <Gallery gallery={article} />
-                </ArticleScrollWrapper>
-            )
+            return <Gallery gallery={article} />
 
         case 'picture':
-            return (
-                <ArticleScrollWrapper
-                    onTopPositionChange={onTopPositionChange}
-                    width={width}
-                >
-                    <Cartoon article={article} />
-                </ArticleScrollWrapper>
-            )
+            return <Cartoon article={article} />
 
         case 'crossword':
-            return (
-                <ArticleScrollWrapper
-                    onTopPositionChange={onTopPositionChange}
-                    width={width}
-                >
-                    <Crossword crosswordArticle={article} />
-                </ArticleScrollWrapper>
-            )
+            return <Crossword crosswordArticle={article} />
 
         default:
             const message: never = article
