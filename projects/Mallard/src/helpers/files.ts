@@ -2,12 +2,13 @@ import { unzip } from 'react-native-zip-archive'
 import RNFetchBlob from 'rn-fetch-blob'
 import { Issue } from 'src/common'
 import { FSPaths, MEDIA_CACHE_DIRECTORY_NAME } from 'src/paths'
-import { ImageSize, IssueSummary } from '../../../common/src'
+import { ImageSize, IssueSummary, issueSummaryPath } from '../../../common/src'
 import { lastSevenDays, todayAsFolder } from './issues'
 import { defaultSettings } from './settings/defaults'
 import { imageForScreenSize } from './screen'
 import { getIssueSummary } from 'src/hooks/use-api'
 import { getSetting } from './settings'
+import { useNetInfo } from 'src/hooks/use-net-info'
 
 interface BasicFile {
     filename: string
@@ -262,4 +263,52 @@ export const downloadTodaysIssue = async () => {
         const imageSize = await imageForScreenSize()
         downloadAndUnzipIssue(todaysIssueSummary, imageSize)
     }
+}
+
+// export const retreiveIssueSummary = async () => {
+//     const { isConnected } = useNetInfo()
+//     if (!isConnected) {
+//         return await storeIssueSummary()
+//     }
+
+//     RNFetchBlob.fs
+//         .readFile(FSPaths.issuesDir + issueSummaryPath(), 'utf8')
+//         .then(data => data.json())
+//         .catch(e => console.log(e))
+// }
+
+export const readIssueSummary = async () =>
+    RNFetchBlob.fs
+        .readFile(FSPaths.issuesDir + '/daily-edition/issues.json', 'utf8')
+        .then(data => JSON.parse(data))
+        .catch(e => console.log(e))
+
+export const storeIssueSummary = async () => {
+    console.log('count')
+    const apiUrl = await getSetting('apiUrl')
+    return RNFetchBlob.config({
+        fileCache: true,
+        overwrite: true,
+    })
+        .fetch('GET', apiUrl + issueSummaryPath(), {
+            'Content-Type': 'application/json',
+        })
+        .then(async res => {
+            // console.log(FSPaths.issuesDir + '/daily-edition')
+            // await prepFileSystem()
+            // await RNFetchBlob.fs.unlink(
+            //     FSPaths.issuesDir + '/daily-edition/issues.json',
+            // )
+            // const fileExists = await RNFetchBlob.fs.exists(FSPaths.issuesDir + '/daily-edition/issues.json')
+
+            // Need to solve this being called multiple times
+            // RNFetchBlob.fs
+            //     .mv(
+            //         res.path(),
+            //         FSPaths.issuesDir + '/daily-edition/issues.json',
+            //     )
+            //     .catch(e => console.log('supressing: ', e))
+            return res.json()
+        })
+    // .catch(e => console.log(e))
 }

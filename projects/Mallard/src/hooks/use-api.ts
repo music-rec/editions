@@ -1,13 +1,17 @@
-import { IssueSummary, issueSummaryPath } from 'src/common'
-import { fetchFromApi } from 'src/helpers/fetch'
+import { IssueSummary } from 'src/common'
 import { withResponse } from 'src/helpers/response'
 import { useCachedOrPromise } from './use-cached-or-promise'
+import { useNetInfo } from './use-net-info'
+import { readIssueSummary, storeIssueSummary } from 'src/helpers/files'
 
-export const getIssueSummary = () =>
-    fetchFromApi<IssueSummary[]>(issueSummaryPath(), {
-        cached: false,
-        validator: res => res.length > 0,
-    })
+export const getIssueSummary = () => {
+    const { isConnected } = useNetInfo()
+
+    return {
+        type: 'promise',
+        getValue: isConnected ? storeIssueSummary : readIssueSummary,
+    }
+}
 
 export const useIssueSummary = () => {
     const response = useCachedOrPromise(getIssueSummary())

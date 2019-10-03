@@ -20,7 +20,7 @@ import {
     CONNECTION_FAILED_SUB_ERROR,
     REFRESH_BUTTON_TEXT,
 } from 'src/helpers/words'
-import { useIssueSummary } from 'src/hooks/use-api'
+import { useIssueSummaryNew, useIssueSummary } from 'src/hooks/use-api'
 import { useMediaQuery } from 'src/hooks/use-screen'
 import { useSettingsValue } from 'src/hooks/use-settings'
 import {
@@ -156,6 +156,7 @@ export const HomeScreen = ({
                 }}
             />
             <ScrollContainer>
+                {/* {issueSummary && <IssueList issueList={issueSummary} />} */}
                 {issueSummary({
                     success: issueList => <IssueList issueList={issueList} />,
                     error: ({ message }, stale, { retry }) => (
@@ -183,7 +184,6 @@ export const HomeScreen = ({
                             </FlexCenter>
                         ),
                 })}
-
                 <ApiState />
             </ScrollContainer>
         </WithAppAppearance>
