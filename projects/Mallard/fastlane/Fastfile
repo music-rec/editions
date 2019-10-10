@@ -36,12 +36,6 @@ platform :ios do
         exportOptionsPlist: "exports-plists/release.plist"
       }
     )
-    upload_to_testflight(
-        distribute_external: true,
-        notify_external_testers: true,
-        changelog: "Thanks for testing the app! We've done some improvements",
-        groups: ["GNM"]
-    )
   end
 end
 
