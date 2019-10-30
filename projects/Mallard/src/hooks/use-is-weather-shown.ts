@@ -9,7 +9,14 @@ const refresh = () => callbacks.forEach(cb => cb())
 const load = () => {
     initialized = true
     getSetting('isWeatherShown')
-        .then((value: any) => (data = { value }), error => (data = { error }))
+        .then(
+            (value: unknown) => {
+                if (typeof value === 'boolean') {
+                    data = { value }
+                }
+            },
+            error => (data = { error }),
+        )
         .then(refresh)
 }
 
