@@ -36,6 +36,8 @@ import { AccessProvider } from './authentication/AccessContext'
 import { AnyAttempt, isValid } from './authentication/lib/Attempt'
 import { IdentityAuthData } from './authentication/authorizers/IdentityAuthorizer'
 import { IssueSummaryProvider } from './hooks/use-issue-summary'
+import { ApolloProvider } from '@apollo/react-hooks'
+import { createApolloClient } from './apollo'
 
 const clearAndDownloadIssue = async () => {
     await prepFileSystem()
@@ -132,6 +134,8 @@ const WithProviders = nestProviders(
 const handleIdStatus = (attempt: AnyAttempt<IdentityAuthData>) =>
     setUserId(isValid(attempt) ? attempt.data.userDetails.id : null)
 
+const apolloClient = createApolloClient()
+
 export default class App extends React.Component<{}, {}> {
     componentDidMount() {
         SplashScreen.hide()
@@ -162,25 +166,27 @@ export default class App extends React.Component<{}, {}> {
             <ErrorBoundary>
                 <WithProviders>
                     <AccessProvider onIdentityStatusChange={handleIdStatus}>
-                        <StatusBar
-                            animated={true}
-                            barStyle="light-content"
-                            backgroundColor="#041f4a"
-                        />
-                        <View style={styles.appContainer}>
-                            <RootNavigator
-                                {...rootNavigationProps}
-                                enableURLHandling={__DEV__}
-                                onNavigationStateChange={
-                                    onNavigationStateChange
-                                }
+                        <ApolloProvider client={apolloClient}>
+                            <StatusBar
+                                animated={true}
+                                barStyle="light-content"
+                                backgroundColor="#041f4a"
                             />
-                            <NetInfoAutoToast />
-                            <UpdateIpAddress />
-                        </View>
-                        <ModalRenderer />
-                        <BugButton />
-                        <DeprecateVersionModal />
+                            <View style={styles.appContainer}>
+                                <RootNavigator
+                                    {...rootNavigationProps}
+                                    enableURLHandling={__DEV__}
+                                    onNavigationStateChange={
+                                        onNavigationStateChange
+                                    }
+                                />
+                                <NetInfoAutoToast />
+                                <UpdateIpAddress />
+                            </View>
+                            <ModalRenderer />
+                            <BugButton />
+                            <DeprecateVersionModal />
+                        </ApolloProvider>
                     </AccessProvider>
                 </WithProviders>
             </ErrorBoundary>

@@ -43,7 +43,6 @@ import { useNavigatorPosition } from 'src/navigation/helpers/transition'
 import { PathToIssue } from 'src/paths'
 import { sendPageViewEvent } from 'src/services/ophan'
 import { Breakpoints } from 'src/theme/breakpoints'
-import { color } from 'src/theme/color'
 import { metrics } from 'src/theme/spacing'
 import { useIssueScreenSize, WithIssueScreenSize } from './issue/use-size'
 import { useIsWeatherShown } from 'src/hooks/use-is-weather-shown'
@@ -51,19 +50,10 @@ import { useIsWeatherShown } from 'src/hooks/use-is-weather-shown'
 const styles = StyleSheet.create({
     weatherWide: {
         marginHorizontal: metrics.horizontal,
-        height: 78,
+        height: 82,
     },
     weatherHidden: {
         height: 16,
-    },
-    sideWeather: {
-        width: 78,
-        flexShrink: 0,
-        borderRightColor: color.line,
-        borderRightWidth: 1,
-    },
-    sideBySideFeed: {
-        paddingTop: metrics.vertical,
     },
     illustrationImage: {
         width: '100%',
@@ -221,6 +211,13 @@ const handleIssueScreenError = (error: string) => (
     </>
 )
 
+const QUERY = gql`
+    {
+        weatherVisibility @client
+        locationPermissionStatus @client
+    }
+`
+
 /** used to memoize the IssueScreenWithPath */
 const pathsAreEqual = (a: PathToIssue, b: PathToIssue) =>
     a.localIssueId === b.localIssueId &&
@@ -230,7 +227,16 @@ const IssueScreenWithPath = React.memo(
     ({ path }: { path: PathToIssue }) => {
         const response = useIssueResponse(path)
         const isWeatherShown = useIsWeatherShown()
-        if (isWeatherShown == null) return null
+        const locationPermission = useLocationPermission()
+        if (isWeatherShown == null || locationPermission == null) return null
+
+        const weatherWidget = isWeatherShown ? (
+            <View style={styles.weatherWide}>
+                <Weather locationPermissionStatus={locationPermission} />
+            </View>
+        ) : (
+            <View style={styles.weatherHidden} />
+        )
 
         return response({
             error: handleError,
@@ -248,7 +254,6 @@ const IssueScreenWithPath = React.memo(
                             }}
                         />
                         <ScreenHeader issue={issue} />
-
                         <WithBreakpoints>
                             {{
                                 0: () => (
@@ -262,21 +267,7 @@ const IssueScreenWithPath = React.memo(
                                             >
                                                 <IssueFronts
                                                     ListHeaderComponent={
-                                                        isWeatherShown ? (
-                                                            <View
-                                                                style={
-                                                                    styles.weatherWide
-                                                                }
-                                                            >
-                                                                <Weather />
-                                                            </View>
-                                                        ) : (
-                                                            <View
-                                                                style={
-                                                                    styles.weatherHidden
-                                                                }
-                                                            />
-                                                        )
+                                                        weatherWidget
                                                     }
                                                     issue={issue}
                                                 />
@@ -285,35 +276,23 @@ const IssueScreenWithPath = React.memo(
                                     </WithLayoutRectangle>
                                 ),
                                 [Breakpoints.tabletVertical]: () => (
-                                    <View
-                                        style={{
-                                            flexDirection: 'row',
-                                        }}
-                                    >
-                                        {isWeatherShown ? (
-                                            <View style={styles.sideWeather}>
-                                                <Weather />
-                                            </View>
-                                        ) : null}
-
-                                        <WithLayoutRectangle>
-                                            {metrics => (
-                                                <WithIssueScreenSize
-                                                    value={[
-                                                        PageLayoutSizes.tablet,
-                                                        metrics,
-                                                    ]}
-                                                >
-                                                    <IssueFronts
-                                                        style={
-                                                            styles.sideBySideFeed
-                                                        }
-                                                        issue={issue}
-                                                    />
-                                                </WithIssueScreenSize>
-                                            )}
-                                        </WithLayoutRectangle>
-                                    </View>
+                                    <WithLayoutRectangle>
+                                        {metrics => (
+                                            <WithIssueScreenSize
+                                                value={[
+                                                    PageLayoutSizes.tablet,
+                                                    metrics,
+                                                ]}
+                                            >
+                                                <IssueFronts
+                                                    ListHeaderComponent={
+                                                        weatherWidget
+                                                    }
+                                                    issue={issue}
+                                                />
+                                            </WithIssueScreenSize>
+                                        )}
+                                    </WithLayoutRectangle>
                                 ),
                             }}
                         </WithBreakpoints>
