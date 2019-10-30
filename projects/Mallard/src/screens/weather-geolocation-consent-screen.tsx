@@ -5,10 +5,9 @@ import { DefaultInfoTextWebview } from './settings/default-info-text-webview'
 import { Button, ButtonAppearance } from 'src/components/button/button'
 import { html } from 'src/helpers/webview'
 import { requestLocationPermission } from 'src/helpers/location-permission'
-import { useApolloClient } from '@apollo/react-hooks'
 import { RESULTS } from 'react-native-permissions'
-import { setWeatherVisibility } from 'src/helpers/weather-visibility'
 import { metrics } from 'src/theme/spacing'
+import { setIsWeatherShown } from 'src/hooks/use-is-weather-shown'
 
 const content = html`
     <h2>Location-based weather</h2>
@@ -53,15 +52,14 @@ const styles = StyleSheet.create({
 const WeatherGeolocationConsentScreen = ({
     navigation,
 }: NavigationInjectedProps) => {
-    const apolloClient = useApolloClient()
     const onConsentPress = async () => {
-        const result = await requestLocationPermission(apolloClient)
+        const result = await requestLocationPermission()
         if (result != RESULTS.DENIED) {
             navigation.dismiss()
         }
     }
     const onHidePress = () => {
-        setWeatherVisibility(apolloClient, 'hidden')
+        setIsWeatherShown(false)
         navigation.dismiss()
     }
 

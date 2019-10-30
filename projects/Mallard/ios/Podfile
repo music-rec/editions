@@ -54,7 +54,6 @@ target 'Mallard' do
   # permisions
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
-
   
   target 'MallardTests' do
     inherit! :search_paths
