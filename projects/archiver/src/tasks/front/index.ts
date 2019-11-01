@@ -29,6 +29,9 @@ export const handler: Handler<
     FrontTaskInput,
     { message: string } //This is ignored by the state machine
 > = handleAndNotifyOnError(async ({ issue, front }) => {
+    if (front === 'Culture') {
+        throw new Error('testing failing a front')
+    }
     const { publishedId } = issue
 
     const maybeFront = await getFront(publishedId, front)
