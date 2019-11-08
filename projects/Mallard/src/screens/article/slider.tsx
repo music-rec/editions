@@ -24,6 +24,7 @@ import {
 import { Button, ButtonAppearance } from 'src/components/button/button'
 import { withNavigation } from 'react-navigation'
 import { NavigationInjectedProps } from 'react-navigation'
+import { useNavPosition } from 'src/hooks/use-nav-position'
 
 export interface PathToArticle {
     collection: Collection['key']
@@ -194,6 +195,8 @@ const ArticleSlider = ({
     const { width } = useDimensions()
     const flatListRef = useRef<AnimatedFlatListRef | undefined>()
 
+    const { setPosition } = useNavPosition()
+
     useEffect(() => {
         flatListRef.current &&
             flatListRef.current._component.scrollToIndex({
@@ -286,13 +289,13 @@ const ArticleSlider = ({
                 showsVerticalScrollIndicator={false}
                 scrollEventThrottle={1}
                 onScroll={(ev: any) => {
-                    setCurrent(
-                        clamp(
-                            Math.floor(ev.nativeEvent.contentOffset.x / width),
-                            0,
-                            data.length - 1,
-                        ),
+                    const index = clamp(
+                        Math.floor(ev.nativeEvent.contentOffset.x / width),
+                        0,
+                        data.length - 1,
                     )
+                    setCurrent(index)
+                    setPosition({ frontId: data[index].front, articleIndex: 0 })
                 }}
                 maxToRenderPerBatch={1}
                 windowSize={2}
