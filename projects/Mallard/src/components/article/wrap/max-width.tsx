@@ -7,8 +7,9 @@ const maxWidthStyles = StyleSheet.create({
         maxWidth: metrics.article.maxWidth,
         alignItems: 'stretch',
         justifyContent: 'center',
-        flexDirection: 'row',
+        flexDirection: 'column',
         overflow: 'visible',
+        width: '100%',
     },
     padding: {
         marginHorizontal: metrics.article.sides,
