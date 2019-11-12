@@ -71,7 +71,7 @@ const SliderSectionBar = ({
     animatedValue,
 }: {
     section: SliderSection
-    animatedValue: Animated.AnimatedValue
+    animatedValue: Animated.AnimatedInterpolation
 }) => {
     const isTablet = useMediaQuery(width => width >= Breakpoints.tabletVertical)
     const [sliderPos] = useState(() =>
@@ -124,7 +124,7 @@ const SliderBar = ({
 }: {
     sections: SliderSection[]
     wrapperProps: ViewProps
-    animatedValue: Animated.AnimatedValue
+    animatedValue: Animated.AnimatedInterpolation
 }) => {
     return (
         <View {...wrapperProps} style={[styles.slider, wrapperProps.style]}>
@@ -194,7 +194,13 @@ const ArticleSlider = ({
         { sectionCounter: 0, sections: [] as SliderSection[] },
     ).sections
 
-    const animatedValue = useRef(new Animated.Value(startingPoint))
+    const sectionCount = sliderSections.reduce((acc, s) => acc + s.items, 0)
+    const [animatedValue] = useState(new Animated.Value(startingPoint))
+
+    const interpolatedValue = animatedValue.interpolate({
+        inputRange: [0, sectionCount * width],
+        outputRange: [0, sectionCount],
+    })
 
     if (Platform.OS === 'android')
         return (
@@ -204,7 +210,7 @@ const ArticleSlider = ({
                     wrapperProps={{
                         style: !articleIsAtTop && styles.sliderBorder,
                     }}
-                    animatedValue={animatedValue.current}
+                    animatedValue={interpolatedValue}
                 />
                 <ViewPagerAndroid
                     style={styles.androidPager}
@@ -238,7 +244,7 @@ const ArticleSlider = ({
                     ...panResponder.panHandlers,
                     style: !articleIsAtTop && styles.sliderBorder,
                 }}
-                animatedValue={animatedValue.current}
+                animatedValue={interpolatedValue}
             />
 
             <Animated.FlatList
@@ -247,18 +253,30 @@ const ArticleSlider = ({
                 }
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
-                scrollEventThrottle={1}
-                onScroll={(ev: any) => {
-                    const newPos = ev.nativeEvent.contentOffset.x / width
-                    setCurrent(
-                        clamp(
-                            Math.floor(newPos),
-                            0,
-                            flattenedArticles.length - 1,
-                        ),
-                    )
-                    animatedValue.current.setValue(newPos)
-                }}
+                scrollEventThrottle={16}
+                onScroll={Animated.event(
+                    [
+                        {
+                            nativeEvent: {
+                                contentOffset: { x: animatedValue },
+                            },
+                        },
+                    ],
+                    {
+                        useNativeDriver: true,
+                        listener: (ev: any) => {
+                            const newPos =
+                                ev.nativeEvent.contentOffset.x / width
+                            setCurrent(
+                                clamp(
+                                    Math.floor(newPos),
+                                    0,
+                                    flattenedArticles.length - 1,
+                                ),
+                            )
+                        },
+                    },
+                )}
                 maxToRenderPerBatch={1}
                 windowSize={2}
                 initialNumToRender={1}
