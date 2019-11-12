@@ -25,6 +25,7 @@ import { Button, ButtonAppearance } from 'src/components/button/button'
 import { withNavigation } from 'react-navigation'
 import { NavigationInjectedProps } from 'react-navigation'
 import { useNavPosition } from 'src/hooks/use-nav-position'
+import { toPosition } from '../../../../common/src'
 
 export interface PathToArticle {
     collection: Collection['key']
@@ -185,17 +186,17 @@ const ArticleSlider = ({
 }: Required<
     Pick<ArticleNavigationProps, 'articleNavigator' | 'path'>
 > & {}) => {
-    const { isInScroller, startingPoint } = getArticleDataFromNavigator(
-        articleNavigator,
-        path,
-    )
+    const {
+        isInScroller,
+        startingPoint,
+        cardIndex,
+    } = getArticleDataFromNavigator(articleNavigator, path)
 
     const [current, setCurrent] = useState(startingPoint)
 
     const { width } = useDimensions()
     const flatListRef = useRef<AnimatedFlatListRef | undefined>()
-
-    const { setPosition } = useNavPosition()
+    const { position, setPosition, setTrigger } = useNavPosition()
 
     useEffect(() => {
         flatListRef.current &&
@@ -295,7 +296,16 @@ const ArticleSlider = ({
                         data.length - 1,
                     )
                     setCurrent(index)
-                    setPosition({ frontId: data[index].front, articleIndex: 0 })
+                    setPosition({
+                        frontId: data[index].front,
+                        articleIndex: currentArticle.cardIndex,
+                    })
+                    setTrigger(true)
+                }}
+                onScrollEndDrag={() => {
+                    if (position && position.frontId !== data[current].front) {
+                        setTrigger(true)
+                    }
                 }}
                 maxToRenderPerBatch={1}
                 windowSize={2}

@@ -26,6 +26,7 @@ export interface ArticleTransitionProps {
 export type ArticleSpec = PathToArticle & {
     appearance: Appearance
     frontName: string
+    cardIndex: number
 }
 
 export type ArticleNavigator = ArticleSpec[]
@@ -38,24 +39,28 @@ export const getArticleDataFromNavigator = (
     startingPoint: number
     appearance: Appearance
     frontName: string
+    cardIndex: number
 } => {
     const startingPoint = navigator.findIndex(
         ({ article, front }) =>
             currentArticle.article === article &&
             currentArticle.front === front,
     )
+
     if (startingPoint < 0)
         return {
             isInScroller: false,
             startingPoint: 0,
             appearance: { type: 'pillar', name: 'neutral' } as const,
             frontName: '',
+            cardIndex: 0,
         }
     return {
         startingPoint,
         isInScroller: true,
         appearance: navigator[startingPoint].appearance,
         frontName: navigator[startingPoint].frontName,
+        cardIndex: navigator[startingPoint].cardIndex,
     }
 }
 

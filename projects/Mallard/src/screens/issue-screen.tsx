@@ -1,4 +1,10 @@
-import React, { ReactElement, useMemo, useRef, useEffect } from 'react'
+import React, {
+    ReactElement,
+    useMemo,
+    useRef,
+    useEffect,
+    useState,
+} from 'react'
 import {
     Animated,
     Image,
@@ -158,13 +164,17 @@ const IssueFronts = ({
                 return obj.displayName === position.frontId
             })
 
+            console.log(frontToScrollTo.key)
+
+            // if (frontToScrollTo.key !== position.frontId) {
             const index = frontToScrollTo
                 ? frontWithCards.findIndex(front => front === frontToScrollTo)
                 : 0
 
-            if (ref && ref.current && ref.current.scrollToOffset) {
+            if (ref && ref.current && ref.current.scrollToIndex) {
                 ref.current.scrollToIndex({ animated: false, index })
             }
+            // }
             setTrigger(false)
         }
     }, [trigger])
@@ -187,7 +197,7 @@ const IssueFronts = ({
                         cards: flatCollections,
                     })
                     const specs = flattenFlatCardsToFront(flatCollections).map(
-                        ({ article, collection }) => ({
+                        ({ article, collection, cardIndex }) => ({
                             collection: collection.key,
                             front: front.key,
                             article: article.key,
@@ -195,6 +205,7 @@ const IssueFronts = ({
                             publishedIssueId: issue.publishedId,
                             appearance: front.appearance,
                             frontName: front.displayName || '',
+                            cardIndex,
                         }),
                     )
                     acc.articleSpecs.push(...specs)
@@ -210,6 +221,16 @@ const IssueFronts = ({
             ),
         [issue.localId, issue.publishedId, issue.fronts],
     )
+
+    // Create refs for each front coming up
+    const flatlistRefs = {}
+    issue.fronts.map(
+        front => (flatlistRefs[front.key as string] = React.createRef()),
+    )
+    console.log(flatlistRefs)
+    if (ref && ref.current) {
+        console.log('james', ref.current.scrollToIndex)
+    }
 
     /* setting a key will force a rerender on rotation, removing 1000s of layout bugs */
     return (
@@ -247,6 +268,7 @@ const IssueFronts = ({
             key={width}
             renderItem={({ item: front }) => (
                 <Front
+                    refToUse={flatlistRefs[front.key]}
                     localIssueId={issue.localId}
                     publishedIssueId={issue.publishedId}
                     articleNavigator={articleSpecs}
