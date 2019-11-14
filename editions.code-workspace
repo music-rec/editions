@@ -26,6 +26,9 @@
         },
         {
             "path": "projects/Apps"
+        },
+        {
+            "path": "projects/Apps/Daily"
         }
     ],
     "settings": {
