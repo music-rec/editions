@@ -223,6 +223,8 @@ PODS:
     - React
   - RNGestureHandler (1.5.0):
     - React
+  - RNIap (4.2.2):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -242,7 +244,7 @@ DEPENDENCIES:
   - React-jsi (from `../../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-config (from `../node_modules/react-native-config`)
+  - react-native-config (from `../../node_modules/react-native-config`)
   - React-RCTActionSheet (from `../../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../../node_modules/react-native/Libraries/Blob`)
@@ -256,6 +258,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../../node_modules/react-native/ReactCommon`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNIap (from `../node_modules/react-native-iap`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -292,7 +295,7 @@ EXTERNAL SOURCES:
   React-jsinspector:
     :path: "../../node_modules/react-native/ReactCommon/jsinspector"
   react-native-config:
-    :path: "../node_modules/react-native-config"
+    :path: "../../node_modules/react-native-config"
   React-RCTActionSheet:
     :path: "../../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -317,6 +320,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNIap:
+    :path: "../node_modules/react-native-iap"
   Yoga:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
 
@@ -349,8 +354,9 @@ SPEC CHECKSUMS:
   ReactCommon: a6a294e7028ed67b926d29551aa9394fd989c24c
   RNDeviceInfo: f245326b5b61b80db7e9cbc9de6c75688572a4e0
   RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
+  RNIap: 9fd0dd03e7e646b1ea2493369373677fbfc5334c
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
-PODFILE CHECKSUM: 08b3ce4de165a3049060a66c71e225543e6e926e
+PODFILE CHECKSUM: 302e748c268449d37f781cf801516341f694a07d
 
 COCOAPODS: 1.7.5
