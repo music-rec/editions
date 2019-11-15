@@ -227,7 +227,7 @@ PODS:
     - React
   - RNIap (4.2.2):
     - React
-  - RNInAppBrowser (3.3.1):
+  - RNInAppBrowser (3.0.1):
     - React
   - Yoga (1.14.0)
 
@@ -366,7 +366,7 @@ SPEC CHECKSUMS:
   RNDeviceInfo: f245326b5b61b80db7e9cbc9de6c75688572a4e0
   RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
   RNIap: 9fd0dd03e7e646b1ea2493369373677fbfc5334c
-  RNInAppBrowser: 84d8e2f5aa682138b5b29b006f88664548adb2e6
+  RNInAppBrowser: 24abaaff1fe1d8bea2492537ca32e455b14ef030
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: 302e748c268449d37f781cf801516341f694a07d
