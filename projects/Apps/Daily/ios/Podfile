@@ -41,8 +41,6 @@ target 'Daily' do
   permissions_path = '../../node_modules/react-native-permissions/ios'
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
 
-
-
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       if target.name == 'react-native-config'

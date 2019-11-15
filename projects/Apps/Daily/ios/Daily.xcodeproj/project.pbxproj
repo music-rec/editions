@@ -19,6 +19,10 @@
 		6BA2A2DB8E6251C9265D536C /* libPods-Daily.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC58C375D8309120C946E1E7 /* libPods-Daily.a */; };
 		7BF21B4F0C5D49271FE60940 /* libPods-DailyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7987C5F877681B35CBA903 /* libPods-DailyTests.a */; };
 		9585CDAF237EFA030078AB61 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9585CDAE237EFA030078AB61 /* LaunchScreen.xib */; };
+		9585CDB3237EFB6D0078AB61 /* Ophan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585CDB1237EFB6D0078AB61 /* Ophan.swift */; };
+		9585CDB4237EFB6D0078AB61 /* Ophan.m in Sources */ = {isa = PBXBuildFile; fileRef = 9585CDB2237EFB6D0078AB61 /* Ophan.m */; };
+		9585CDBF237F00560078AB61 /* ophan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9585CDBE237F00560078AB61 /* ophan.framework */; };
+		9585CDC0237F00560078AB61 /* ophan.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9585CDBE237F00560078AB61 /* ophan.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C939F093672842CE3164988E /* libPods-Daily-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF909E56508EF1539F22FF1E /* libPods-Daily-tvOS.a */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +43,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9585CDC1237F00560078AB61 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9585CDC0237F00560078AB61 /* ophan.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* DailyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +73,11 @@
 		3C7987C5F877681B35CBA903 /* libPods-DailyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DailyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4863E31D8929B3DDADA89E05 /* Pods-DailyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyTests.debug.xcconfig"; path = "Target Support Files/Pods-DailyTests/Pods-DailyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9585CDAE237EFA030078AB61 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = Daily/LaunchScreen.xib; sourceTree = "<group>"; };
+		9585CDB1237EFB6D0078AB61 /* Ophan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ophan.swift; sourceTree = "<group>"; };
+		9585CDB2237EFB6D0078AB61 /* Ophan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ophan.m; sourceTree = "<group>"; };
+		9585CDB5237EFB9C0078AB61 /* Mallard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mallard-Bridging-Header.h"; path = "../../../Mallard/ios/Mallard-Bridging-Header.h"; sourceTree = "<group>"; };
+		9585CDB7237EFCEB0078AB61 /* ophan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ophan.framework; path = ../../ophan/build/bin/ios/releaseFramework/ophan.framework; sourceTree = "<group>"; };
+		9585CDBE237F00560078AB61 /* ophan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ophan.framework; path = ../../ophan/build/bin/ios/universalFramework/ophan.framework; sourceTree = "<group>"; };
 		9DFCAB29AFF0EA01A9DC008C /* Pods-Daily-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Daily-tvOSTests/Pods-Daily-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A73E84106AFC6C03241D8538 /* Pods-Daily-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Daily-tvOSTests/Pods-Daily-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		A854B986DEF3085F25E9AD65 /* Pods-DailyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyTests.release.xcconfig"; path = "Target Support Files/Pods-DailyTests/Pods-DailyTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BA2A2DB8E6251C9265D536C /* libPods-Daily.a in Frameworks */,
+				9585CDBF237F00560078AB61 /* ophan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +149,7 @@
 		13B07FAE1A68108700A75B9A /* Daily */ = {
 			isa = PBXGroup;
 			children = (
+				9585CDB5237EFB9C0078AB61 /* Mallard-Bridging-Header.h */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -139,6 +164,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9585CDB7237EFCEB0078AB61 /* ophan.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				BC58C375D8309120C946E1E7 /* libPods-Daily.a */,
@@ -159,6 +185,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9585CDBE237F00560078AB61 /* ophan.framework */,
+				9585CDB0237EFB6D0078AB61 /* Ophan */,
 				13B07FAE1A68108700A75B9A /* Daily */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* DailyTests */,
@@ -180,6 +208,16 @@
 				2D02E4901E0B4A5D006451C7 /* Daily-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9585CDB0237EFB6D0078AB61 /* Ophan */ = {
+			isa = PBXGroup;
+			children = (
+				9585CDB1237EFB6D0078AB61 /* Ophan.swift */,
+				9585CDB2237EFB6D0078AB61 /* Ophan.m */,
+			);
+			name = Ophan;
+			path = ../../../Mallard/ios/Mallard/Ophan;
 			sourceTree = "<group>";
 		};
 		CA51BEED64C95C5C3817F577 /* Pods */ = {
@@ -224,11 +262,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Daily" */;
 			buildPhases = (
 				27630D0A555E8C43427C8F27 /* [CP] Check Pods Manifest.lock */,
+				9585CDB6237EFC050078AB61 /* ShellScript */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				9585CDC1237F00560078AB61 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -478,6 +518,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9585CDB6237EFC050078AB61 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/../../ophan/gradlew\" -p \"$SRCROOT/../../ophan\" copyFatFramework \\\n-Pconfiguration.build.dir=\"$CONFIGURATION_BUILD_DIR\"          \\\n-Pkotlin.build.type=\"$KOTLIN_BUILD_TYPE\" \\\n-Pkotlin.valid.archs=\"$VALID_ARCHS\"\n";
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -531,6 +588,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9585CDB4237EFB6D0078AB61 /* Ophan.m in Sources */,
+				9585CDB3237EFB6D0078AB61 /* Ophan.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -573,6 +632,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4863E31D8929B3DDADA89E05 /* Pods-DailyTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -596,6 +656,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A854B986DEF3085F25E9AD65 /* Pods-DailyTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = DailyTests/Info.plist;
@@ -630,7 +691,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Daily;
+				SWIFT_OBJC_BRIDGING_HEADER = "Mallard-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -652,7 +716,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Daily;
+				SWIFT_OBJC_BRIDGING_HEADER = "Mallard-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
