@@ -23,7 +23,6 @@ import {
     DebugInstructions,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-var PushNotification = require('react-native-push-notification');
 
 const App: () => React$Node = () => {
     return (
