@@ -235,6 +235,8 @@ PODS:
     - React
   - RNPermissions (2.0.3):
     - React
+  - RNSVG (9.13.3):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -256,7 +258,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-config (from `../../node_modules/react-native-config`)
-  - react-native-image-resizer (from `../../node_modules/react-native-image-resizer`)
+  - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
   - React-RCTActionSheet (from `../../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../../node_modules/react-native/Libraries/Blob`)
@@ -268,12 +270,13 @@ DEPENDENCIES:
   - React-RCTVibration (from `../../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../../node_modules/react-native/ReactCommon`)
-  - RNDeviceInfo (from `../../node_modules/react-native-device-info`)
-  - RNGestureHandler (from `../../node_modules/react-native-gesture-handler`)
-  - RNIap (from `../../node_modules/react-native-iap`)
-  - RNInAppBrowser (from `../../node_modules/react-native-inappbrowser-reborn`)
-  - RNKeychain (from `../../node_modules/react-native-keychain`)
-  - RNPermissions (from `../../node_modules/react-native-permissions`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNIap (from `../node_modules/react-native-iap`)
+  - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
+  - RNKeychain (from `../node_modules/react-native-keychain`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -314,7 +317,7 @@ EXTERNAL SOURCES:
   react-native-config:
     :path: "../../node_modules/react-native-config"
   react-native-image-resizer:
-    :path: "../../node_modules/react-native-image-resizer"
+    :path: "../node_modules/react-native-image-resizer"
   React-RCTActionSheet:
     :path: "../../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -336,17 +339,19 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../../node_modules/react-native/ReactCommon"
   RNDeviceInfo:
-    :path: "../../node_modules/react-native-device-info"
+    :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
-    :path: "../../node_modules/react-native-gesture-handler"
+    :path: "../node_modules/react-native-gesture-handler"
   RNIap:
-    :path: "../../node_modules/react-native-iap"
+    :path: "../node_modules/react-native-iap"
   RNInAppBrowser:
-    :path: "../../node_modules/react-native-inappbrowser-reborn"
+    :path: "../node_modules/react-native-inappbrowser-reborn"
   RNKeychain:
-    :path: "../../node_modules/react-native-keychain"
+    :path: "../node_modules/react-native-keychain"
   RNPermissions:
-    :path: "../../node_modules/react-native-permissions"
+    :path: "../node_modules/react-native-permissions"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
 
@@ -385,6 +390,7 @@ SPEC CHECKSUMS:
   RNInAppBrowser: 24abaaff1fe1d8bea2492537ca32e455b14ef030
   RNKeychain: 45dbd50d1ac4bd42c3740f76ffb135abf05746d0
   RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
+  RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: 9b99df5723f91f10476aae80d472f37ddd1697d5
