@@ -27,6 +27,7 @@
     "react-native-keychain": "^4.0.1",
     "react-native-permissions": "^2.0.3",
     "react-native-push-notification": "^3.1.9",
+    "react-native-screens": "^2.0.0-alpha.11",
     "react-native-svg": "^9.13.3"
   },
   "devDependencies": {

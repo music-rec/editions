@@ -23,9 +23,6 @@ import {
     DebugInstructions,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import ViewPager from '@react-native-community/viewpager';
-import NetInfo from '@react-native-community/netinfo';
-import MaskedView from '@react-native-community/masked-view';
 
 const App: () => React$Node = () => {
     return (

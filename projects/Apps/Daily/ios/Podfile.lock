@@ -245,6 +245,8 @@ PODS:
     - React
   - RNPermissions (2.0.3):
     - React
+  - RNScreens (2.0.0-alpha.11):
+    - React
   - RNSVG (9.13.3):
     - React
   - Yoga (1.14.0)
@@ -291,6 +293,7 @@ DEPENDENCIES:
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
@@ -375,6 +378,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keychain"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   Yoga:
@@ -420,6 +425,7 @@ SPEC CHECKSUMS:
   RNInAppBrowser: 24abaaff1fe1d8bea2492537ca32e455b14ef030
   RNKeychain: 45dbd50d1ac4bd42c3740f76ffb135abf05746d0
   RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
+  RNScreens: ad3661f864ef18d952e9a4799b6791683e33c1fc
   RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
