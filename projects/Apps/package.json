@@ -1,19 +1,36 @@
 {
-  "name": "apps",
-  "version": "1.0.0",
-  "description": "Monorepo for React Native Apps",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo 'Apps require no tests'",
-    "build": "echo 'Apps does not need building.'"
-  },
-  "author": "The Guardian",
-  "license": "ISC",
-  "workspaces": {
-    "packages": [
-      "*"
-    ],
-    "nohoist": []
-  },
-  "private": true
+    "name": "apps",
+    "version": "1.0.0",
+    "description": "Monorepo for React Native Apps",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo 'Apps require no tests'",
+        "build": "echo 'Apps does not need building.'"
+    },
+    "author": "The Guardian",
+    "license": "ISC",
+    "workspaces": {
+        "packages": [
+            "*"
+        ],
+        "nohoist": []
+    },
+    "dependencies": {
+        "react": "16.9.0",
+        "react-native": "0.61.4",
+        "react-native-config": "^0.11.7",
+        "react-native-device-info": "^5.3.0",
+        "react-native-gesture-handler": "^1.5.0",
+        "react-native-iap": "^4.2.2",
+        "react-native-image-resizer": "^1.1.0",
+        "react-native-inappbrowser-reborn": "3.0.1",
+        "react-native-keychain": "^4.0.1",
+        "react-native-permissions": "^2.0.3"
+    },
+    "devDependencies": {
+        "@babel/runtime": "7.7.2",
+        "@babel/core": "7.7.2",
+        "typescript": "^3.5.3"
+    },
+    "private": true
 }

@@ -35,6 +35,10 @@ target 'Daily' do
   pod 'Folly', :podspec => '../../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'react-native-config', :path => '../../node_modules/react-native-config'
 
+  # permisions
+  permissions_path = '../../node_modules/react-native-permissions/ios'
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
+
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       if target.name == 'react-native-config'

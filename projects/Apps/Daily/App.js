@@ -23,6 +23,7 @@ import {
     DebugInstructions,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const App: () => React$Node = () => {
     return (
