@@ -23,6 +23,7 @@ import {
     DebugInstructions,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import * as Sentry from '@sentry/react-native';
 
 const App: () => React$Node = () => {
     return (

@@ -247,8 +247,14 @@ PODS:
     - React
   - RNScreens (2.0.0-alpha.11):
     - React
+  - RNSentry (1.1.0):
+    - React
+    - Sentry (~> 4.4.0)
   - RNSVG (9.13.3):
     - React
+  - Sentry (4.4.1):
+    - Sentry/Core (= 4.4.1)
+  - Sentry/Core (4.4.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -294,12 +300,14 @@ DEPENDENCIES:
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
+    - Sentry
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -380,6 +388,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   Yoga:
@@ -426,7 +436,9 @@ SPEC CHECKSUMS:
   RNKeychain: 45dbd50d1ac4bd42c3740f76ffb135abf05746d0
   RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
   RNScreens: ad3661f864ef18d952e9a4799b6791683e33c1fc
+  RNSentry: 932ac1c8b2f581b1c8be5812f88ff556c99e7fb7
   RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
+  Sentry: 5d312a04e369154aeac616214f4dfc3cbcc8b296
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: ad00e2d684b1971c3480cfdb5c928535c5055f4b
