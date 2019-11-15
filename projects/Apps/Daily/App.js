@@ -23,9 +23,10 @@ import {
     DebugInstructions,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import * as Sentry from '@sentry/react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 const App: () => React$Node = () => {
+    SplashScreen.hide();
     return (
         <>
             <StatusBar barStyle="dark-content" />
