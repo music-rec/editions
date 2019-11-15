@@ -1,4 +1,4 @@
-package com.daily;
+package com.guardian.editions;
 
 import android.app.Application;
 import android.content.Context;

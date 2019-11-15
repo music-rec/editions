@@ -14,7 +14,7 @@ import {
     View,
     Text,
     StatusBar,
-    NativeModules,
+    // NativeModules,
 } from 'react-native';
 
 import {
@@ -28,7 +28,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 const App: () => React$Node = () => {
     SplashScreen.hide();
-    NativeModules.Ophan.sendPageViewEvent('1234567890');
+    // NativeModules.Ophan.sendPageViewEvent('1234567890');
     return (
         <>
             <StatusBar barStyle="dark-content" />
