@@ -8,6 +8,7 @@ buildscript {
         targetSdkVersion = 28
         androidXAnnotation = "1.1.0"
         androidXBrowser = "1.0.0"
+        androidXCore = "1.0.2"
     }
     repositories {
         google()
