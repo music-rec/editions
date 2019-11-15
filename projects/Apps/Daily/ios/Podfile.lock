@@ -229,6 +229,8 @@ PODS:
     - React
   - RNInAppBrowser (3.0.1):
     - React
+  - RNKeychain (4.0.1):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -265,6 +267,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNIap (from `../node_modules/react-native-iap`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
+  - RNKeychain (from `../node_modules/react-native-keychain`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -332,6 +335,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-iap"
   RNInAppBrowser:
     :path: "../node_modules/react-native-inappbrowser-reborn"
+  RNKeychain:
+    :path: "../node_modules/react-native-keychain"
   Yoga:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
 
@@ -367,6 +372,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
   RNIap: 9fd0dd03e7e646b1ea2493369373677fbfc5334c
   RNInAppBrowser: 24abaaff1fe1d8bea2492537ca32e455b14ef030
+  RNKeychain: 45dbd50d1ac4bd42c3740f76ffb135abf05746d0
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: 302e748c268449d37f781cf801516341f694a07d
