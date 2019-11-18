@@ -8,17 +8,12 @@ Apps folder in projects
 Apps folder to be Yarn Workspace
 New "Mallard" in Apps Folder with common code and components
 
-Update the package naming convention
-Do some better research into Yarn workspaces to make sure its setup correctly.
+Clean up the unused dependencies
 
 Test push notifications
 Double check
 Update Application Ids and Version Numbers
-Sentry dependency changed
-React Native Modules
-Fonts
 Crossword
-Ophan
 Common Source
 Create duplicate weekly app
 Remove top level dependencies

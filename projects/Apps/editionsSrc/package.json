@@ -1,5 +1,5 @@
 {
-    "name": "editionssrc",
+    "name": "@guardian/editions-editionsSrc",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
