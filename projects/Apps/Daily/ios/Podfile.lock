@@ -247,16 +247,26 @@ PODS:
     - React
   - RNPermissions (2.0.3):
     - React
-  - RNScreens (2.0.0-alpha.11):
+  - RNReanimated (1.4.0):
+    - React
+  - RNScreens (1.0.0-alpha.23):
     - React
   - RNSentry (1.1.0):
     - React
     - Sentry (~> 4.4.0)
   - RNSVG (9.13.3):
     - React
+  - RNZipArchive (5.0.0):
+    - React
+    - RNZipArchive/Core (= 5.0.0)
+    - SSZipArchive (= 2.2.2)
+  - RNZipArchive/Core (5.0.0):
+    - React
+    - SSZipArchive (= 2.2.2)
   - Sentry (4.4.1):
     - Sentry/Core (= 4.4.1)
   - Sentry/Core (4.4.1)
+  - SSZipArchive (2.2.2)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -302,15 +312,18 @@ DEPENDENCIES:
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
+  - RNZipArchive (from `../node_modules/react-native-zip-archive`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
     - Sentry
+    - SSZipArchive
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -391,12 +404,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keychain"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSentry:
     :path: "../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  RNZipArchive:
+    :path: "../node_modules/react-native-zip-archive"
   Yoga:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
 
@@ -441,10 +458,13 @@ SPEC CHECKSUMS:
   RNInAppBrowser: 24abaaff1fe1d8bea2492537ca32e455b14ef030
   RNKeychain: 45dbd50d1ac4bd42c3740f76ffb135abf05746d0
   RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
-  RNScreens: ad3661f864ef18d952e9a4799b6791683e33c1fc
+  RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
+  RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
   RNSentry: 932ac1c8b2f581b1c8be5812f88ff556c99e7fb7
   RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
+  RNZipArchive: be636657a6630e9771d4a3223dc8fd0bd0137b55
   Sentry: 5d312a04e369154aeac616214f4dfc3cbcc8b296
+  SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: 3dbcc92d3167da4c5ab6dd11eb5a429c772385b7
