@@ -24,7 +24,6 @@ import {
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-import RNFetchBlob from 'rn-fetch-blob';
 
 const App: () => React$Node = () => {
     SplashScreen.hide();

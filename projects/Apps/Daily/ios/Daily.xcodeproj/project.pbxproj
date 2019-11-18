@@ -18,9 +18,11 @@
 		37E2AFD62FF5D74D44F51387 /* libPods-Daily-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5DD4A088AC1B6B8CC24047 /* libPods-Daily-tvOSTests.a */; };
 		6BA2A2DB8E6251C9265D536C /* libPods-Daily.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC58C375D8309120C946E1E7 /* libPods-Daily.a */; };
 		7BF21B4F0C5D49271FE60940 /* libPods-DailyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7987C5F877681B35CBA903 /* libPods-DailyTests.a */; };
+		95039AA52382EE4F007A8492 /* Ophan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95039AA02382EE4F007A8492 /* Ophan.swift */; };
+		95039AA62382EE4F007A8492 /* Ophan.m in Sources */ = {isa = PBXBuildFile; fileRef = 95039AA12382EE4F007A8492 /* Ophan.m */; };
+		95039AA72382EE4F007A8492 /* ReleaseStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95039AA32382EE4F007A8492 /* ReleaseStream.swift */; };
+		95039AA82382EE4F007A8492 /* ReleaseStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 95039AA42382EE4F007A8492 /* ReleaseStream.m */; };
 		9585CDAF237EFA030078AB61 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9585CDAE237EFA030078AB61 /* LaunchScreen.xib */; };
-		9585CDB3237EFB6D0078AB61 /* Ophan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9585CDB1237EFB6D0078AB61 /* Ophan.swift */; };
-		9585CDB4237EFB6D0078AB61 /* Ophan.m in Sources */ = {isa = PBXBuildFile; fileRef = 9585CDB2237EFB6D0078AB61 /* Ophan.m */; };
 		9585CDBF237F00560078AB61 /* ophan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9585CDBE237F00560078AB61 /* ophan.framework */; };
 		9585CDC0237F00560078AB61 /* ophan.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9585CDBE237F00560078AB61 /* ophan.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C939F093672842CE3164988E /* libPods-Daily-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF909E56508EF1539F22FF1E /* libPods-Daily-tvOS.a */; };
@@ -72,9 +74,11 @@
 		2D02E4901E0B4A5D006451C7 /* Daily-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Daily-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C7987C5F877681B35CBA903 /* libPods-DailyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DailyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4863E31D8929B3DDADA89E05 /* Pods-DailyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyTests.debug.xcconfig"; path = "Target Support Files/Pods-DailyTests/Pods-DailyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		95039AA02382EE4F007A8492 /* Ophan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ophan.swift; sourceTree = "<group>"; };
+		95039AA12382EE4F007A8492 /* Ophan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ophan.m; sourceTree = "<group>"; };
+		95039AA32382EE4F007A8492 /* ReleaseStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseStream.swift; sourceTree = "<group>"; };
+		95039AA42382EE4F007A8492 /* ReleaseStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseStream.m; sourceTree = "<group>"; };
 		9585CDAE237EFA030078AB61 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = Daily/LaunchScreen.xib; sourceTree = "<group>"; };
-		9585CDB1237EFB6D0078AB61 /* Ophan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ophan.swift; sourceTree = "<group>"; };
-		9585CDB2237EFB6D0078AB61 /* Ophan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ophan.m; sourceTree = "<group>"; };
 		9585CDB5237EFB9C0078AB61 /* Mallard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mallard-Bridging-Header.h"; path = "../../../Mallard/ios/Mallard-Bridging-Header.h"; sourceTree = "<group>"; };
 		9585CDB7237EFCEB0078AB61 /* ophan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ophan.framework; path = ../../ophan/build/bin/ios/releaseFramework/ophan.framework; sourceTree = "<group>"; };
 		9585CDBE237F00560078AB61 /* ophan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ophan.framework; path = ../../ophan/build/bin/ios/universalFramework/ophan.framework; sourceTree = "<group>"; };
@@ -185,8 +189,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				95039A9F2382EE4F007A8492 /* Ophan */,
+				95039AA22382EE4F007A8492 /* ReleaseStream */,
 				9585CDBE237F00560078AB61 /* ophan.framework */,
-				9585CDB0237EFB6D0078AB61 /* Ophan */,
 				13B07FAE1A68108700A75B9A /* Daily */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* DailyTests */,
@@ -210,14 +215,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9585CDB0237EFB6D0078AB61 /* Ophan */ = {
+		95039A9F2382EE4F007A8492 /* Ophan */ = {
 			isa = PBXGroup;
 			children = (
-				9585CDB1237EFB6D0078AB61 /* Ophan.swift */,
-				9585CDB2237EFB6D0078AB61 /* Ophan.m */,
+				95039AA02382EE4F007A8492 /* Ophan.swift */,
+				95039AA12382EE4F007A8492 /* Ophan.m */,
 			);
 			name = Ophan;
-			path = ../../../Mallard/ios/Mallard/Ophan;
+			path = Daily/Ophan;
+			sourceTree = "<group>";
+		};
+		95039AA22382EE4F007A8492 /* ReleaseStream */ = {
+			isa = PBXGroup;
+			children = (
+				95039AA32382EE4F007A8492 /* ReleaseStream.swift */,
+				95039AA42382EE4F007A8492 /* ReleaseStream.m */,
+			);
+			name = ReleaseStream;
+			path = Daily/ReleaseStream;
 			sourceTree = "<group>";
 		};
 		CA51BEED64C95C5C3817F577 /* Pods */ = {
@@ -588,8 +603,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9585CDB4237EFB6D0078AB61 /* Ophan.m in Sources */,
-				9585CDB3237EFB6D0078AB61 /* Ophan.swift in Sources */,
+				95039AA62382EE4F007A8492 /* Ophan.m in Sources */,
+				95039AA82382EE4F007A8492 /* ReleaseStream.m in Sources */,
+				95039AA52382EE4F007A8492 /* Ophan.swift in Sources */,
+				95039AA72382EE4F007A8492 /* ReleaseStream.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);

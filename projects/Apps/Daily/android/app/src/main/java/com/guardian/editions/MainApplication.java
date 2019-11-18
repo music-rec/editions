@@ -13,6 +13,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.guardian.editions.ophan.RNOphanPackage;
+import com.guardian.editions.releasestream.ReleaseStreamPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           packages.add(new RNOphanPackage());
+          packages.add(new ReleaseStreamPackage());
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;
