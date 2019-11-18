@@ -7,7 +7,7 @@ import {
     CAPIArticle,
     ImageSize,
     Issue,
-} from '../../../common'
+} from '@guardian/editions-common'
 import { ArticleTheme } from '../types/article'
 import { Header, ArticleHeaderProps } from './components/header'
 import { Image } from './components/images'
@@ -16,7 +16,7 @@ import { Pullquote } from './components/pull-quote'
 import { makeCss } from './css'
 import { renderMediaAtom } from './components/media-atoms'
 import { useImagePath } from 'src/hooks/use-image-paths'
-import { Image as TImage } from '../../../../../common/src'
+import { Image as TImage } from '@guardian/editions-common'
 
 interface ArticleContentProps {
     showMedia: boolean

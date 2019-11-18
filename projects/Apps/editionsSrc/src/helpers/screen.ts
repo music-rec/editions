@@ -1,6 +1,10 @@
 import { Dimensions } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import { sizeDescriptions, ImageSize, imageSizes } from '../../../common/src'
+import {
+    sizeDescriptions,
+    ImageSize,
+    imageSizes,
+} from '@guardian/editions-common'
 import AsyncStorage from '@react-native-community/async-storage'
 
 export const maxScreenSize = (): number => {

@@ -8,10 +8,10 @@ Apps folder in projects
 Apps folder to be Yarn Workspace
 New "Mallard" in Apps Folder with common code and components
 
-## MONDAY
+Update the package naming convention
+Do some better research into Yarn workspaces to make sure its setup correctly.
 
 Test push notifications
-Release Stream
 Double check
 Update Application Ids and Version Numbers
 Sentry dependency changed

@@ -9,7 +9,7 @@ import {
     CreditedImage,
     Article,
     MediaAtomElement,
-} from '../../../../../../common/src'
+} from '@guardian/editions-common'
 import { CssProps, themeColors } from '../helpers/css'
 import { breakSides } from '../helpers/layout'
 import { Quotes } from './icon/quotes'

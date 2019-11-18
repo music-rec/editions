@@ -1,1 +1,1 @@
-export * from '../../common/src/index'
+export * from '@guardian/editions-common'
