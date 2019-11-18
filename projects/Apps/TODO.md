@@ -8,8 +8,8 @@ Apps folder in projects
 Apps folder to be Yarn Workspace
 New "Mallard" in Apps Folder with common code and components
 
-Put back Ophan firebase
-Firebase for Push Notifications
+## MONDAY
+
 Test push notifications
 Release Stream
 Double check

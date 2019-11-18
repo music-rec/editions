@@ -6,7 +6,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-// import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.guardian.editions.BuildConfig;
 import com.guardian.editions.R;
 
@@ -60,8 +60,7 @@ class RNOphanModule extends ReactContextBaseJavaModule {
 
     @Nonnull
     private static String getDeviceId() {
-        // return FirebaseInstanceId.getInstance().getId();
-        return "1245";
+        return FirebaseInstanceId.getInstance().getId();
     }
 
     @Nonnull
