@@ -5,18 +5,34 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* DailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DailyTests.m */; };
+		067D71AD1DD449A5B9FD0133 /* GuardianTextEgyptian-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCD260950BEC44FF8E2C54A9 /* GuardianTextEgyptian-Bold.ttf */; };
+		11B2E2430C3A40C4B67C42BF /* GuardianTextEgyptian-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 442E852D891E49A48C9A3866 /* GuardianTextEgyptian-BoldItalic.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		16AED0AB8B774644947FC3E3 /* GuardianTextSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 062B20A568A44749835ACD63 /* GuardianTextSans-BoldItalic.ttf */; };
+		263A33A4414441889FCA1F84 /* GuardianTextSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED945F8BFEE84D04B8798DBB /* GuardianTextSans-Bold.ttf */; };
+		2800EB2F6F8048F3A6D8E34B /* GHGuardianHeadline-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C632D7FB51A4168BB93196D /* GHGuardianHeadline-SemiboldItalic.ttf */; };
+		29B0FA0E90954538813C449A /* GuardianTextSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72E3919CE44434FAEC4E294 /* GuardianTextSans-Regular.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* DailyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DailyTests.m */; };
 		37E2AFD62FF5D74D44F51387 /* libPods-Daily-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5DD4A088AC1B6B8CC24047 /* libPods-Daily-tvOSTests.a */; };
+		382ED73D36174633A227C7F9 /* GHGuardianHeadline-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AC3BB91A8744C6ADB88493 /* GHGuardianHeadline-Semibold.ttf */; };
+		4870DD5AF6A244639483FED0 /* GHGuardianHeadline-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DFCFB826719A4DA3A73A1B65 /* GHGuardianHeadline-Medium.ttf */; };
+		567ECACBF29E48BFB09E2283 /* GHGuardianHeadline-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5DAFE54063D4A0CBE176807 /* GHGuardianHeadline-RegularItalic.ttf */; };
+		5E5E5DCFEE5F49CA91A37C48 /* GuardianTextSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B2F42683FBD4315BA30CDF1 /* GuardianTextSans-RegularItalic.ttf */; };
 		6BA2A2DB8E6251C9265D536C /* libPods-Daily.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC58C375D8309120C946E1E7 /* libPods-Daily.a */; };
 		7BF21B4F0C5D49271FE60940 /* libPods-DailyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7987C5F877681B35CBA903 /* libPods-DailyTests.a */; };
+		7E17A10A7FB14745BE866423 /* guardianIcons_1.12.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92562BD0E7C0470EB68C751A /* guardianIcons_1.12.otf */; };
+		8325D26EEB5F493E80A58578 /* GHGuardianHeadline-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33C8206F6B014E36BCDDF081 /* GHGuardianHeadline-Bold.ttf */; };
+		86ECFDCBC96D460CBBE9B05B /* GHGuardianHeadline-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4FB594A43AF466182907867 /* GHGuardianHeadline-BlackItalic.ttf */; };
+		891E5E9ACF6242AA974B9CDB /* SpaceMono-Regular copy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2BC2355A1B54F01BF3C481D /* SpaceMono-Regular copy.ttf */; };
+		8F0B2F29A49C411A9E4AC4AE /* GHGuardianHeadline-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C8469080C9841D0B322979C /* GHGuardianHeadline-Regular.ttf */; };
 		95039AA52382EE4F007A8492 /* Ophan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95039AA02382EE4F007A8492 /* Ophan.swift */; };
 		95039AA62382EE4F007A8492 /* Ophan.m in Sources */ = {isa = PBXBuildFile; fileRef = 95039AA12382EE4F007A8492 /* Ophan.m */; };
 		95039AA72382EE4F007A8492 /* ReleaseStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95039AA32382EE4F007A8492 /* ReleaseStream.swift */; };
@@ -24,34 +40,19 @@
 		9585CDAF237EFA030078AB61 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9585CDAE237EFA030078AB61 /* LaunchScreen.xib */; };
 		9585CDBF237F00560078AB61 /* ophan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9585CDBE237F00560078AB61 /* ophan.framework */; };
 		9585CDC0237F00560078AB61 /* ophan.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9585CDBE237F00560078AB61 /* ophan.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C939F093672842CE3164988E /* libPods-Daily-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF909E56508EF1539F22FF1E /* libPods-Daily-tvOS.a */; };
-		F6561122D4E34E2A8DFBEEA4 /* GHGuardianHeadline-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C203AA2DED849D9B41F0DFA /* GHGuardianHeadline-Black.ttf */; };
-		86ECFDCBC96D460CBBE9B05B /* GHGuardianHeadline-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4FB594A43AF466182907867 /* GHGuardianHeadline-BlackItalic.ttf */; };
-		8325D26EEB5F493E80A58578 /* GHGuardianHeadline-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33C8206F6B014E36BCDDF081 /* GHGuardianHeadline-Bold.ttf */; };
-		C6D789857A08498E89C62951 /* GHGuardianHeadline-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2EFEC7BA3304447A1F4B450 /* GHGuardianHeadline-BoldItalic.ttf */; };
-		F0A15950616E4F8F9B1100D4 /* GHGuardianHeadline-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 349014CF839C4E108FD76156 /* GHGuardianHeadline-Light.ttf */; };
-		D28C0E14FD2040959A635BD5 /* GHGuardianHeadline-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9059FDD5F23B47C082537379 /* GHGuardianHeadline-LightItalic.ttf */; };
-		4870DD5AF6A244639483FED0 /* GHGuardianHeadline-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DFCFB826719A4DA3A73A1B65 /* GHGuardianHeadline-Medium.ttf */; };
-		E77AD1D7D9144C88A484ED8F /* GHGuardianHeadline-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A8AF28F4144E708D190EC7 /* GHGuardianHeadline-MediumItalic.ttf */; };
-		8F0B2F29A49C411A9E4AC4AE /* GHGuardianHeadline-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C8469080C9841D0B322979C /* GHGuardianHeadline-Regular.ttf */; };
-		567ECACBF29E48BFB09E2283 /* GHGuardianHeadline-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5DAFE54063D4A0CBE176807 /* GHGuardianHeadline-RegularItalic.ttf */; };
-		382ED73D36174633A227C7F9 /* GHGuardianHeadline-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AC3BB91A8744C6ADB88493 /* GHGuardianHeadline-Semibold.ttf */; };
-		2800EB2F6F8048F3A6D8E34B /* GHGuardianHeadline-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C632D7FB51A4168BB93196D /* GHGuardianHeadline-SemiboldItalic.ttf */; };
-		B3133D9C4EB5497EBD34F04B /* GTGuardianDaily-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FB660FAE900D46E489A4389B /* GTGuardianDaily-Regular.otf */; };
-		E5DE1B0DFAFB42EDB90710D7 /* GTGuardianTitlepiece-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75CABE7609ED46B1BC7043BF /* GTGuardianTitlepiece-Bold.ttf */; };
-		7E17A10A7FB14745BE866423 /* guardianIcons_1.12.otf in Resources */ = {isa = PBXBuildFile; fileRef = 92562BD0E7C0470EB68C751A /* guardianIcons_1.12.otf */; };
-		D7BCD8BC52DB4FF48BBA96D3 /* GuardianIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F0D16273D3324948AD8D5FE1 /* GuardianIcons-Regular.otf */; };
-		067D71AD1DD449A5B9FD0133 /* GuardianTextEgyptian-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCD260950BEC44FF8E2C54A9 /* GuardianTextEgyptian-Bold.ttf */; };
-		11B2E2430C3A40C4B67C42BF /* GuardianTextEgyptian-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 442E852D891E49A48C9A3866 /* GuardianTextEgyptian-BoldItalic.ttf */; };
 		A3593D3021844F64966F155B /* GuardianTextEgyptian-Reg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6A2F34C44E144C88AB96426 /* GuardianTextEgyptian-Reg.ttf */; };
-		C8CE8C8010C147C698E131AE /* GuardianTextEgyptian-RegIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEBBD9F115CF4C099E9C5B3C /* GuardianTextEgyptian-RegIt.ttf */; };
-		263A33A4414441889FCA1F84 /* GuardianTextSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED945F8BFEE84D04B8798DBB /* GuardianTextSans-Bold.ttf */; };
-		16AED0AB8B774644947FC3E3 /* GuardianTextSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 062B20A568A44749835ACD63 /* GuardianTextSans-BoldItalic.ttf */; };
-		29B0FA0E90954538813C449A /* GuardianTextSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B72E3919CE44434FAEC4E294 /* GuardianTextSans-Regular.ttf */; };
-		5E5E5DCFEE5F49CA91A37C48 /* GuardianTextSans-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B2F42683FBD4315BA30CDF1 /* GuardianTextSans-RegularItalic.ttf */; };
 		AF27EE9F5885441D9F08DF29 /* GuardianWeatherIcons-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BD1B81D842D44319FCA44CF /* GuardianWeatherIcons-Regular.ttf */; };
-		891E5E9ACF6242AA974B9CDB /* SpaceMono-Regular copy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2BC2355A1B54F01BF3C481D /* SpaceMono-Regular copy.ttf */; };
+		B3133D9C4EB5497EBD34F04B /* GTGuardianDaily-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = FB660FAE900D46E489A4389B /* GTGuardianDaily-Regular.otf */; };
+		C6D789857A08498E89C62951 /* GHGuardianHeadline-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2EFEC7BA3304447A1F4B450 /* GHGuardianHeadline-BoldItalic.ttf */; };
+		C8CE8C8010C147C698E131AE /* GuardianTextEgyptian-RegIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEBBD9F115CF4C099E9C5B3C /* GuardianTextEgyptian-RegIt.ttf */; };
+		C939F093672842CE3164988E /* libPods-Daily-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF909E56508EF1539F22FF1E /* libPods-Daily-tvOS.a */; };
 		D20ABD6E0DD344CA87FFFD2A /* SpaceMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D35A8BC71D7942CCA6680798 /* SpaceMono-Regular.ttf */; };
+		D28C0E14FD2040959A635BD5 /* GHGuardianHeadline-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9059FDD5F23B47C082537379 /* GHGuardianHeadline-LightItalic.ttf */; };
+		D7BCD8BC52DB4FF48BBA96D3 /* GuardianIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F0D16273D3324948AD8D5FE1 /* GuardianIcons-Regular.otf */; };
+		E5DE1B0DFAFB42EDB90710D7 /* GTGuardianTitlepiece-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 75CABE7609ED46B1BC7043BF /* GTGuardianTitlepiece-Bold.ttf */; };
+		E77AD1D7D9144C88A484ED8F /* GHGuardianHeadline-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68A8AF28F4144E708D190EC7 /* GHGuardianHeadline-MediumItalic.ttf */; };
+		F0A15950616E4F8F9B1100D4 /* GHGuardianHeadline-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 349014CF839C4E108FD76156 /* GHGuardianHeadline-Light.ttf */; };
+		F6561122D4E34E2A8DFBEEA4 /* GHGuardianHeadline-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C203AA2DED849D9B41F0DFA /* GHGuardianHeadline-Black.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,16 +91,29 @@
 		00E356EE1AD99517003FC87E /* DailyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* DailyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DailyTests.m; sourceTree = "<group>"; };
+		062B20A568A44749835ACD63 /* GuardianTextSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextSans-BoldItalic.ttf"; path = "../assets/fonts/GuardianTextSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		0C203AA2DED849D9B41F0DFA /* GHGuardianHeadline-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-Black.ttf"; path = "../assets/fonts/GHGuardianHeadline-Black.ttf"; sourceTree = "<group>"; };
+		13AC3BB91A8744C6ADB88493 /* GHGuardianHeadline-Semibold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-Semibold.ttf"; path = "../assets/fonts/GHGuardianHeadline-Semibold.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Daily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Daily/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Daily/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Daily/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Daily/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Daily/main.m; sourceTree = "<group>"; };
+		1BD1B81D842D44319FCA44CF /* GuardianWeatherIcons-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianWeatherIcons-Regular.ttf"; path = "../assets/fonts/GuardianWeatherIcons-Regular.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Daily-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Daily-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Daily-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Daily-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33C8206F6B014E36BCDDF081 /* GHGuardianHeadline-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-Bold.ttf"; path = "../assets/fonts/GHGuardianHeadline-Bold.ttf"; sourceTree = "<group>"; };
+		349014CF839C4E108FD76156 /* GHGuardianHeadline-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-Light.ttf"; path = "../assets/fonts/GHGuardianHeadline-Light.ttf"; sourceTree = "<group>"; };
 		3C7987C5F877681B35CBA903 /* libPods-DailyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DailyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		442E852D891E49A48C9A3866 /* GuardianTextEgyptian-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextEgyptian-BoldItalic.ttf"; path = "../assets/fonts/GuardianTextEgyptian-BoldItalic.ttf"; sourceTree = "<group>"; };
 		4863E31D8929B3DDADA89E05 /* Pods-DailyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyTests.debug.xcconfig"; path = "Target Support Files/Pods-DailyTests/Pods-DailyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4C8469080C9841D0B322979C /* GHGuardianHeadline-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-Regular.ttf"; path = "../assets/fonts/GHGuardianHeadline-Regular.ttf"; sourceTree = "<group>"; };
+		68A8AF28F4144E708D190EC7 /* GHGuardianHeadline-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-MediumItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-MediumItalic.ttf"; sourceTree = "<group>"; };
+		75CABE7609ED46B1BC7043BF /* GTGuardianTitlepiece-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GTGuardianTitlepiece-Bold.ttf"; path = "../assets/fonts/GTGuardianTitlepiece-Bold.ttf"; sourceTree = "<group>"; };
+		7C632D7FB51A4168BB93196D /* GHGuardianHeadline-SemiboldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-SemiboldItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		9059FDD5F23B47C082537379 /* GHGuardianHeadline-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-LightItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-LightItalic.ttf"; sourceTree = "<group>"; };
+		92562BD0E7C0470EB68C751A /* guardianIcons_1.12.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = guardianIcons_1.12.otf; path = ../assets/fonts/guardianIcons_1.12.otf; sourceTree = "<group>"; };
 		95039AA02382EE4F007A8492 /* Ophan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ophan.swift; sourceTree = "<group>"; };
 		95039AA12382EE4F007A8492 /* Ophan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ophan.m; sourceTree = "<group>"; };
 		95039AA32382EE4F007A8492 /* ReleaseStream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseStream.swift; sourceTree = "<group>"; };
@@ -108,45 +122,32 @@
 		9585CDB5237EFB9C0078AB61 /* Mallard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Mallard-Bridging-Header.h"; path = "../../../Mallard/ios/Mallard-Bridging-Header.h"; sourceTree = "<group>"; };
 		9585CDB7237EFCEB0078AB61 /* ophan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ophan.framework; path = ../../ophan/build/bin/ios/releaseFramework/ophan.framework; sourceTree = "<group>"; };
 		9585CDBE237F00560078AB61 /* ophan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ophan.framework; path = ../../ophan/build/bin/ios/universalFramework/ophan.framework; sourceTree = "<group>"; };
+		9B2F42683FBD4315BA30CDF1 /* GuardianTextSans-RegularItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextSans-RegularItalic.ttf"; path = "../assets/fonts/GuardianTextSans-RegularItalic.ttf"; sourceTree = "<group>"; };
 		9DFCAB29AFF0EA01A9DC008C /* Pods-Daily-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Daily-tvOSTests/Pods-Daily-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A4FB594A43AF466182907867 /* GHGuardianHeadline-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-BlackItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-BlackItalic.ttf"; sourceTree = "<group>"; };
 		A73E84106AFC6C03241D8538 /* Pods-Daily-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Daily-tvOSTests/Pods-Daily-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		A854B986DEF3085F25E9AD65 /* Pods-DailyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyTests.release.xcconfig"; path = "Target Support Files/Pods-DailyTests/Pods-DailyTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC107C8BB7D09076AF10253D /* Pods-Daily-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Daily-tvOS/Pods-Daily-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		AEBBD9F115CF4C099E9C5B3C /* GuardianTextEgyptian-RegIt.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextEgyptian-RegIt.ttf"; path = "../assets/fonts/GuardianTextEgyptian-RegIt.ttf"; sourceTree = "<group>"; };
+		B72E3919CE44434FAEC4E294 /* GuardianTextSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextSans-Regular.ttf"; path = "../assets/fonts/GuardianTextSans-Regular.ttf"; sourceTree = "<group>"; };
 		BC58C375D8309120C946E1E7 /* libPods-Daily.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Daily.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCD260950BEC44FF8E2C54A9 /* GuardianTextEgyptian-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextEgyptian-Bold.ttf"; path = "../assets/fonts/GuardianTextEgyptian-Bold.ttf"; sourceTree = "<group>"; };
 		BE5DD4A088AC1B6B8CC24047 /* libPods-Daily-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Daily-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEA5AB4EAEE8192D9E2942A5 /* Pods-Daily-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Daily-tvOS/Pods-Daily-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C2BC2355A1B54F01BF3C481D /* SpaceMono-Regular copy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SpaceMono-Regular copy.ttf"; path = "../assets/fonts/SpaceMono-Regular copy.ttf"; sourceTree = "<group>"; };
+		C5DAFE54063D4A0CBE176807 /* GHGuardianHeadline-RegularItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-RegularItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-RegularItalic.ttf"; sourceTree = "<group>"; };
+		D2EFEC7BA3304447A1F4B450 /* GHGuardianHeadline-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-BoldItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-BoldItalic.ttf"; sourceTree = "<group>"; };
+		D35A8BC71D7942CCA6680798 /* SpaceMono-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SpaceMono-Regular.ttf"; path = "../assets/fonts/SpaceMono-Regular.ttf"; sourceTree = "<group>"; };
 		DF909E56508EF1539F22FF1E /* libPods-Daily-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Daily-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFCFB826719A4DA3A73A1B65 /* GHGuardianHeadline-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GHGuardianHeadline-Medium.ttf"; path = "../assets/fonts/GHGuardianHeadline-Medium.ttf"; sourceTree = "<group>"; };
+		E6A2F34C44E144C88AB96426 /* GuardianTextEgyptian-Reg.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextEgyptian-Reg.ttf"; path = "../assets/fonts/GuardianTextEgyptian-Reg.ttf"; sourceTree = "<group>"; };
 		E7D68A629E08B795A1F2FFA9 /* Pods-Daily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily.debug.xcconfig"; path = "Target Support Files/Pods-Daily/Pods-Daily.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		ED945F8BFEE84D04B8798DBB /* GuardianTextSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianTextSans-Bold.ttf"; path = "../assets/fonts/GuardianTextSans-Bold.ttf"; sourceTree = "<group>"; };
+		F0D16273D3324948AD8D5FE1 /* GuardianIcons-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GuardianIcons-Regular.otf"; path = "../assets/fonts/GuardianIcons-Regular.otf"; sourceTree = "<group>"; };
 		F744CBF17CF8F5EAB248E3F7 /* Pods-Daily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Daily.release.xcconfig"; path = "Target Support Files/Pods-Daily/Pods-Daily.release.xcconfig"; sourceTree = "<group>"; };
-		0C203AA2DED849D9B41F0DFA /* GHGuardianHeadline-Black.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-Black.ttf"; path = "../assets/fonts/GHGuardianHeadline-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A4FB594A43AF466182907867 /* GHGuardianHeadline-BlackItalic.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-BlackItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		33C8206F6B014E36BCDDF081 /* GHGuardianHeadline-Bold.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-Bold.ttf"; path = "../assets/fonts/GHGuardianHeadline-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D2EFEC7BA3304447A1F4B450 /* GHGuardianHeadline-BoldItalic.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-BoldItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		349014CF839C4E108FD76156 /* GHGuardianHeadline-Light.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-Light.ttf"; path = "../assets/fonts/GHGuardianHeadline-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9059FDD5F23B47C082537379 /* GHGuardianHeadline-LightItalic.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-LightItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DFCFB826719A4DA3A73A1B65 /* GHGuardianHeadline-Medium.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-Medium.ttf"; path = "../assets/fonts/GHGuardianHeadline-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		68A8AF28F4144E708D190EC7 /* GHGuardianHeadline-MediumItalic.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-MediumItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		4C8469080C9841D0B322979C /* GHGuardianHeadline-Regular.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-Regular.ttf"; path = "../assets/fonts/GHGuardianHeadline-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C5DAFE54063D4A0CBE176807 /* GHGuardianHeadline-RegularItalic.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-RegularItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-RegularItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		13AC3BB91A8744C6ADB88493 /* GHGuardianHeadline-Semibold.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-Semibold.ttf"; path = "../assets/fonts/GHGuardianHeadline-Semibold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7C632D7FB51A4168BB93196D /* GHGuardianHeadline-SemiboldItalic.ttf */ = {isa = PBXFileReference; name = "GHGuardianHeadline-SemiboldItalic.ttf"; path = "../assets/fonts/GHGuardianHeadline-SemiboldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FB660FAE900D46E489A4389B /* GTGuardianDaily-Regular.otf */ = {isa = PBXFileReference; name = "GTGuardianDaily-Regular.otf"; path = "../assets/fonts/GTGuardianDaily-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		75CABE7609ED46B1BC7043BF /* GTGuardianTitlepiece-Bold.ttf */ = {isa = PBXFileReference; name = "GTGuardianTitlepiece-Bold.ttf"; path = "../assets/fonts/GTGuardianTitlepiece-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		92562BD0E7C0470EB68C751A /* guardianIcons_1.12.otf */ = {isa = PBXFileReference; name = "guardianIcons_1.12.otf"; path = "../assets/fonts/guardianIcons_1.12.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F0D16273D3324948AD8D5FE1 /* GuardianIcons-Regular.otf */ = {isa = PBXFileReference; name = "GuardianIcons-Regular.otf"; path = "../assets/fonts/GuardianIcons-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		BCD260950BEC44FF8E2C54A9 /* GuardianTextEgyptian-Bold.ttf */ = {isa = PBXFileReference; name = "GuardianTextEgyptian-Bold.ttf"; path = "../assets/fonts/GuardianTextEgyptian-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		442E852D891E49A48C9A3866 /* GuardianTextEgyptian-BoldItalic.ttf */ = {isa = PBXFileReference; name = "GuardianTextEgyptian-BoldItalic.ttf"; path = "../assets/fonts/GuardianTextEgyptian-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E6A2F34C44E144C88AB96426 /* GuardianTextEgyptian-Reg.ttf */ = {isa = PBXFileReference; name = "GuardianTextEgyptian-Reg.ttf"; path = "../assets/fonts/GuardianTextEgyptian-Reg.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AEBBD9F115CF4C099E9C5B3C /* GuardianTextEgyptian-RegIt.ttf */ = {isa = PBXFileReference; name = "GuardianTextEgyptian-RegIt.ttf"; path = "../assets/fonts/GuardianTextEgyptian-RegIt.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		ED945F8BFEE84D04B8798DBB /* GuardianTextSans-Bold.ttf */ = {isa = PBXFileReference; name = "GuardianTextSans-Bold.ttf"; path = "../assets/fonts/GuardianTextSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		062B20A568A44749835ACD63 /* GuardianTextSans-BoldItalic.ttf */ = {isa = PBXFileReference; name = "GuardianTextSans-BoldItalic.ttf"; path = "../assets/fonts/GuardianTextSans-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B72E3919CE44434FAEC4E294 /* GuardianTextSans-Regular.ttf */ = {isa = PBXFileReference; name = "GuardianTextSans-Regular.ttf"; path = "../assets/fonts/GuardianTextSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9B2F42683FBD4315BA30CDF1 /* GuardianTextSans-RegularItalic.ttf */ = {isa = PBXFileReference; name = "GuardianTextSans-RegularItalic.ttf"; path = "../assets/fonts/GuardianTextSans-RegularItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1BD1B81D842D44319FCA44CF /* GuardianWeatherIcons-Regular.ttf */ = {isa = PBXFileReference; name = "GuardianWeatherIcons-Regular.ttf"; path = "../assets/fonts/GuardianWeatherIcons-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C2BC2355A1B54F01BF3C481D /* SpaceMono-Regular copy.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Regular copy.ttf"; path = "../assets/fonts/SpaceMono-Regular copy.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D35A8BC71D7942CCA6680798 /* SpaceMono-Regular.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Regular.ttf"; path = "../assets/fonts/SpaceMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FB660FAE900D46E489A4389B /* GTGuardianDaily-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GTGuardianDaily-Regular.otf"; path = "../assets/fonts/GTGuardianDaily-Regular.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,7 +306,7 @@
 			sourceTree = "<group>";
 		};
 		E1C3A22C5DCE4F869E97FD99 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				0C203AA2DED849D9B41F0DFA /* GHGuardianHeadline-Black.ttf */,
 				A4FB594A43AF466182907867 /* GHGuardianHeadline-BlackItalic.ttf */,
@@ -337,7 +338,6 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -822,7 +822,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.guardian.gce;
 				PRODUCT_NAME = Daily;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mallard-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -847,7 +847,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.guardian.gce;
 				PRODUCT_NAME = Daily;
 				SWIFT_OBJC_BRIDGING_HEADER = "Mallard-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
