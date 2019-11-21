@@ -7,12 +7,12 @@ import {
     View,
 } from 'react-native'
 import {
+    createStackNavigator,
     NavigationContainer,
     NavigationInjectedProps,
     NavigationRouteConfig,
     NavigationTransitionProps,
 } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
 import { ariaHidden } from 'src/helpers/a11y'
 import { supportsTransparentCards } from 'src/helpers/features'
 import { safeInterpolation } from 'src/helpers/math'

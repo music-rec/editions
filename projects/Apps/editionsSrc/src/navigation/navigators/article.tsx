@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react'
 import { Animated, Easing, StyleSheet } from 'react-native'
 import {
+    createStackNavigator,
     NavigationContainer,
     NavigationInjectedProps,
     NavigationRouteConfig,
     NavigationTransitionProps,
 } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
 import { ClipFromTop } from 'src/components/layout/animators/clipFromTop'
 import { supportsTransparentCards } from 'src/helpers/features'
 import { getScreenPositionOfItem } from 'src/navigation/navigators/article/positions'

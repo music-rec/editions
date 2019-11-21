@@ -18,8 +18,5 @@
         "babel.config.js",
         "metro.config.js",
         "jest.config.js"
-    ],
-    "paths": {
-        "@guardian/editions-common": ["../common"]
-    }
+    ]
 }

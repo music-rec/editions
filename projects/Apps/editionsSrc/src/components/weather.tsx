@@ -125,14 +125,18 @@ const styles = StyleSheet.create({
     },
     setLocationButtonWrap: {
         marginTop: metrics.vertical,
+        marginRight: metrics.horizontal * 0.5,
     },
     /**
      * Exceptionnally, make the button smaller so as to fit in the limited
      * space on smaller devices.
      */
     setLocationButton: {
-        paddingHorizontal: metrics.horizontal * 0.75,
-        height: metrics.buttonHeight * 0.75,
+        paddingHorizontal: metrics.horizontal * 0.65,
+        height: metrics.buttonHeight * 0.65,
+    },
+    setLocationText: {
+        fontSize: 12,
     },
 })
 
@@ -227,8 +231,12 @@ const SetLocationButton = withNavigation(
             <Button
                 onPress={onSetLocation}
                 appearance={ButtonAppearance.skeleton}
-                style={styles.setLocationButtonWrap}
+                style={[
+                    styles.locationNameContainer,
+                    styles.setLocationButtonWrap,
+                ]}
                 buttonStyles={styles.setLocationButton}
+                textStyles={styles.setLocationText}
             >
                 Set Location
             </Button>
@@ -239,32 +247,24 @@ const SetLocationButton = withNavigation(
 const LocationName = ({
     isLocationPrecise,
     locationName,
-    isUsingProdDevtools,
 }: {
     isLocationPrecise: boolean
     locationName: string
-    isUsingProdDevtools: boolean
 }) => {
-    if (!isLocationPrecise && isUsingProdDevtools) {
+    if (!isLocationPrecise) {
         return <SetLocationButton />
     }
     return (
-        <>
+        <View style={styles.locationNameContainer}>
             <Text style={styles.locationPinIcon}>{'\uE01B'}</Text>
             <Text style={styles.locationName} numberOfLines={2}>
                 {locationName}
             </Text>
-        </>
+        </View>
     )
 }
 
-const WeatherWithForecast = ({
-    weather,
-    isUsingProdDevtools,
-}: {
-    weather: Weather
-    isUsingProdDevtools: boolean
-}) => {
+const WeatherWithForecast = ({ weather }: { weather: Weather }) => {
     const { forecasts, locationName, isLocationPrecise } = weather
     if (forecasts && forecasts.length >= 9) {
         /*Get the hourly forecast in 2 hour intervals from the 12 hour forecast.*/
@@ -279,13 +279,10 @@ const WeatherWithForecast = ({
                         />
                     )
                 })}
-                <View style={styles.locationNameContainer}>
-                    <LocationName
-                        locationName={locationName}
-                        isLocationPrecise={isLocationPrecise}
-                        isUsingProdDevtools={isUsingProdDevtools}
-                    />
-                </View>
+                <LocationName
+                    locationName={locationName}
+                    isLocationPrecise={isLocationPrecise}
+                />
             </View>
         )
     }
@@ -302,12 +299,7 @@ const WeatherWidget = React.memo(() => {
 
     const { data } = query
     if (data.weather == null) return null
-    return (
-        <WeatherWithForecast
-            weather={data.weather}
-            isUsingProdDevtools={data.isUsingProdDevtools}
-        />
-    )
+    return <WeatherWithForecast weather={data.weather} />
 })
 
 export { WeatherWidget }

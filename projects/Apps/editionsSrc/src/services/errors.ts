@@ -1,4 +1,4 @@
-import Sentry from '@sentry/react-native'
+import Sentry from 'react-native-sentry'
 import Config from 'react-native-config'
 import { isInBeta } from 'src/helpers/release-stream'
 import ApolloClient from 'apollo-client'
