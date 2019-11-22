@@ -243,7 +243,7 @@ PODS:
     - React
   - RNDeviceInfo (5.3.0):
     - React
-  - RNGestureHandler (1.5.0):
+  - RNGestureHandler (1.5.1):
     - React
   - RNIap (4.2.2):
     - React
@@ -252,8 +252,6 @@ PODS:
   - RNKeychain (4.0.1):
     - React
   - RNPermissions (2.0.3):
-    - React
-  - RNReanimated (1.4.0):
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
@@ -321,7 +319,6 @@ DEPENDENCIES:
   - RNInAppBrowser (from `../../node_modules/react-native-inappbrowser-reborn`)
   - RNKeychain (from `../../node_modules/react-native-keychain`)
   - RNPermissions (from `../../node_modules/react-native-permissions`)
-  - RNReanimated (from `../../node_modules/react-native-reanimated`)
   - RNScreens (from `../../node_modules/react-native-screens`)
   - "RNSentry (from `../../node_modules/@sentry/react-native`)"
   - RNSVG (from `../../node_modules/react-native-svg`)
@@ -419,8 +416,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/react-native-keychain"
   RNPermissions:
     :path: "../../node_modules/react-native-permissions"
-  RNReanimated:
-    :path: "../../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../../node_modules/react-native-screens"
   RNSentry:
@@ -471,12 +466,11 @@ SPEC CHECKSUMS:
   RNCMaskedView: dd13f9f7b146a9ad82f9b7eb6c9b5548fcf6e990
   RNCPushNotificationIOS: 83ec11fe19d4ea9e32cc339d8e7d2cc3c88f543e
   RNDeviceInfo: f245326b5b61b80db7e9cbc9de6c75688572a4e0
-  RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
+  RNGestureHandler: 7add966bb5d90ee8cf38d4341f87814474357972
   RNIap: 9fd0dd03e7e646b1ea2493369373677fbfc5334c
   RNInAppBrowser: 24abaaff1fe1d8bea2492537ca32e455b14ef030
   RNKeychain: 45dbd50d1ac4bd42c3740f76ffb135abf05746d0
   RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
-  RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
   RNSentry: 932ac1c8b2f581b1c8be5812f88ff556c99e7fb7
   RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
