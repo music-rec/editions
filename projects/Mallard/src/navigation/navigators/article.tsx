@@ -1,16 +1,17 @@
 import React, { FunctionComponent } from 'react'
 import { Animated, Easing, StyleSheet } from 'react-native'
 import {
-    createStackNavigator,
     NavigationContainer,
     NavigationInjectedProps,
     NavigationRouteConfig,
     NavigationTransitionProps,
 } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
 import { ClipFromTop } from 'src/components/layout/animators/clipFromTop'
 import { supportsTransparentCards } from 'src/helpers/features'
-import { getScreenPositionOfItem } from 'src/navigation/navigators/article/positions'
+import { safeInterpolation, safeValue } from 'src/helpers/math'
 import { useDimensions } from 'src/hooks/use-screen'
+import { getScreenPositionOfItem } from 'src/navigation/navigators/article/positions'
 import { color } from 'src/theme/color'
 import { metrics } from 'src/theme/spacing'
 import { SlideCard } from '../../components/layout/slide-card/index'
@@ -21,7 +22,6 @@ import {
 } from '../helpers/transition'
 import { routeNames } from '../routes'
 import { articleScreenMotion, screenInterpolator } from './article/transition'
-import { safeInterpolation, safeValue } from 'src/helpers/math'
 
 const Dismissable = ({
     navigator,

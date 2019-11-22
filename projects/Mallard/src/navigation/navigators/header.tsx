@@ -1,14 +1,13 @@
+import React from 'react'
 import {
     NavigationContainer,
     NavigationInjectedProps,
-    createStackNavigator,
     NavigationParams,
 } from 'react-navigation'
-
-import React from 'react'
-import { Header } from 'src/components/layout/header/header'
+import { createStackNavigator } from 'react-navigation-stack'
 import { Button } from 'src/components/button/button'
 import { IssueTitle } from 'src/components/issue/issue-title'
+import { Header } from 'src/components/layout/header/header'
 import { addStaticRouter } from '../helpers/base'
 
 interface NavigationOptions {

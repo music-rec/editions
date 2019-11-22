@@ -1,16 +1,19 @@
+import gql from 'graphql-tag'
 import { useEffect } from 'react'
 import {
     createAppContainer,
-    createStackNavigator,
     createSwitchNavigator,
     NavigationScreenProp,
-    StackViewTransitionConfigs,
     NavigationTransitionProps,
 } from 'react-navigation'
+import {
+    createStackNavigator,
+    StackViewTransitionConfigs,
+} from 'react-navigation-stack'
+import { useQuery } from 'src/hooks/apollo'
 import { AuthSwitcherScreen } from 'src/screens/identity-login-screen'
 import { OnboardingConsentScreen } from 'src/screens/onboarding-screen'
 import { AlreadySubscribedScreen } from 'src/screens/settings/already-subscribed-screen'
-import { SubscriptionDetailsScreen } from 'src/screens/settings/subscription-details-screen'
 import { ApiScreen } from 'src/screens/settings/api-screen'
 import { CasSignInScreen } from 'src/screens/settings/cas-sign-in-screen'
 import { CreditsScreen } from 'src/screens/settings/credits-screen'
@@ -20,11 +23,14 @@ import {
     GdprConsentScreenForOnboarding,
 } from 'src/screens/settings/gdpr-consent-screen'
 import { HelpScreen } from 'src/screens/settings/help-screen'
+import { ManageEditionsScreen } from 'src/screens/settings/manage-editions-screen'
 import {
     PrivacyPolicyScreen,
     PrivacyPolicyScreenForOnboarding,
 } from 'src/screens/settings/privacy-policy-screen'
+import { SubscriptionDetailsScreen } from 'src/screens/settings/subscription-details-screen'
 import { TermsAndConditionsScreen } from 'src/screens/settings/terms-and-conditions-screen'
+import { WeatherGeolocationConsentScreen } from 'src/screens/weather-geolocation-consent-screen'
 import { color } from 'src/theme/color'
 import { ArticleScreen } from '../screens/article-screen'
 import { HomeScreen } from '../screens/home-screen'
@@ -36,10 +42,6 @@ import { createHeaderStackNavigator } from './navigators/header'
 import { createModalNavigator } from './navigators/modal'
 import { createUnderlayNavigator } from './navigators/underlay'
 import { routeNames } from './routes'
-import { useQuery } from 'src/hooks/apollo'
-import gql from 'graphql-tag'
-import { ManageEditionsScreen } from 'src/screens/settings/manage-editions-screen'
-import { WeatherGeolocationConsentScreen } from 'src/screens/weather-geolocation-consent-screen'
 
 const navOptionsWithGraunHeader = {
     headerStyle: {

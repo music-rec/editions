@@ -1,18 +1,18 @@
+import React from 'react'
+import { Animated } from 'react-native'
 import {
-    NavigationContainer,
     AnimatedValue,
+    NavigationContainer,
     NavigationInjectedProps,
+} from 'react-navigation'
+import {
     createStackNavigator,
     StackViewTransitionConfigs,
-} from 'react-navigation'
-
-import React from 'react'
-
-import { Animated } from 'react-native'
+} from 'react-navigation-stack'
 import { ModalForTablet } from 'src/components/layout/ui/modal-for-tablet'
-import { addStaticRouter } from '../helpers/base'
 import { supportsTransparentCards } from 'src/helpers/features'
 import { safeInterpolation } from 'src/helpers/math'
+import { addStaticRouter } from '../helpers/base'
 
 const addStaticRouterWithModal = (
     Navigator: NavigationContainer,
