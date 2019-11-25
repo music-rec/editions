@@ -54,12 +54,14 @@ const useInsets = () => {
     })
     useEffect(() => {
         const updateInsets = () => {
-            currentInsets().then(insets => {
-                setInsets({
-                    ...insets,
-                    top: insets.top ? insets.top : getStatusBarHeight(true),
+            currentInsets()
+                .then(insets => {
+                    setInsets({
+                        ...insets,
+                        top: insets.top ? insets.top : getStatusBarHeight(true),
+                    })
                 })
-            })
+                .catch(e => console.log(e))
         }
         updateInsets()
         Dimensions.addEventListener('change', () => {

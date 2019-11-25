@@ -55,6 +55,7 @@ import {
 } from 'src/helpers/transform'
 import { FrontSpec } from './article-screen'
 import { ErrorBoundary } from 'src/components/layout/ui/errors/error-boundary'
+import { useNavPosition } from 'src/hooks/use-nav-position'
 
 const styles = StyleSheet.create({
     shownWeather: {
@@ -167,20 +168,24 @@ const IssueFronts = ({
                         ...front,
                         cards: flatCollections,
                     })
-                    const specs = flattenFlatCardsToFront(flatCollections).map(
-                        ({ article, collection }) => ({
+                    const specs = flattenFlatCardsToFront(flatCollections)
+                        // Exlude crosswords because we don't want to be able to
+                        // "slide" onto them.
+                        .filter(({ article }) => article.type !== 'crossword')
+                        .map(({ article, collection }) => ({
                             collection: collection.key,
                             front: front.key,
                             article: article.key,
                             localIssueId: issue.localId,
                             publishedIssueId: issue.publishedId,
-                        }),
-                    )
-                    acc.frontSpecs.push({
-                        appearance: front.appearance,
-                        frontName: front.displayName || '',
-                        articleSpecs: specs,
-                    })
+                        }))
+                    if (specs.length > 0) {
+                        acc.frontSpecs.push({
+                            appearance: front.appearance,
+                            frontName: front.displayName || '',
+                            articleSpecs: specs,
+                        })
+                    }
                     return acc
                 },
                 {
@@ -193,6 +198,25 @@ const IssueFronts = ({
             ),
         [issue.localId, issue.publishedId, issue.fronts],
     )
+
+    const { position, trigger, setTrigger } = useNavPosition()
+
+    useEffect(() => {
+        if (trigger && frontWithCards) {
+            const frontToScrollTo = frontWithCards.find(obj => {
+                return obj.displayName === position.frontId
+            })
+
+            const index = frontToScrollTo
+                ? frontWithCards.findIndex(front => front === frontToScrollTo)
+                : 0
+
+            if (ref && ref.current && ref.current.scrollToIndex) {
+                ref.current.scrollToIndex({ animated: false, index })
+            }
+            setTrigger(false)
+        }
+    }, [trigger, position.frontId, setTrigger, frontWithCards])
 
     /* setting a key will force a rerender on rotation, removing 1000s of layout bugs */
     return (
