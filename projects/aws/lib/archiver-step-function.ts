@@ -19,7 +19,7 @@ export const archiverStepFunction = (
 ) => {
     const frontsTopicRole = iam.Role.fromRoleArn(
         scope,
-        'fronts-topic-role',
+        'fronts-topic-role-archiver',
         frontsTopicRoleArn,
     )
 

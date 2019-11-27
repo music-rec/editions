@@ -7,9 +7,11 @@ import iam = require('@aws-cdk/aws-iam')
 import cloudfront = require('@aws-cdk/aws-cloudfront')
 import { CfnOutput, Duration, Tag } from '@aws-cdk/core'
 
-import { archiverStepFunction } from './step-function'
+import { archiverStepFunction } from './archiver-step-function'
+import { publisherStepFunction } from './publisher-step-function'
 import acm = require('@aws-cdk/aws-certificatemanager')
 import { Effect } from '@aws-cdk/aws-iam'
+
 export class EditionsStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props)
@@ -82,6 +84,20 @@ export class EditionsStack extends cdk.Stack {
                     'editions-store',
                     'editions-store-prod',
                     'editions-store-code',
+                ], //remove editions-store post merge
+            },
+        )
+
+        const proofBucketParameter = new cdk.CfnParameter(
+            this,
+            'proof-bucket-param',
+            {
+                type: 'String',
+                description: 'Proof Bucket',
+                allowedValues: [
+                    'editions-proof',
+                    'editions-proof-prod',
+                    'editions-proof-code',
                 ], //remove editions-store post merge
             },
         )
@@ -284,6 +300,12 @@ export class EditionsStack extends cdk.Stack {
             archiveBucketParameter.valueAsString,
         )
 
+        const proof = s3.Bucket.fromBucketName(
+            this,
+            'proof-bucket',
+            proofBucketParameter.valueAsString,
+        )
+
         const publishedBucket = s3.Bucket.fromBucketName(
             this,
             'published-bucket',
@@ -291,8 +313,18 @@ export class EditionsStack extends cdk.Stack {
         )
 
         //Archiver step function
-
         const archiverStateMachine = archiverStepFunction(this, {
+            stack: stackParameter.valueAsString,
+            stage: stageParameter.valueAsString,
+            deployBucket,
+            outputBucket: proof,
+            backendURL,
+            frontsTopicArn: frontsTopicARN.valueAsString,
+            frontsTopicRoleArn: frontsTopicRoleARN.valueAsString,
+            guNotifyServiceApiKey: guNotifyServiceApiKeyParameter.valueAsString,
+        })
+
+        const publisherStateMachine = publisherStepFunction(this, {
             stack: stackParameter.valueAsString,
             stage: stageParameter.valueAsString,
             deployBucket,
@@ -307,6 +339,12 @@ export class EditionsStack extends cdk.Stack {
             description: 'ARN for archiver state machine',
             exportName: `archiver-state-machine-arn-${stageParameter.valueAsString}`,
             value: archiverStateMachine.stateMachineArn,
+        })
+
+        new CfnOutput(this, 'publish-state-machine-arn', {
+            description: 'ARN for publish state machine',
+            exportName: `publish-state-machine-arn-${stageParameter.valueAsString}`,
+            value: publisherStateMachine.stateMachineArn,
         })
 
         const archiveS3EventListenerFunction = () => {
@@ -358,7 +396,6 @@ export class EditionsStack extends cdk.Stack {
                 sourceArn: publishedBucket.bucketArn,
             },
         )
-
         archiveS3EventListener.addToRolePolicy(
             new iam.PolicyStatement({
                 actions: ['sts:AssumeRole'],
