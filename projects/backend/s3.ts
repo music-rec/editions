@@ -27,11 +27,11 @@ const s3 = new S3({
     region: 'eu-west-1',
     credentials: process.env.arn
         ? new ChainableTemporaryCredentials({
-              params: {
-                  RoleArn: process.env.arn as string,
-                  RoleSessionName: 'front-assume-role-access',
-              },
-          })
+            params: {
+                RoleArn: process.env.arn as string,
+                RoleSessionName: 'front-assume-role-access',
+            },
+        })
         : new SharedIniFileCredentials({ profile: 'cmsFronts' }),
 })
 
@@ -89,66 +89,65 @@ export const s3List = async (
 }
 export const s3fetch = (path: Path): Promise<Attempt<S3Response>> => {
     return new Promise(resolve => {
-        s3.getObject(
-            {
-                Key: path.key,
-                Bucket: getBucket(path.bucket),
-            },
-            (error, result) => {
-                if (error && error.code == 'NoSuchKey') {
-                    resolve(
-                        failure({
-                            httpStatus: 404,
-                            error: new Error(
-                                `Could not find key ${JSON.stringify(path)}`,
-                            ),
-                        }),
-                    )
-                    return
-                }
-                if (error)
-                    resolve(
-                        failure({
-                            httpStatus: 500,
-                            error,
-                            messages: [error.message],
-                        }),
-                    )
+        const getParams = {
+            Key: path.key,
+            Bucket: getBucket(path.bucket),
+        }
+        console.log(`Fetching ${JSON.stringify(getParams)}`)
+        s3.getObject(getParams, (error, result) => {
+            if (error && error.code == 'NoSuchKey') {
+                resolve(
+                    failure({
+                        httpStatus: 404,
+                        error: new Error(
+                            `Could not find key ${JSON.stringify(path)}`,
+                        ),
+                    }),
+                )
+                return
+            }
+            if (error)
+                resolve(
+                    failure({
+                        httpStatus: 500,
+                        error,
+                        messages: [error.message],
+                    }),
+                )
 
-                if (result == undefined) {
-                    resolve(
-                        failure({
-                            httpStatus: 500,
-                            error: new Error(
-                                `Neither result nor error in s3 response for  ${JSON.stringify(
-                                    path,
-                                )}`,
-                            ),
-                        }),
-                    )
-                    return
-                }
-                const body = result.Body
+            if (result == undefined) {
+                resolve(
+                    failure({
+                        httpStatus: 500,
+                        error: new Error(
+                            `Neither result nor error in s3 response for  ${JSON.stringify(
+                                path,
+                            )}`,
+                        ),
+                    }),
+                )
+                return
+            }
+            const body = result.Body
 
-                if (body == undefined) {
-                    resolve(
-                        failure({
-                            httpStatus: 500,
-                            error: new Error(
-                                `Undefined body for ${JSON.stringify(path)}`,
-                            ),
-                        }),
-                    )
-                    return
-                }
+            if (body == undefined) {
+                resolve(
+                    failure({
+                        httpStatus: 500,
+                        error: new Error(
+                            `Undefined body for ${JSON.stringify(path)}`,
+                        ),
+                    }),
+                )
+                return
+            }
 
-                resolve({
-                    text: async () => body.toString(),
-                    json: async () => JSON.parse(body.toString()),
-                    lastModified: result.LastModified,
-                    etag: result.ETag,
-                })
-            },
-        )
+            resolve({
+                text: async () => body.toString(),
+                json: async () => JSON.parse(body.toString()),
+                lastModified: result.LastModified,
+                etag: result.ETag,
+            })
+        })
     })
 }
