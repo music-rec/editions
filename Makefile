@@ -53,4 +53,4 @@ clean:
 	@echo "\n🗑 cleaning\n"
 	rm -rf projects/*/node_modules
 	rm -rf node_modules
-	rm projects/aws/bin/*.js projects/aws/bin/*.d.ts projects/aws/lib/*.js projects/aws/lib/*.d.ts
+	rm -f projects/aws/bin/*.js projects/aws/bin/*.d.ts projects/aws/lib/*.js projects/aws/lib/*.d.ts
