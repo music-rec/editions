@@ -27,11 +27,11 @@ const s3 = new S3({
     region: 'eu-west-1',
     credentials: process.env.arn
         ? new ChainableTemporaryCredentials({
-            params: {
-                RoleArn: process.env.arn as string,
-                RoleSessionName: 'front-assume-role-access',
-            },
-        })
+              params: {
+                  RoleArn: process.env.arn as string,
+                  RoleSessionName: 'front-assume-role-access',
+              },
+          })
         : new SharedIniFileCredentials({ profile: 'cmsFronts' }),
 })
 
