@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: metrics.horizontal * 1.5,
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'row',
         height,
     },
     text: {
@@ -194,6 +195,7 @@ const Button = ({
                             { textAlign: center ? 'center' : 'auto' },
                             defaultButtonStyles.text,
                             textStyles,
+                            { marginLeft: icon ? metrics.horizontal * 0.5 : 0 },
                         ]}
                     >
                         {innards.children}

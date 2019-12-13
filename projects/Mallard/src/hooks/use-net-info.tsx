@@ -205,7 +205,7 @@ const NetInfoProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <StableNetInfoContext.Provider value={value}>
             {children}
-            {__DEV__ && (
+            {/* {__DEV__ && (
                 <View style={devToggleStyles.bg}>
                     <TouchableWithoutFeedback
                         onPress={() =>
@@ -220,7 +220,7 @@ const NetInfoProvider = ({ children }: { children: React.ReactNode }) => {
                         </Text>
                     </TouchableWithoutFeedback>
                 </View>
-            )}
+            )} */}
         </StableNetInfoContext.Provider>
     )
 }

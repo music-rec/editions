@@ -9,6 +9,8 @@ import { metrics } from 'src/theme/spacing'
 import { getFont } from 'src/theme/typography'
 import { UiBodyCopy } from '../styled-text'
 import { safeInterpolation } from 'src/helpers/math'
+import { palette } from '@guardian/pasteup/palette'
+import { Button } from '../button/button'
 
 export interface ToastProps {
     title: string
@@ -26,6 +28,19 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
     },
     title: getFont('headline', 1, 'bold'),
+    root: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+    },
+    newEditionNotice: {
+        backgroundColor: color.palette.brand.main,
+        padding: metrics.sides,
+        paddingBottom: metrics.vertical * 2,
+        borderColor: color.palette.brand.dark,
+        borderTopWidth: 2,
+    },
 })
 
 const Toast = ({ title, subtitle }: ToastProps) => {
@@ -59,22 +74,30 @@ const Toast = ({ title, subtitle }: ToastProps) => {
     )
 }
 
-const holderStyles = StyleSheet.create({
-    root: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-    },
-})
+const NewEditionNotice = () => {
+    return (
+        <View style={styles.newEditionNotice}>
+            <HeadlineText
+                weight="bold"
+                style={{ color: palette.highlight.main }}
+            >
+                New edition available
+            </HeadlineText>
+            <View style={{ flexDirection: 'row', marginTop: metrics.vertical }}>
+                <Button icon={'\ue045'}>Refresh</Button>
+            </View>
+        </View>
+    )
+}
 
 const ToastRootHolder = ({}) => {
     const toasts = useToastList()
     return (
-        <View style={holderStyles.root}>
+        <View style={styles.root}>
             {toasts.map((toast, i) => (
                 <Toast {...toast} key={i + toast.title} />
             ))}
+            <NewEditionNotice />
         </View>
     )
 }
