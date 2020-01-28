@@ -87,7 +87,9 @@ const WebviewWithArticle = ({
     })
 
     const testPath = FSPaths.issuesDir + '/testZip/index.html'
+    const uri = Platform.OS === 'android' ? `file://${testPath}` : testPath
 
+    console.log(uri)
     return (
         <WebView
             {...webViewProps}
@@ -98,7 +100,7 @@ const WebviewWithArticle = ({
             //     baseUrl:
             //         '' /* required as per https://stackoverflow.com/a/51931187/609907 */,
             // }}
-            source={{ uri: testPath }}
+            source={{ uri }}
             ref={_ref}
             onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
             allowFileAccess={true}
