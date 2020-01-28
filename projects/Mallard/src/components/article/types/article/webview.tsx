@@ -103,6 +103,8 @@ const WebviewWithArticle = ({
             onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
             allowFileAccess={true}
             allowFileAccessFromFileURLs={true}
+            allowUniversalAccessFromFileURLs={true}
+            allowingReadAccessToURL={FSPaths.issuesDir}
         />
     )
 }
