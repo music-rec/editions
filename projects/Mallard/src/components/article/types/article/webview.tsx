@@ -86,16 +86,19 @@ const WebviewWithArticle = ({
         getImagePath,
     })
 
+    const testPath = FSPaths.issuesDir + '/testZip/index.html'
+
     return (
         <WebView
             {...webViewProps}
             originWhitelist={['*']}
             scrollEnabled={true}
-            source={{
-                html,
-                baseUrl:
-                    '' /* required as per https://stackoverflow.com/a/51931187/609907 */,
-            }}
+            // source={{
+            //     html,
+            //     baseUrl:
+            //         '' /* required as per https://stackoverflow.com/a/51931187/609907 */,
+            // }}
+            source={{ uri: testPath }}
             ref={_ref}
             onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
             allowFileAccess={true}

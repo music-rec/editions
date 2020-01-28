@@ -20,13 +20,14 @@ import { setIsUsingProdDevtools } from 'src/helpers/settings/setters'
 import { useQuery } from 'src/hooks/apollo'
 import gql from 'graphql-tag'
 import { getPushTracking, clearPushTracking } from 'src/helpers/push-tracking'
-import { getFileList } from 'src/helpers/files'
+import { getFileList, unzipNamedIssueArchive } from 'src/helpers/files'
 import { deleteIssueFiles } from 'src/helpers/files'
 import { DEV_getLegacyIAPReceipt } from 'src/authentication/services/iap'
 import { Switch } from 'react-native-gesture-handler'
 import { useNetInfo } from 'src/hooks/use-net-info'
 import { locale } from 'src/helpers/locale'
 import { imageForScreenSize } from 'src/helpers/screen'
+import RNFetchBlob from 'rn-fetch-blob'
 
 const ButtonList = ({ children }: { children: ReactNode }) => {
     return (
@@ -128,6 +129,25 @@ const DevZone = withNavigation(({ navigation }: NavigationInjectedProps) => {
                     }}
                 >
                     Pop a toast
+                </Button>
+                <Button
+                    onPress={async () => {
+                        try {
+                            const testDownload = await RNFetchBlob.config({
+                                fileCache: true,
+                                overwrite: true,
+                                IOSBackgroundTask: true,
+                            }).fetch(
+                                'GET',
+                                'http://editions-store-prod.s3-eu-west-1.amazonaws.com/testZip.zip',
+                            )
+                            await unzipNamedIssueArchive(testDownload.path())
+                        } catch (e) {
+                            Alert.alert(JSON.stringify(e))
+                        }
+                    }}
+                >
+                    Download webview test zip
                 </Button>
                 {isInBeta() && (
                     <Button onPress={() => DEV_getLegacyIAPReceipt()}>
