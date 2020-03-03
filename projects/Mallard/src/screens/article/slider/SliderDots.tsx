@@ -1,7 +1,11 @@
 import React from 'react'
 import { Animated, Platform, StyleSheet, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
+import {
+    useLargeDeviceMemory,
+    useDimensions,
+    useDotsAllowed,
+} from 'src/hooks/use-config-provider'
 import { metrics } from 'src/theme/spacing'
 
 interface SliderDotsProps {
@@ -11,6 +15,9 @@ interface SliderDotsProps {
     position: Animated.AnimatedInterpolation
     startIndex?: number
 }
+
+const DOT_ARTICLE_WIDTH = 8
+const DOT_ARTICLE_MARGIN = 2
 
 const styles = (color: string, location: string, isTablet: boolean) => {
     const dotBuilder = (size: number, marginRight: number) => ({
@@ -22,7 +29,7 @@ const styles = (color: string, location: string, isTablet: boolean) => {
 
     const dotFront = isTablet ? dotBuilder(14, 7) : dotBuilder(10, 4)
 
-    const dotArticle = dotBuilder(8, 2)
+    const dotArticle = dotBuilder(DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN)
 
     const dot = location === 'article' ? dotArticle : dotFront
 
@@ -49,6 +56,7 @@ const SliderDots = React.memo(
         const dots = []
         const isTablet = DeviceInfo.isTablet()
         const appliedStyle = styles(color, location, isTablet)
+        const dotsAllowed = useDotsAllowed()
 
         const newPos: any =
             Platform.OS === 'android' && startIndex
@@ -99,8 +107,22 @@ const SliderDots = React.memo(
             )
         }
 
-        return <View style={appliedStyle.dotsContainer}>{dots}</View>
+        console.log(dotsAllowed, numOfItems)
+
+        return (
+            <View
+                style={[
+                    appliedStyle.dotsContainer,
+                    {
+                        backgroundColor:
+                            dotsAllowed > numOfItems ? 'green' : 'red',
+                    },
+                ]}
+            >
+                {dots}
+            </View>
+        )
     },
 )
 
-export { SliderDots, SliderDotsProps }
+export { SliderDots, SliderDotsProps, DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN }
