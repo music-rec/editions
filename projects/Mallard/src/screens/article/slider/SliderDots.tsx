@@ -3,7 +3,6 @@ import { Animated, Platform, StyleSheet, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import {
     useLargeDeviceMemory,
-    useDimensions,
     useDotsAllowed,
 } from 'src/hooks/use-config-provider'
 import { metrics } from 'src/theme/spacing'
@@ -18,6 +17,14 @@ interface SliderDotsProps {
 
 const DOT_ARTICLE_WIDTH = 8
 const DOT_ARTICLE_MARGIN = 2
+const DOT_ARTICLE_SMALL_WIDTH = 6
+const DOT_ARTICLE_SMALL_MARGIN = 3
+const DOT_ARTICLE_TINY_WIDTH = 4
+const DOT_ARTICLE_TINY_MARGIN = 3
+
+// if numofitems > dotsAllowed then start with small and tiny dot at end
+// Maintain visual state of the dots until you hit an edge
+// ALways 3 from the end unless you are in the last/first 2
 
 const styles = (color: string, location: string, isTablet: boolean) => {
     const dotBuilder = (size: number, marginRight: number) => ({
@@ -83,6 +90,8 @@ const SliderDots = React.memo(
                       outputRange: ['#DCDCDC', color, '#DCDCDC'],
                   }
 
+        console.log(newPos)
+
         for (let i = 0; i < numOfItems; i++) {
             const backgroundColor =
                 Platform.OS === 'android' && location === 'article'
@@ -107,8 +116,6 @@ const SliderDots = React.memo(
             )
         }
 
-        console.log(dotsAllowed, numOfItems)
-
         return (
             <View
                 style={[
@@ -125,4 +132,13 @@ const SliderDots = React.memo(
     },
 )
 
-export { SliderDots, SliderDotsProps, DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN }
+export {
+    SliderDots,
+    SliderDotsProps,
+    DOT_ARTICLE_WIDTH,
+    DOT_ARTICLE_MARGIN,
+    DOT_ARTICLE_SMALL_WIDTH,
+    DOT_ARTICLE_SMALL_MARGIN,
+    DOT_ARTICLE_TINY_WIDTH,
+    DOT_ARTICLE_TINY_MARGIN,
+}
