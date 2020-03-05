@@ -2,39 +2,12 @@ import React from 'react'
 import { Animated, Platform, StyleSheet, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
-import { metrics } from 'src/theme/spacing'
-import { DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN } from './constants'
 import { SliderDotsProps } from './types'
+import { styles } from './styles'
 
 // if numofitems > dotsAllowed then start with small and tiny dot at end
 // Maintain visual state of the dots until you hit an edge
 // ALways 3 from the end unless you are in the last/first 2
-
-const styles = (color: string, location: string, isTablet: boolean) => {
-    const dotBuilder = (size: number, marginRight: number) => ({
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        marginRight,
-    })
-
-    const dotFront = isTablet ? dotBuilder(14, 7) : dotBuilder(10, 4)
-
-    const dotArticle = dotBuilder(DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN)
-
-    const dot = location === 'article' ? dotArticle : dotFront
-
-    return StyleSheet.create({
-        dotsContainer: {
-            flexDirection: 'row',
-            paddingTop: metrics.vertical,
-        },
-        dot,
-        selected: {
-            backgroundColor: color,
-        },
-    })
-}
 
 const SliderDots = React.memo(
     ({
