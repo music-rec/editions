@@ -2,7 +2,7 @@ import React from 'react'
 import { Animated, Platform, StyleSheet, Text, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { getFont } from 'src/theme/typography'
-import { SliderDots } from './SliderDots'
+import { SliderDotsChoice } from './slider-dots'
 
 const SLIDER_FRONT_HEIGHT = DeviceInfo.isTablet()
     ? Platform.OS === 'android'
@@ -93,7 +93,7 @@ const SliderTitle = React.memo(
                     )}
                 </View>
                 {numOfItems > 1 && (
-                    <SliderDots
+                    <SliderDotsChoice
                         numOfItems={numOfItems}
                         color={color}
                         location={location}

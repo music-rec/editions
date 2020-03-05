@@ -6,7 +6,7 @@ import { metrics } from 'src/theme/spacing'
 import {
     DOT_ARTICLE_WIDTH,
     DOT_ARTICLE_MARGIN,
-} from 'src/screens/article/slider/SliderDots'
+} from 'src/screens/article/slider/slider-dots/constants'
 
 const oneGB = 1073741824
 

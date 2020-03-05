@@ -1,26 +1,10 @@
 import React from 'react'
 import { Animated, Platform, StyleSheet, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import {
-    useLargeDeviceMemory,
-    useDotsAllowed,
-} from 'src/hooks/use-config-provider'
+import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
 import { metrics } from 'src/theme/spacing'
-
-interface SliderDotsProps {
-    numOfItems: number
-    color: string
-    location?: 'article' | 'front'
-    position: Animated.AnimatedInterpolation
-    startIndex?: number
-}
-
-const DOT_ARTICLE_WIDTH = 8
-const DOT_ARTICLE_MARGIN = 2
-const DOT_ARTICLE_SMALL_WIDTH = 6
-const DOT_ARTICLE_SMALL_MARGIN = 3
-const DOT_ARTICLE_TINY_WIDTH = 4
-const DOT_ARTICLE_TINY_MARGIN = 3
+import { DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN } from './constants'
+import { SliderDotsProps } from './types'
 
 // if numofitems > dotsAllowed then start with small and tiny dot at end
 // Maintain visual state of the dots until you hit an edge
@@ -63,7 +47,6 @@ const SliderDots = React.memo(
         const dots = []
         const isTablet = DeviceInfo.isTablet()
         const appliedStyle = styles(color, location, isTablet)
-        const dotsAllowed = useDotsAllowed()
 
         const newPos: any =
             Platform.OS === 'android' && startIndex
@@ -89,8 +72,6 @@ const SliderDots = React.memo(
                       inputRange: [i - 1, i, i + 1],
                       outputRange: ['#DCDCDC', color, '#DCDCDC'],
                   }
-
-        console.log(newPos)
 
         for (let i = 0; i < numOfItems; i++) {
             const backgroundColor =
@@ -121,8 +102,7 @@ const SliderDots = React.memo(
                 style={[
                     appliedStyle.dotsContainer,
                     {
-                        backgroundColor:
-                            dotsAllowed > numOfItems ? 'green' : 'red',
+                        backgroundColor: 'green',
                     },
                 ]}
             >
@@ -132,13 +112,4 @@ const SliderDots = React.memo(
     },
 )
 
-export {
-    SliderDots,
-    SliderDotsProps,
-    DOT_ARTICLE_WIDTH,
-    DOT_ARTICLE_MARGIN,
-    DOT_ARTICLE_SMALL_WIDTH,
-    DOT_ARTICLE_SMALL_MARGIN,
-    DOT_ARTICLE_TINY_WIDTH,
-    DOT_ARTICLE_TINY_MARGIN,
-}
+export { SliderDots }
