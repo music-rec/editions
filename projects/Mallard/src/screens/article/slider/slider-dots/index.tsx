@@ -6,9 +6,10 @@ import { SliderDotsOverflow } from './SliderDotsOverflow'
 
 const SliderDotsChoice = (props: SliderDotsProps) => {
     const dotsAllowed = useDotsAllowed()
+    console.log(props.direction)
 
     return props.numOfItems > dotsAllowed ? (
-        <SliderDotsOverflow {...props} />
+        <SliderDotsOverflow {...props} dotsAllowed={dotsAllowed} />
     ) : (
         <SliderDots {...props} />
     )

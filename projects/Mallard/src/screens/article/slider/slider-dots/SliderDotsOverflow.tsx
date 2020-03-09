@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated, Platform, StyleSheet, View } from 'react-native'
+import { Animated, Platform, View } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
 import { SliderDotsProps } from './types'
@@ -16,7 +16,10 @@ const SliderDotsOverflow = React.memo(
         location = 'article',
         position,
         startIndex,
+        direction,
+        dotsAllowed,
     }: SliderDotsProps) => {
+        console.log(direction)
         const dots = []
         const isTablet = DeviceInfo.isTablet()
         const appliedStyle = styles(color, location, isTablet)
@@ -46,9 +49,9 @@ const SliderDotsOverflow = React.memo(
                       outputRange: ['#DCDCDC', color, '#DCDCDC'],
                   }
 
-        console.log(newPos)
+        // console.log(newPos)
 
-        for (let i = 0; i < numOfItems; i++) {
+        for (let i = 0; i < dotsAllowed; i++) {
             const backgroundColor =
                 Platform.OS === 'android' && location === 'article'
                     ? i === newPos
@@ -59,6 +62,18 @@ const SliderDotsOverflow = React.memo(
                           extrapolate: 'clamp',
                       })
 
+            const smallerDotStyle =
+                (direction === 'forward' && i == dotsAllowed - 2) ||
+                (direction === 'backwards' && i == 1)
+                    ? { backgroundColor: 'blue' }
+                    : null
+
+            const tinyDotsStyle =
+                (direction === 'forward' && i == dotsAllowed - 1) ||
+                (direction === 'backwards' && i == 0)
+                    ? { backgroundColor: 'green' }
+                    : null
+
             dots.push(
                 <Animated.View
                     key={i}
@@ -66,6 +81,8 @@ const SliderDotsOverflow = React.memo(
                         appliedStyle.dot,
                         {
                             backgroundColor,
+                            ...smallerDotStyle,
+                            ...tinyDotsStyle,
                         },
                     ]}
                 ></Animated.View>,

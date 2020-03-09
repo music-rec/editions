@@ -4,6 +4,7 @@ import { color } from 'src/theme/color'
 import { metrics } from 'src/theme/spacing'
 import { SliderTitleProps, SliderTitle } from './SliderTitle'
 import DeviceInfo from 'react-native-device-info'
+import { SliderDetails } from '.'
 
 const HEADER_HIGH_END_HEIGHT = DeviceInfo.isTablet() ? 65 : 55
 
@@ -37,7 +38,7 @@ const SliderHeaderHighEnd = ({
     isShown: boolean
     isAtTop: boolean
     panResponder: any
-    sliderDetails: SliderTitleProps
+    sliderDetails: SliderDetails
 }) => {
     const [top] = useState(new Animated.Value(0))
     useEffect(() => {

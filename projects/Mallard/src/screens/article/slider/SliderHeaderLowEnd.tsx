@@ -5,8 +5,9 @@ import { color } from 'src/theme/color'
 import { metrics } from 'src/theme/spacing'
 import { BasicArticleHeader } from '../header'
 import { supportsAnimation } from 'src/helpers/features'
-import { SliderTitle, SliderTitleProps } from './SliderTitle'
+import { SliderTitle } from './SliderTitle'
 import DeviceInfo from 'react-native-device-info'
+import { SliderDetails } from '.'
 
 const HEADER_LOW_END_HEIGHT = DeviceInfo.isTablet()
     ? Platform.OS === 'ios'
@@ -43,7 +44,7 @@ const SliderHeaderLowEnd = withNavigation(
     }: {
         isShown: boolean
         isAtTop: boolean
-        sliderDetails: SliderTitleProps
+        sliderDetails: SliderDetails
     } & NavigationInjectedProps) => {
         const [top] = useState(new Animated.Value(0))
         if (supportsAnimation()) {

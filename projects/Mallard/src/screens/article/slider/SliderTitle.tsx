@@ -69,6 +69,7 @@ const SliderTitle = React.memo(
         position,
         startIndex,
         editionDate,
+        direction,
     }: SliderTitleProps) => {
         const isTablet = DeviceInfo.isTablet()
         const appliedStyle = styles(color, location, isTablet)
@@ -99,6 +100,7 @@ const SliderTitle = React.memo(
                         location={location}
                         position={position}
                         startIndex={startIndex}
+                        direction={direction}
                     />
                 )}
             </View>

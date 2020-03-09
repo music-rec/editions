@@ -6,4 +6,5 @@ export interface SliderDotsProps {
     location?: 'article' | 'front'
     position: Animated.AnimatedInterpolation
     startIndex?: number
+    direction: 'forward' | 'backwards'
 }

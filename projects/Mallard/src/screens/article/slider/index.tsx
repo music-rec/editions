@@ -9,7 +9,7 @@ import { getColor } from 'src/helpers/transform'
 import { getAppearancePillar } from 'src/hooks/use-article'
 import { useDismissArticle } from 'src/hooks/use-dismiss-article'
 import { useSetNavPosition } from 'src/hooks/use-nav-position'
-import { useDimensions } from 'src/hooks/use-config-provider'
+import { useDimensions, useDotsAllowed } from 'src/hooks/use-config-provider'
 import { ArticleNavigationProps } from 'src/navigation/helpers/base'
 import { ArticleSpec, getArticleDataFromNavigator } from '../../article-screen'
 import { ArticleScreenBody, OnIsAtTopChange } from '../body'
@@ -40,6 +40,18 @@ const styles = StyleSheet.create({
         width: '100%',
     },
 })
+
+export interface SliderDetails {
+    title: string
+    numOfItems: number
+    color: string
+    startIndex?: number
+    position: Animated.AnimatedInterpolation
+    editionDate: Date | undefined
+    direction: 'forward' | 'backwards'
+    location?: 'article' | 'front'
+    subtitle?: string
+}
 
 /**
  * We keep track of which articles are scrolled or not so that when we swipe
@@ -75,12 +87,16 @@ const ArticleSlider = React.memo(
         } = getArticleDataFromNavigator(articleNavigator, path)
 
         const [current, setCurrent] = useState(startingPoint)
+        const [sliderDirection, setSliderDirection] = useState<
+            SliderDetails['direction']
+        >('forward')
         const [sliderPosition] = useState(new Animated.Value(0))
         const [position, setPosition] = useState<
             Animated.AnimatedInterpolation
         >(new Animated.Value(0))
 
         const { width } = useDimensions()
+        const dotsAllowed = useDotsAllowed()
         const flatListRef = useRef<AnimatedFlatListRef | undefined>()
         const viewPagerRef = useRef<ViewPagerAndroid | null>()
 
@@ -116,7 +132,7 @@ const ArticleSlider = React.memo(
             { sectionCounter: 0, sections: [] as SliderSection[] },
         ).sections
 
-        const getFrontNameAndPosition = () => {
+        const getFrontNameAndPosition = (): SliderDetails => {
             const displaySection = sliderSections.filter(
                 section =>
                     section.startIndex <= current &&
@@ -131,6 +147,7 @@ const ArticleSlider = React.memo(
                 startIndex: displaySection[0].startIndex,
                 position,
                 editionDate: issueDateFromId(path.publishedIssueId),
+                direction: sliderDirection,
             }
         }
         const sliderDetails = getFrontNameAndPosition()
@@ -258,6 +275,17 @@ const ArticleSlider = React.memo(
                                     0,
                                     flattenedArticles.length - 1,
                                 )
+
+                                if (sliderDetails.numOfItems > dotsAllowed) {
+                                    if (newIndex !== current) {
+                                        if (newIndex > current) {
+                                            setSliderDirection('forward')
+                                        } else {
+                                            setSliderDirection('backwards')
+                                        }
+                                    }
+                                }
+
                                 setCurrent(newIndex)
                                 slideToFrontFor(newIndex)
 
