@@ -4,6 +4,7 @@ import DeviceInfo from 'react-native-device-info'
 import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
 import { SliderDotsProps } from './types'
 import { styles } from './styles'
+import { DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN } from './constants'
 
 // if numofitems > dotsAllowed then start with small and tiny dot at end
 // Maintain visual state of the dots until you hit an edge
@@ -19,7 +20,13 @@ const SliderDots = React.memo(
     }: SliderDotsProps) => {
         const dots = []
         const isTablet = DeviceInfo.isTablet()
-        const appliedStyle = styles(color, location, isTablet)
+        const appliedStyle = styles(
+            color,
+            location,
+            isTablet,
+            DOT_ARTICLE_WIDTH,
+            DOT_ARTICLE_MARGIN,
+        )
 
         const newPos: any =
             Platform.OS === 'android' && startIndex
@@ -70,18 +77,7 @@ const SliderDots = React.memo(
             )
         }
 
-        return (
-            <View
-                style={[
-                    appliedStyle.dotsContainer,
-                    {
-                        backgroundColor: 'green',
-                    },
-                ]}
-            >
-                {dots}
-            </View>
-        )
+        return <View style={appliedStyle.dotsContainer}>{dots}</View>
     },
 )
 

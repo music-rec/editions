@@ -1,8 +1,13 @@
 import { StyleSheet } from 'react-native'
-import { DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN } from './constants'
 import { metrics } from 'src/theme/spacing'
 
-const styles = (color: string, location: string, isTablet: boolean) => {
+const styles = (
+    color: string,
+    location: string,
+    isTablet: boolean,
+    width: number,
+    margin: number,
+) => {
     const dotBuilder = (size: number, marginRight: number) => ({
         width: size,
         height: size,
@@ -12,7 +17,7 @@ const styles = (color: string, location: string, isTablet: boolean) => {
 
     const dotFront = isTablet ? dotBuilder(14, 7) : dotBuilder(10, 4)
 
-    const dotArticle = dotBuilder(DOT_ARTICLE_WIDTH, DOT_ARTICLE_MARGIN)
+    const dotArticle = dotBuilder(width, margin)
 
     const dot = location === 'article' ? dotArticle : dotFront
 
@@ -20,6 +25,7 @@ const styles = (color: string, location: string, isTablet: boolean) => {
         dotsContainer: {
             flexDirection: 'row',
             paddingTop: metrics.vertical,
+            alignItems: 'center',
         },
         dot,
         selected: {

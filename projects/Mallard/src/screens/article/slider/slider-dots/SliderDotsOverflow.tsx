@@ -4,6 +4,14 @@ import DeviceInfo from 'react-native-device-info'
 import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
 import { SliderDotsProps } from './types'
 import { styles } from './styles'
+import {
+    DOT_ARTICLE_WIDTH,
+    DOT_ARTICLE_MARGIN,
+    DOT_ARTICLE_TINY_WIDTH,
+    DOT_ARTICLE_TINY_MARGIN,
+    DOT_ARTICLE_SMALL_WIDTH,
+    DOT_ARTICLE_SMALL_MARGIN,
+} from './constants'
 
 // if numofitems > dotsAllowed then start with small and tiny dot at end
 // Maintain visual state of the dots until you hit an edge
@@ -22,7 +30,13 @@ const SliderDotsOverflow = React.memo(
         console.log(direction)
         const dots = []
         const isTablet = DeviceInfo.isTablet()
-        const appliedStyle = styles(color, location, isTablet)
+        const appliedStyle = styles(
+            color,
+            location,
+            isTablet,
+            DOT_ARTICLE_WIDTH,
+            DOT_ARTICLE_MARGIN,
+        )
 
         const newPos: any =
             Platform.OS === 'android' && startIndex
@@ -65,13 +79,25 @@ const SliderDotsOverflow = React.memo(
             const smallerDotStyle =
                 (direction === 'forward' && i == dotsAllowed - 2) ||
                 (direction === 'backwards' && i == 1)
-                    ? { backgroundColor: 'blue' }
+                    ? styles(
+                          color,
+                          location,
+                          isTablet,
+                          DOT_ARTICLE_SMALL_WIDTH,
+                          DOT_ARTICLE_SMALL_MARGIN,
+                      ).dot
                     : null
 
             const tinyDotsStyle =
                 (direction === 'forward' && i == dotsAllowed - 1) ||
                 (direction === 'backwards' && i == 0)
-                    ? { backgroundColor: 'green' }
+                    ? styles(
+                          color,
+                          location,
+                          isTablet,
+                          DOT_ARTICLE_TINY_WIDTH,
+                          DOT_ARTICLE_TINY_MARGIN,
+                      ).dot
                     : null
 
             dots.push(
@@ -89,18 +115,7 @@ const SliderDotsOverflow = React.memo(
             )
         }
 
-        return (
-            <View
-                style={[
-                    appliedStyle.dotsContainer,
-                    {
-                        backgroundColor: 'red',
-                    },
-                ]}
-            >
-                {dots}
-            </View>
-        )
+        return <View style={[appliedStyle.dotsContainer]}>{dots}</View>
     },
 )
 
