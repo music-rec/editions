@@ -9,6 +9,9 @@
     },
     "author": "The Guardian",
     "license": "ISC",
+    "resolutions": {
+        "jsdom": "16.2.1"
+    },
     "workspaces": {
         "packages": [
             "*"
