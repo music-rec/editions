@@ -88,6 +88,7 @@ class AccessController<I extends AuthMap, S extends AuthName<I>> {
             for (const authorizer of this.authorizers) {
                 if (authorizer.isAuth(connectivity)) continue
                 await authorizer.runAuthWithCachedCredentials(connectivity)
+
                 if (isValid(this.attempt)) return
             }
         } finally {

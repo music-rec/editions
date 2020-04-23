@@ -70,6 +70,8 @@ export const createApp = (
         controllers.imageController,
     )
 
+    app.post('/log', controllers.clientLoggingController)
+
     const endpoints = listEndpoints(app)
 
     const rootPath = '/'
