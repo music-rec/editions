@@ -14,6 +14,7 @@ export interface EditionsBackendControllers {
     issueController: (req: Request, res: Response) => void
     frontController: (req: Request, res: Response) => void
     imageController: (req: Request, res: Response) => void
+    clientLoggingController: (req: Request, res: Response) => void
 }
 
 export const createApp = (

@@ -16,6 +16,7 @@ const testStubControllers: EditionsBackendControllers = {
     issueController: stub,
     frontController: stub,
     imageController: stub,
+    clientLoggingController: stub,
 }
 
 describe('Endpoints contract test for Preview Editions Backend application', () => {

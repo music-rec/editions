@@ -7,12 +7,14 @@ import { frontController } from './controllers/fronts'
 import { imageController } from './controllers/image'
 import { createApp, EditionsBackendControllers } from './application'
 import { isPreview } from './preview'
+import { clientLoggingController } from './controllers/clientLogging'
 
 const runtimeControllers: EditionsBackendControllers = {
     issuesSummaryController,
     issueController,
     frontController,
     imageController,
+    clientLoggingController,
 }
 
 const asPreview = isPreview
