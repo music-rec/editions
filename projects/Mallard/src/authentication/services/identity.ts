@@ -2,6 +2,7 @@ import qs from 'query-string'
 import { AuthResult, fromResponse } from '../lib/Result'
 import { ID_API_URL, ID_ACCESS_TOKEN } from 'src/constants'
 import { GENERIC_AUTH_ERROR } from 'src/helpers/words'
+import { AuthType } from '../authorizers/IdentityAuthorizer'
 
 interface ErrorReponse {
     errors: { message: string; description: string }[]
@@ -17,25 +18,25 @@ const getErrorString = (data: any) =>
 
 const fetchAuth = async <T>(
     params: { [key: string]: string },
+    authType?: AuthType,
     authUrl: string = ID_API_URL,
     token: string = ID_ACCESS_TOKEN,
 ): Promise<AuthResult<T>> => {
     console.log('PARAMS', params)
 
-    const contentType = params.authorizationCode
-        ? 'application/json'
-        : 'application/x-www-form-urlencoded'
-    const body = params.authorizationCode
-        ? JSON.stringify(params)
-        : qs.stringify(params)
-
     const res = await fetch(`${authUrl}/auth`, {
         method: 'POST',
         headers: {
             'X-GU-ID-Client-Access-Token': `Bearer ${token}`,
-            'Content-Type': contentType,
+            'Content-Type':
+                authType === 'apple'
+                    ? 'application/json'
+                    : 'application/x-www-form-urlencoded',
         },
-        body: body,
+        body:
+            authType === 'apple'
+                ? JSON.stringify(params)
+                : qs.stringify(params),
     })
 
     return fromResponse(res, {
