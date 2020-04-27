@@ -20,18 +20,23 @@ const fetchAuth = async <T>(
     authUrl: string = ID_API_URL,
     token: string = ID_ACCESS_TOKEN,
 ): Promise<AuthResult<T>> => {
+    console.log('PARAMS', params)
+
+    const contentType = params.authorizationCode
+        ? 'application/json'
+        : 'application/x-www-form-urlencoded'
+    const body = params.authorizationCode
+        ? JSON.stringify(params)
+        : qs.stringify(params)
+
     const res = await fetch(`${authUrl}/auth`, {
         method: 'POST',
         headers: {
             'X-GU-ID-Client-Access-Token': `Bearer ${token}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': contentType,
         },
-        body: qs.stringify(params),
+        body: body,
     })
-
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>')
-    console.log('AUTH PARAMS', params, authUrl, token)
-    console.log('AUTH CALL', res)
 
     return fromResponse(res, {
         valid: data => data.accessToken.accessToken,
