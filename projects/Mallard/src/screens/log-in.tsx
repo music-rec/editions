@@ -96,7 +96,7 @@ const Login = ({
 }: {
     title: string
     onFacebookPress: () => void
-    onApplePress: (credentials: any) => void
+    onApplePress: () => void
     onGooglePress: () => void
     email: FormField
     password: FormField
@@ -139,11 +139,12 @@ const Login = ({
                         >
                             Continue with Google
                         </SocialButton>
-                        <AppleSignInButton
-                            onClick={(credentials: any) =>
-                                onApplePress(credentials)
-                            }
-                        />
+                        <SocialButton
+                            onPress={onApplePress}
+                            iconRequire={require('src/assets/images/apple.png')}
+                        >
+                            Continue with Apple
+                        </SocialButton>
                     </View>
                     <TitlepieceText style={loginStyles.or}>or</TitlepieceText>
                 </>

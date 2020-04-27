@@ -14,6 +14,7 @@ import { Alert } from 'react-native'
 import { AuthParams } from 'src/authentication/authorizers/IdentityAuthorizer'
 import { AccessContext } from 'src/authentication/AccessContext'
 import { isValid } from 'src/authentication/lib/Attempt'
+import { appleAuth } from 'src/components/apple-sign-in-button/apple-sign-in-buttom'
 
 const useRandomState = () =>
     useState(
@@ -153,17 +154,11 @@ const AuthSwitcherScreen = ({
                     { requiresFunctionalConsent: true, signInName: 'Google' },
                 )
             }
-            onApplePress={(credentials: any) =>
-                handleAuthClick(
-                    () => {
-                        const payload = {
-                            'apple-access-token': credentials.idToken,
-                        }
-
-                        return new Promise(payload)
-                    },
-                    { requiresFunctionalConsent: true },
-                )
+            onApplePress={() =>
+                handleAuthClick(appleAuth, {
+                    requiresFunctionalConsent: true,
+                    signInName: 'Apple',
+                })
             }
             onSubmit={() =>
                 handleAuthClick(

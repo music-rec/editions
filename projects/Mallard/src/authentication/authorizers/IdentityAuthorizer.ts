@@ -31,7 +31,14 @@ type GoogleCreds = {
     'google-access-token': string
 }
 
-export type AuthParams = BasicCreds | FacebookCreds | GoogleCreds
+export type AppleCreds = {
+    authorizationCode: string
+    idToken: string
+    givenName: string
+    familyName: string
+}
+
+export type AuthParams = BasicCreds | FacebookCreds | GoogleCreds | AppleCreds
 
 export type IdentityAuthData = {
     userDetails: User
@@ -60,7 +67,7 @@ const getUserNameFromParams = (params: AuthParams) => {
     if ('email' in params) return params.email
     if ('facebook-access-token' in params) return 'gu-editions::token::facebook'
     if ('google-access-token' in params) return 'gu-editions::token::google'
-    if ('apple-access-token' in params) return 'gu-editions::token::apple'
+    if ('idToken' in params) return 'gu-editions::token::apple'
 
     const x: never = params
     return x
@@ -78,16 +85,9 @@ export default new Authorizer({
         const username = getUserNameFromParams(params)
         const utokenResult = await fetchAuth<string>(params)
 
-        console.log('PARAMS', params)
-        console.log('================')
-        console.log('UTOKEN', utokenResult)
-
         return flat(utokenResult, async utoken => {
             utc.set({ username, token: utoken })
             const mtokenResult = await fetchMembershipToken(utoken)
-
-            console.log('================')
-            console.log('MTOKEN', mtokenResult)
 
             return flat(mtokenResult, mtoken => {
                 mtc.set({ username, token: mtoken })
