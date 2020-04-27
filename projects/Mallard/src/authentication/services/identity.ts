@@ -22,8 +22,6 @@ const fetchAuth = async <T>(
     authUrl: string = ID_API_URL,
     token: string = ID_ACCESS_TOKEN,
 ): Promise<AuthResult<T>> => {
-    console.log('PARAMS', params)
-
     const res = await fetch(`${authUrl}/auth`, {
         method: 'POST',
         headers: {
