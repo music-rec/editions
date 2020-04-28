@@ -3,10 +3,9 @@ import {
     AnimatedValue,
     NavigationInjectedProps,
 } from 'react-navigation'
-import {
-    createStackNavigator,
-    StackViewTransitionConfigs,
-} from 'react-navigation-stack'
+import { StackViewTransitionConfigs } from 'react-navigation-stack'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createCompatNavigatorFactory } from '@react-navigation/compat'
 
 import React from 'react'
 
@@ -44,38 +43,46 @@ const createModalNavigator = (
     }
 
     if (!supportsTransparentCards()) {
-        return createStackNavigator(navigation, {
-            headerMode: 'none',
-            initialRouteName: '_',
-        })
+        return createCompatNavigatorFactory(
+            createStackNavigator(navigation, {
+                headerMode: 'none',
+                initialRouteName: '_',
+            }),
+        )
     }
 
-    return createStackNavigator(navigation, {
-        mode: 'modal',
-        headerMode: 'none',
-        transparentCard: true,
-        cardOverlayEnabled: true,
-        initialRouteName: '_',
-        defaultNavigationOptions: {
-            gesturesEnabled: false,
-        },
-        transitionConfig: (transitionProps, prevTransitionProps) => {
-            const {
-                position,
-                scene: { index },
-            } = transitionProps
+    return createCompatNavigatorFactory(
+        createStackNavigator(navigation, {
+            mode: 'modal',
+            headerMode: 'none',
+            transparentCard: true,
+            cardOverlayEnabled: true,
+            initialRouteName: '_',
+            defaultNavigationOptions: {
+                gesturesEnabled: false,
+            },
+            transitionConfig: (transitionProps, prevTransitionProps) => {
+                const {
+                    position,
+                    scene: { index },
+                } = transitionProps
 
-            animatedValue = position.interpolate({
-                inputRange: safeInterpolation([index - 1, index, index + 1]),
-                outputRange: safeInterpolation([0, 1, 0]),
-            })
-            return StackViewTransitionConfigs.defaultTransitionConfig(
-                transitionProps,
-                prevTransitionProps,
-                true,
-            )
-        },
-    })
+                animatedValue = position.interpolate({
+                    inputRange: safeInterpolation([
+                        index - 1,
+                        index,
+                        index + 1,
+                    ]),
+                    outputRange: safeInterpolation([0, 1, 0]),
+                })
+                return StackViewTransitionConfigs.defaultTransitionConfig(
+                    transitionProps,
+                    prevTransitionProps,
+                    true,
+                )
+            },
+        }),
+    )
 }
 
 export { createModalNavigator }

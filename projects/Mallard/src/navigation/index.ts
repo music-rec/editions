@@ -4,10 +4,9 @@ import {
     createSwitchNavigator,
     NavigationScreenProp,
 } from 'react-navigation'
-import {
-    createStackNavigator,
-    StackViewTransitionConfigs,
-} from 'react-navigation-stack'
+import { createStackNavigator } from '@react-navigation/stack'
+import { StackViewTransitionConfigs } from 'react-navigation-stack'
+import { createCompatNavigatorFactory } from '@react-navigation/compat'
 import { AuthSwitcherScreen } from 'src/screens/identity-login-screen'
 import { OnboardingConsentScreen } from 'src/screens/onboarding-screen'
 import { AlreadySubscribedScreen } from 'src/screens/settings/already-subscribed-screen'
@@ -116,50 +115,55 @@ const AppStack = createModalNavigator(
 )
 
 const OnboardingStack = createModalNavigator(
-    createStackNavigator(
-        {
-            [routeNames.onboarding.OnboardingConsent]: createStackNavigator(
-                {
-                    Main: {
-                        screen: mapNavigationToProps(
-                            OnboardingConsentScreen,
-                            nav => ({
-                                onContinue: () => nav.navigate('App'),
-                                onOpenGdprConsent: () =>
-                                    nav.navigate(
-                                        routeNames.onboarding
-                                            .OnboardingConsentInline,
-                                    ),
-                                onOpenPrivacyPolicy: () =>
-                                    nav.navigate(
-                                        routeNames.onboarding
-                                            .PrivacyPolicyInline,
-                                    ),
-                            }),
-                        ),
-                        navigationOptions: {
-                            header: null,
+    createCompatNavigatorFactory(
+        createStackNavigator(
+            {
+                [routeNames.onboarding
+                    .OnboardingConsent]: createCompatNavigatorFactory(
+                    createStackNavigator(
+                        {
+                            Main: {
+                                screen: mapNavigationToProps(
+                                    OnboardingConsentScreen,
+                                    nav => ({
+                                        onContinue: () => nav.navigate('App'),
+                                        onOpenGdprConsent: () =>
+                                            nav.navigate(
+                                                routeNames.onboarding
+                                                    .OnboardingConsentInline,
+                                            ),
+                                        onOpenPrivacyPolicy: () =>
+                                            nav.navigate(
+                                                routeNames.onboarding
+                                                    .PrivacyPolicyInline,
+                                            ),
+                                    }),
+                                ),
+                                navigationOptions: {
+                                    header: null,
+                                },
+                            },
+                            [routeNames.onboarding
+                                .OnboardingConsentInline]: GdprConsentScreenForOnboarding,
+                            [routeNames.onboarding
+                                .PrivacyPolicyInline]: PrivacyPolicyScreenForOnboarding,
                         },
-                    },
-                    [routeNames.onboarding
-                        .OnboardingConsentInline]: GdprConsentScreenForOnboarding,
-                    [routeNames.onboarding
-                        .PrivacyPolicyInline]: PrivacyPolicyScreenForOnboarding,
-                },
-                {
-                    headerMode: 'none',
-                    transitionConfig: dynamicModalTransition,
-                    defaultNavigationOptions: {
-                        ...navOptionsWithGraunHeader,
-                    },
-                },
-            ),
-        },
-        {
-            headerMode: 'none',
-        },
+                        {
+                            headerMode: 'none',
+                            transitionConfig: dynamicModalTransition,
+                            defaultNavigationOptions: {
+                                ...navOptionsWithGraunHeader,
+                            },
+                        },
+                    ),
+                ),
+            },
+            {
+                headerMode: 'none',
+            },
+        ),
+        {},
     ),
-    {},
 )
 
 const ONBOARDING_QUERY = gql(`{
@@ -183,48 +187,50 @@ const hasOnboarded = (data: OnboardingQueryData) => {
 }
 
 const RootNavigator = createAppContainer(
-    createStackNavigator(
-        {
-            AppRoot: createSwitchNavigator(
-                {
-                    Main: ({
-                        navigation,
-                    }: {
-                        navigation: NavigationScreenProp<{}>
-                    }) => {
-                        const query = useQuery<OnboardingQueryData>(
-                            ONBOARDING_QUERY,
-                        )
-                        useEffect(() => {
-                            /** Setting is still loading, do nothing yet. */
-                            if (query.loading) return
-                            const { data } = query
-                            // If any flag is unknown still, we want to onboard.
-                            // We expected people to give explicit yay/nay to
-                            // each GDPR bucket.
-                            if (!hasOnboarded(data)) {
-                                navigation.navigate('Onboarding')
-                            } else {
-                                navigation.navigate('App')
-                            }
-                        })
-                        return null
+    createCompatNavigatorFactory(
+        createStackNavigator(
+            {
+                AppRoot: createSwitchNavigator(
+                    {
+                        Main: ({
+                            navigation,
+                        }: {
+                            navigation: NavigationScreenProp<{}>
+                        }) => {
+                            const query = useQuery<OnboardingQueryData>(
+                                ONBOARDING_QUERY,
+                            )
+                            useEffect(() => {
+                                /** Setting is still loading, do nothing yet. */
+                                if (query.loading) return
+                                const { data } = query
+                                // If any flag is unknown still, we want to onboard.
+                                // We expected people to give explicit yay/nay to
+                                // each GDPR bucket.
+                                if (!hasOnboarded(data)) {
+                                    navigation.navigate('Onboarding')
+                                } else {
+                                    navigation.navigate('App')
+                                }
+                            })
+                            return null
+                        },
+                        App: AppStack,
+                        Onboarding: OnboardingStack,
                     },
-                    App: AppStack,
-                    Onboarding: OnboardingStack,
-                },
-                {
-                    initialRouteName: 'Main',
-                },
-            ),
-            [routeNames.SignIn]: AuthSwitcherScreen,
-            [routeNames.CasSignIn]: CasSignInScreen,
-        },
-        {
-            initialRouteName: 'AppRoot',
-            mode: 'modal',
-            headerMode: 'none',
-        },
+                    {
+                        initialRouteName: 'Main',
+                    },
+                ),
+                [routeNames.SignIn]: AuthSwitcherScreen,
+                [routeNames.CasSignIn]: CasSignInScreen,
+            },
+            {
+                initialRouteName: 'AppRoot',
+                mode: 'modal',
+                headerMode: 'none',
+            },
+        ),
     ),
 )
 

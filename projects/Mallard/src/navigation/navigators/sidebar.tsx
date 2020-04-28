@@ -8,7 +8,8 @@ import {
     Platform,
 } from 'react-native'
 import { NavigationContainer, NavigationInjectedProps } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createCompatNavigatorFactory } from '@react-navigation/compat'
 const createNativeStackNavigator = require('react-native-screens/createNativeStackNavigator')
     .default
 import { ariaHidden } from 'src/helpers/a11y'
@@ -167,19 +168,21 @@ export const createSidebarNavigator = (
     const { width } = Dimensions.get('window')
     const isTablet = width >= Breakpoints.tabletVertical
 
-    return createStackNavigator(navigation, {
-        initialRouteName: '_',
-        defaultNavigationOptions: {
-            gesturesEnabled: false,
-        },
-        headerMode: 'none',
-        ...(USE_SIDEBAR_ANIMATION
-            ? {
-                  mode: 'modal',
-                  transparentCard: isTablet,
-                  cardOverlayEnabled: isTablet,
-                  transitionConfig,
-              }
-            : {}),
-    })
+    return createCompatNavigatorFactory(
+        createStackNavigator(navigation, {
+            initialRouteName: '_',
+            defaultNavigationOptions: {
+                gesturesEnabled: false,
+            },
+            headerMode: 'none',
+            ...(USE_SIDEBAR_ANIMATION
+                ? {
+                      mode: 'modal',
+                      transparentCard: isTablet,
+                      cardOverlayEnabled: isTablet,
+                      transitionConfig,
+                  }
+                : {}),
+        }),
+    )
 }

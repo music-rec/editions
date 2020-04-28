@@ -3,7 +3,8 @@ import {
     NavigationInjectedProps,
     NavigationParams,
 } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createCompatNavigatorFactory } from '@react-navigation/compat'
 import React from 'react'
 import { Header } from 'src/components/layout/header/header'
 import { Button } from 'src/components/button/button'
@@ -89,7 +90,9 @@ const createHeaderStackNavigator = (
     options?: Parameters<typeof createStackNavigator>[1],
 ) =>
     addStaticRouterWithHeader(
-        createStackNavigator(routes, { ...options, headerMode: 'none' }),
+        createCompatNavigatorFactory(
+            createStackNavigator(routes, { ...options, headerMode: 'none' }),
+        ),
     )
 
 export { createHeaderStackNavigator, addStaticRouterWithHeader }

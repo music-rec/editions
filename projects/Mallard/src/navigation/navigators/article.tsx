@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { Animated, Easing, StyleSheet } from 'react-native'
 import { NavigationContainer, NavigationInjectedProps } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createCompatNavigatorFactory } from '@react-navigation/compat'
 import { ClipFromTop } from 'src/components/layout/animators/clipFromTop'
 import {
     supportsTransparentCards,
@@ -209,31 +210,35 @@ const createArticleNavigator = (front: any, article: any) => {
     }
 
     if (!supportsAnimation()) {
-        return createStackNavigator(navigation, {
+        return createCompatNavigatorFactory(
+            createStackNavigator(navigation, {
+                initialRouteName: routeNames.Issue,
+                defaultNavigationOptions: {
+                    gesturesEnabled: false,
+                },
+                headerMode: 'none',
+                mode: 'modal',
+            }),
+        )
+    }
+
+    return createCompatNavigatorFactory(
+        createStackNavigator(navigation, {
             initialRouteName: routeNames.Issue,
             defaultNavigationOptions: {
                 gesturesEnabled: false,
             },
             headerMode: 'none',
-            mode: 'modal',
-        })
-    }
-
-    return createStackNavigator(navigation, {
-        initialRouteName: routeNames.Issue,
-        defaultNavigationOptions: {
-            gesturesEnabled: false,
-        },
-        headerMode: 'none',
-        ...(supportsTransparentCards() && supportsAnimation()
-            ? {
-                  mode: 'modal',
-                  transparentCard: true,
-                  cardOverlayEnabled: true,
-                  transitionConfig,
-              }
-            : {}),
-    })
+            ...(supportsTransparentCards() && supportsAnimation()
+                ? {
+                      mode: 'modal',
+                      transparentCard: true,
+                      cardOverlayEnabled: true,
+                      transitionConfig,
+                  }
+                : {}),
+        }),
+    )
 }
 
 export { createArticleNavigator }
