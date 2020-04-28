@@ -269,12 +269,12 @@ export class EditionsStack extends cdk.Stack {
                         originPath: '/prod', //This is hard coded and could be the deployment id
                         behaviors: [
                             {
-                                isDefaultBehavior: true,
-                                defaultTtl: Duration.seconds(10),
-                            },
-                            {
                                 pathPattern: '/log',
                                 allowedMethods: CloudFrontAllowedMethods.ALL,
+                            },
+                            {
+                                isDefaultBehavior: true,
+                                defaultTtl: Duration.seconds(10),
                             },
                         ],
                         customOriginSource: {
