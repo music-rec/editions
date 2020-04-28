@@ -71,7 +71,7 @@ export const createApp = (
         controllers.imageController,
     )
 
-    app.post('/log', controllers.clientLoggingController)
+    app.post('/log', express.json(), controllers.clientLoggingController)
 
     const endpoints = listEndpoints(app)
 

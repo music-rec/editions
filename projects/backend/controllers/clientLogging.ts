@@ -11,7 +11,9 @@ import { Request, Response } from 'express'
 // }
 
 export const clientLoggingController = (req: Request, res: Response) => {
-    const body = req.body && req.body.getReader().read()
-    console.log(body)
-    res.send('Logged body to cloudwatch')
+    console.log(req.body)
+
+    const message = req.body.message || 'no message'
+
+    res.send('Logged body to cloudwatch, message: ' + req.body.message)
 }
