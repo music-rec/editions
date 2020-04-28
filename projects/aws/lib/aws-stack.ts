@@ -10,6 +10,7 @@ import { CfnOutput, Duration, Tag } from '@aws-cdk/core'
 import { archiverStepFunction } from './step-function'
 import acm = require('@aws-cdk/aws-certificatemanager')
 import { Effect } from '@aws-cdk/aws-iam'
+import { CloudFrontAllowedMethods } from '@aws-cdk/aws-cloudfront'
 export class EditionsStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props)
@@ -270,6 +271,10 @@ export class EditionsStack extends cdk.Stack {
                             {
                                 isDefaultBehavior: true,
                                 defaultTtl: Duration.seconds(10),
+                            },
+                            {
+                                pathPattern: '/log',
+                                allowedMethods: CloudFrontAllowedMethods.ALL,
                             },
                         ],
                         customOriginSource: {
