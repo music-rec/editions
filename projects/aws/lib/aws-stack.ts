@@ -273,6 +273,10 @@ export class EditionsStack extends cdk.Stack {
                                 allowedMethods: CloudFrontAllowedMethods.ALL,
                             },
                             {
+                                pathPattern: '/blog',
+                                allowedMethods: CloudFrontAllowedMethods.ALL,
+                            },
+                            {
                                 isDefaultBehavior: true,
                                 defaultTtl: Duration.seconds(10),
                             },
