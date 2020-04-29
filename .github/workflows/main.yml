@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - master
+            - apple-signin-build
     schedule:
         # * is a special character in YAML so you have to quote this string
         - cron: '0 14 * * 1-5' # every day at 2pm
