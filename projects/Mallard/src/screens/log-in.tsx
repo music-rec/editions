@@ -10,7 +10,6 @@ import { FormField } from 'src/hooks/use-form-field'
 import { LoginLayout } from 'src/components/login/login-layout'
 import { EmailInput, PasswordInput } from 'src/components/login/login-input'
 import { LoginButton } from 'src/components/login/login-button'
-import AppleSignInButton from 'src/components/apple-sign-in-button/apple-sign-in-buttom'
 
 const socialButtonStyles = StyleSheet.create({
     button: {
