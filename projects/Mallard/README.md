@@ -1,5 +1,5 @@
 # Editions
-
+ 
 ## Installing
 
 Follow the instructions in the [main README](https://github.com/guardian/editions/blob/master/README.md).
