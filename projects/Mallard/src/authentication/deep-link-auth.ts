@@ -47,6 +47,7 @@ const authWithDeepRedirect = async (
 
         const onFinish = async (url?: string) => {
             inAppBrowserImpl.closeAuth()
+            console.log("I've finished!")
 
             let unlistener
             while ((unlistener = unlisteners.pop())) {
@@ -65,6 +66,7 @@ const authWithDeepRedirect = async (
         }
 
         const runExternalBrowserDeepLink = () => {
+            console.log('external browser time')
             const unlistenLink = addListener(
                 linkingImpl,
                 'url',
@@ -98,7 +100,13 @@ const authWithDeepRedirect = async (
             runExternalBrowserDeepLink()
             return
         }
+        console.log('using main route')
 
+        // this never completes as we get stuck on https://idapi.theguardian.com/auth/apple/auth-redirect
+        // probably easiest to ask Leigh-Anne to redirect to something we can use as a deep link
+        // e.g. editions://authorize - the same way facebook is working at the moment
+        // in the live app they are using a webview thing that allows them to intercept urls https://github.com/guardian/android-news-app/blob/ab77dbe847f99fab491df24a0fd8876470687878/android-news-app/src/main/java/com/guardian/feature/login/apple/AppleSignInWebViewClient.kt#L24
+        // the default react native webview does allow this so that's an alternative option
         const result = await inAppBrowserImpl.openAuth(authUrl, deepLink, {
             // iOS Properties
             dismissButtonStyle: 'cancel',
@@ -107,6 +115,7 @@ const authWithDeepRedirect = async (
             enableUrlBarHiding: true,
             enableDefaultShare: true,
         })
+        console.log('result finished')
         if (result.type === 'success') {
             onFinish((result as RedirectResult).url)
         } else {
