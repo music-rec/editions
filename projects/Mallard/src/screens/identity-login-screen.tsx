@@ -15,7 +15,7 @@ import { Alert } from 'react-native'
 import { AuthParams } from 'src/authentication/authorizers/IdentityAuthorizer'
 import { AccessContext } from 'src/authentication/AccessContext'
 import { isValid } from 'src/authentication/lib/Attempt'
-import { appleAuthWithDeepRedirect } from 'src/authentication/services/apple-oauth'
+import { getAppleOAuthURL } from 'src/authentication/services/apple-oauth'
 
 const useRandomState = () =>
     useState(
@@ -171,18 +171,13 @@ const AuthSwitcherScreen = ({
                     signInName: 'Apple',
                 })
             }
-            onAppleOAuthPress={() =>
-                handleAuthClick(
-                    () =>
-                        appleAuthWithDeepRedirect(validatorString).then(r => {
-                            console.log(r)
-                            return {
-                                'google-access-token': 'nothin',
-                            }
-                        }),
-                    { requiresFunctionalConsent: true, signInName: 'Apple' },
-                )
-            }
+            onAppleOAuthPress={(token: AuthParams) => {
+                handleAuthClick(() => Promise.resolve(token), {
+                    requiresFunctionalConsent: false,
+                    signInName: 'AppleOauth',
+                })
+            }}
+            appleOauthUrl={getAppleOAuthURL(validatorString)}
             onSubmit={() =>
                 handleAuthClick(
                     async () => ({

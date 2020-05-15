@@ -10,8 +10,9 @@ import { FormField } from 'src/hooks/use-form-field'
 import { LoginLayout } from 'src/components/login/login-layout'
 import { EmailInput, PasswordInput } from 'src/components/login/login-input'
 import { LoginButton } from 'src/components/login/login-button'
-
+import { WebviewModal } from '../authentication/webview-modal'
 import { Platform } from 'react-native'
+import { AuthParams } from 'src/authentication/authorizers/IdentityAuthorizer'
 
 function canOSSupportAppleSignin(): boolean {
     const osVersion = Number(String(Platform.Version).split('.')[0])
@@ -92,6 +93,7 @@ const Login = ({
     password,
     onApplePress,
     onAppleOAuthPress,
+    appleOauthUrl,
     onFacebookPress,
     onGooglePress,
     onSubmit,
@@ -107,7 +109,8 @@ const Login = ({
     onFacebookPress: () => void
     onApplePress: () => void
     onGooglePress: () => void
-    onAppleOAuthPress: () => void
+    onAppleOAuthPress: (token: AuthParams) => void
+    appleOauthUrl: string
     email: FormField
     password: FormField
     onSubmit: () => void
@@ -121,6 +124,8 @@ const Login = ({
 }) => {
     const [hasInputEmail, setHasInputEmail] = useState(false)
     const [showError, setShowError] = useState(false)
+    const [showWebView, setShowWebview] = useState(false)
+    const [webviewUrl, setWebviewUrl] = useState('')
 
     const onInputChange = (fn: (value: string) => void) => (value: string) => {
         setShowError(false)
@@ -134,6 +139,14 @@ const Login = ({
             onDismiss={onDismiss}
             errorMessage={errorMessage}
         >
+            <WebviewModal
+                visible={showWebView}
+                url={webviewUrl}
+                onAppleComplete={token => {
+                    setShowWebview(false)
+                    onAppleOAuthPress(token)
+                }}
+            />
             {!hasInputEmail && (
                 <>
                     <View>
@@ -161,7 +174,10 @@ const Login = ({
                         )}
 
                         <SocialButton
-                            onPress={onAppleOAuthPress}
+                            onPress={() => {
+                                setWebviewUrl(appleOauthUrl)
+                                setShowWebview(true)
+                            }}
                             iconRequire={require('src/assets/images/apple.png')}
                         >
                             Continue with Apple (oauth)

@@ -31,6 +31,10 @@ type GoogleCreds = {
     'google-access-token': string
 }
 
+type AppleOauthCreds = {
+    'apple-sign-in-token': string
+}
+
 export type AppleCreds = {
     authorizationCode: string
     idToken: string
@@ -38,15 +42,27 @@ export type AppleCreds = {
     familyName: string
 }
 
-export type AuthParams = BasicCreds | FacebookCreds | GoogleCreds | AppleCreds
+export type AuthParams =
+    | BasicCreds
+    | FacebookCreds
+    | GoogleCreds
+    | AppleCreds
+    | AppleOauthCreds
 
-export type AuthType = 'apple' | 'google' | 'facebook' | 'email' | 'unknown'
+export type AuthType =
+    | 'apple'
+    | 'google'
+    | 'facebook'
+    | 'email'
+    | 'apple-oauth'
+    | 'unknown'
 
 // TODO: Write unit test?
 const detectAuthType = (params: AuthParams): AuthType => {
     if ('email' in params) return 'email'
     if ('facebook-access-token' in params) return 'facebook'
     if ('google-access-token' in params) return 'google'
+    if ('apple-sign-in-token' in params) return 'apple-oauth'
     if ('idToken' in params) return 'apple'
     return 'unknown'
 }
@@ -86,6 +102,8 @@ const getUserName = (authType: AuthType, params: AuthParams) => {
             return 'gu-editions::token::facebook'
         case 'google':
             return 'gu-editions::token::google'
+        case 'apple-oauth':
+            return 'gu-editions::token::apple-oauth'
         case 'apple':
             return 'gu-editions::token::apple'
         default:
