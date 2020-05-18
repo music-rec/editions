@@ -59,7 +59,7 @@ export class LoggingStack extends cdk.Stack {
                 functionName: `editions-logging-${stageParameter.valueAsString}`,
                 runtime: lambda.Runtime.NODEJS_10_X,
                 memorySize: 128,
-                timeout: Duration.seconds(10),
+                timeout: Duration.seconds(5),
                 code: Code.bucket(
                     deployBucket,
                     `${stackParameter.valueAsString}/${stageParameter.valueAsString}/logging/logging.zip`,
