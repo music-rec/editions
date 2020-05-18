@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { facebookAuthWithDeepRedirect } from 'src/authentication/services/facebook'
 import { googleAuthWithDeepRedirect } from 'src/authentication/services/google'
+import { appleAuthWithDeepRedirect } from 'src/authentication/services/apple-oauth'
 import { appleAuth } from 'src/authentication/services/apple'
 import { NavigationScreenProp } from 'react-navigation'
 import { useModal } from 'src/components/modal'
@@ -171,6 +172,22 @@ const AuthSwitcherScreen = ({
                     signInName: 'Apple',
                 })
             }
+            // normal implementation with react-native-inappbrowser-reborn lib (doesn't work)
+            onAppleOAuthPress2={() =>
+                handleAuthClick(
+                    () =>
+                        appleAuthWithDeepRedirect(validatorString).then(
+                            token => ({
+                                'apple-sign-in-token': token,
+                            }),
+                        ),
+                    {
+                        requiresFunctionalConsent: true,
+                        signInName: 'AppleOauth',
+                    },
+                )
+            }
+            // webview implementation (Works)
             onAppleOAuthPress={(token: AuthParams) => {
                 handleAuthClick(() => Promise.resolve(token), {
                     requiresFunctionalConsent: false,

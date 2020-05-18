@@ -80,6 +80,7 @@ const authWithDeepRedirect = async (
                 appStateImpl,
                 'change',
                 (currentState: string) => {
+                    console.log('app state change', currentState)
                     if (currentState === 'active') {
                         // This is being run when
                         // make sure the link handler is removed whenever we come back to the app
@@ -100,7 +101,7 @@ const authWithDeepRedirect = async (
             runExternalBrowserDeepLink()
             return
         }
-        console.log('using main route')
+        console.log('using main route', authUrl)
 
         // this never completes as we get stuck on https://idapi.theguardian.com/auth/apple/auth-redirect
         // probably easiest to ask Leigh-Anne to redirect to something we can use as a deep link
@@ -117,8 +118,10 @@ const authWithDeepRedirect = async (
         })
         console.log('result finished')
         if (result.type === 'success') {
+            console.log('result finished SUCCESS ', result)
             onFinish((result as RedirectResult).url)
         } else {
+            console.log('result finished ', result)
             onFinish()
         }
     })

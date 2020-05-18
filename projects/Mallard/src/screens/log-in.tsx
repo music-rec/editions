@@ -93,6 +93,7 @@ const Login = ({
     password,
     onApplePress,
     onAppleOAuthPress,
+    onAppleOAuthPress2,
     appleOauthUrl,
     onFacebookPress,
     onGooglePress,
@@ -110,6 +111,7 @@ const Login = ({
     onApplePress: () => void
     onGooglePress: () => void
     onAppleOAuthPress: (token: AuthParams) => void
+    onAppleOAuthPress2: () => void
     appleOauthUrl: string
     email: FormField
     password: FormField
@@ -142,9 +144,12 @@ const Login = ({
             <WebviewModal
                 visible={showWebView}
                 url={webviewUrl}
-                onAppleComplete={token => {
-                    setShowWebview(false)
-                    onAppleOAuthPress(token)
+                onStateChange={url => {
+                    if (url.includes('apple-sign-in-token')) {
+                        setShowWebview(false)
+                        const token = url.split('=')[1]
+                        onAppleOAuthPress({ 'apple-sign-in-token': token })
+                    }
                 }}
             />
             {!hasInputEmail && (
@@ -178,6 +183,7 @@ const Login = ({
                                 setWebviewUrl(appleOauthUrl)
                                 setShowWebview(true)
                             }}
+                            // onPress={onAppleOAuthPress2} // this is the react-native-inappbrowser-reborn implementation
                             iconRequire={require('src/assets/images/apple.png')}
                         >
                             Continue with Apple (oauth)
