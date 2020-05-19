@@ -154,7 +154,7 @@ const Login = ({
                     if (url.includes(AppleSignInTokenKey)) {
                         setShowAppleAuthWebView(false)
                         const token = url.split('=')[1]
-                        onAppleOAuthPress({ AppleSignInTokenKey: token })
+                        onAppleOAuthPress({ 'apple-sign-in-token': token })
                     }
                 }}
             />
