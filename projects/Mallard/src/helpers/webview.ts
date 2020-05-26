@@ -42,10 +42,13 @@ export const getScaledFont = <F extends FontFamily>(
     level: FontSizes<F>,
 ) => {
     const font = getFont(family, level)
+    const pixelRatio = PixelRatio.getFontScale()
+    // never make the font smaller
+    const scaleFactor = pixelRatio < 1 ? 1 : pixelRatio
     return {
         ...font,
-        lineHeight: font.lineHeight * PixelRatio.getFontScale(),
-        fontSize: font.fontSize * PixelRatio.getFontScale(),
+        lineHeight: font.lineHeight * scaleFactor,
+        fontSize: font.fontSize * scaleFactor,
     }
 }
 
