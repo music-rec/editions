@@ -13,6 +13,7 @@
 #import <React/RCTLinkingManager.h>
 #import <RNCPushNotificationIOS.h>
 #import "RNSplashScreen.h"
+#import "Orientation.h"
 
 @implementation AppDelegate
 
@@ -71,6 +72,11 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   [RNCPushNotificationIOS didFailToRegisterForRemoteNotificationsWithError:error];
 }
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
+}
+
 // Required for the localNotification event.
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {

@@ -40,6 +40,9 @@ import { weatherHider } from './helpers/weather-hider'
 import { loggingService } from './services/logging'
 import ApolloClient from 'apollo-client'
 import { pushDownloadFailsafe } from './helpers/push-download-failsafe'
+import Orientation from 'react-native-orientation'
+import { Breakpoints } from 'src/theme/breakpoints'
+import { Dimensions } from 'react-native'
 
 /**
  * Only one global Apollo client. As such, any update done from any component
@@ -147,6 +150,13 @@ const shouldHavePushFailsafe = async (client: ApolloClient<object>) => {
 
 export default class App extends React.Component<{}, {}> {
     componentDidMount() {
+        const dimensions = Dimensions.get('window')
+        if (
+            Math.min(dimensions.width, dimensions.height) <=
+            Breakpoints.tabletVertical
+        ) {
+            Orientation.lockToPortrait()
+        }
         SplashScreen.hide()
         weatherHider(apolloClient)
         clearAndDownloadIssue(apolloClient)

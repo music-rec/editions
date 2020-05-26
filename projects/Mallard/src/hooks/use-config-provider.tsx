@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react'
 import { Dimensions } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import { Breakpoints } from 'src/theme/breakpoints'
 
 const oneGB = 1073741824
 
@@ -48,12 +47,8 @@ export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
             is playing, basically anything that enables rotation when
             things below it should not rotate, and not relayout then.
             */
-            if (
-                Math.min(ev.window.width, ev.window.height) >=
-                Breakpoints.tabletVertical
-            ) {
-                setDimensions(ev.window)
-            }
+
+            setDimensions(ev.window)
         }
         Dimensions.addEventListener('change', listener)
         return () => {
