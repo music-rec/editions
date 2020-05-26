@@ -108,6 +108,10 @@ const LightboxScreen = ({
         setCloseButtonVisible(!closeButtonVisible)
     }
 
+    const isMobile = () => {
+        return Math.min(width, height) <= Breakpoints.tabletVertical
+    }
+
     useEffect(() => {
         Orientation.unlockAllOrientations()
         setCaptionVisible(true)
@@ -116,11 +120,12 @@ const LightboxScreen = ({
         setCurrentIndex(index)
         setWindowsStart(getWindowStart(index, numDots, images.length))
         return () => {
-            if (Math.min(width, height) <= Breakpoints.tabletVertical) {
+            if (isMobile()) {
                 Orientation.lockToPortrait()
             }
         }
-    }, [index, numDots, images.length, width, height])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [index, numDots, images.length])
 
     return (
         <View style={styles.background}>
