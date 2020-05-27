@@ -189,7 +189,7 @@ const Login = ({
                                 onPress={onAppleSignInPress}
                                 iconRequire={require('src/assets/images/apple.png')}
                             >
-                                Continue with Apple (oauth)
+                                Continue with Apple
                             </SocialButton>
                         )}
                     </View>
