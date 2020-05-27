@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Modal, View } from 'react-native'
 import WebView from 'react-native-webview'
 import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
