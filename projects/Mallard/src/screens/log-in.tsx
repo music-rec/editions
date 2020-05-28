@@ -169,7 +169,7 @@ const Login = ({
                         >
                             Continue with Google
                         </SocialButton>
-                        {iosMajorVersion >= 13 && (
+                        {/* {iosMajorVersion >= 13 && (
                             <SocialButton
                                 onPress={onApplePress}
                                 iconRequire={require('src/assets/images/apple.png')}
@@ -185,7 +185,7 @@ const Login = ({
                             >
                                 Continue with Apple
                             </SocialButton>
-                        )}
+                        )} */}
                     </View>
                     <TitlepieceText style={loginStyles.or}>or</TitlepieceText>
                 </>
