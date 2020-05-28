@@ -37,7 +37,6 @@ import {
 } from 'src/hooks/use-config-provider'
 import { weatherHider } from './helpers/weather-hider'
 import { loggingService } from './services/logging'
-import { sendCrashlyticsAttributes } from './services/crashlytics'
 import ApolloClient from 'apollo-client'
 import { pushDownloadFailsafe } from './helpers/push-download-failsafe'
 import { prepareAndDownloadTodaysIssue } from './download-edition/prepare-and-download-issue'
