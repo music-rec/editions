@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, View, Alert, Text } from 'react-native'
-import { Button, ButtonAppearance } from 'src/components/button/button'
+import { Button, ButtonAppearance } from 'src/components/Button/Button'
 import { ScrollContainer } from 'src/components/layout/ui/container'
 import { Footer, Separator, TallRow } from 'src/components/layout/ui/row'
 import {
@@ -113,7 +113,7 @@ const GdprConsent = ({
             name: 'Performance',
             services: 'Sentry - Logging',
             description:
-                'Enabling these allow us to observe and measure how you use our services. We use this information to fix bugs more quickly so that users have a better experience. For example, we would be able to see the journey you have taken and where the error was encountered. Your data will only be stored in our servers for two weeks. If you disable this, we will not be able to observe and measure your use of our services, and we will have less information about their performance and event details of issues encountered.',
+                'Enabling these allow us to observe and measure how you use our services. We use this information to fix bugs more quickly so that users have a better experience. For example, we would be able to see the journey you have taken and where the error was encountered. Your data will only be stored in our servers for two weeks. If you disable this, we will not be able to observe and measure your use of our services, and we will have less information about their performance and details of any issues encountered.',
         },
         gdprAllowFunctionality: {
             key: gdprAllowFunctionalityKey,
@@ -133,7 +133,8 @@ const GdprConsent = ({
     const onDismiss = () => {
         if (
             data.gdprAllowFunctionality != null &&
-            data.gdprAllowPerformance != null
+            data.gdprAllowPerformance != null &&
+            data.gdprConsentVersion === CURRENT_CONSENT_VERSION
         ) {
             showToast(PREFS_SAVED_MSG)
             navigation.navigate('App')
@@ -214,7 +215,12 @@ const GdprConsent = ({
                                     setConsent(client, item.key, value)
                                     showToast(PREFS_SAVED_MSG)
                                 }}
-                                value={data[item.key]}
+                                value={
+                                    data.gdprConsentVersion !==
+                                    CURRENT_CONSENT_VERSION
+                                        ? null
+                                        : data[item.key]
+                                }
                             />
                         }
                     ></TallRow>
