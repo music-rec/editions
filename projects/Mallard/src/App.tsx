@@ -40,6 +40,7 @@ import { loggingService } from './services/logging'
 import ApolloClient from 'apollo-client'
 import { pushDownloadFailsafe } from './helpers/push-download-failsafe'
 import { prepareAndDownloadTodaysIssue } from './download-edition/prepare-and-download-issue'
+import { initialiseRemoteConfig } from './services/remote-config'
 
 /**
  * Only one global Apollo client. As such, any update done from any component
@@ -149,7 +150,8 @@ export default class App extends React.Component<{}, {}> {
     componentDidMount() {
         SplashScreen.hide()
         weatherHider(apolloClient)
-        sendCrashlyticsAttributes()
+        initialiseRemoteConfig()
+
         prepareAndDownloadTodaysIssue(apolloClient)
         shouldHavePushFailsafe(apolloClient)
 
