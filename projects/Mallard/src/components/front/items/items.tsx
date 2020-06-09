@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Dimensions } from 'react-native'
 import { HeadlineCardText } from 'src/components/styled-text'
 import { metrics } from 'src/theme/spacing'
 import { ImageResource } from '../image-resource'
@@ -9,6 +9,8 @@ import { ImageItem, SplitImageItem, SidekickImageItem } from './image-items'
 import { SmallItem, SmallItemLargeText } from './small-items'
 import { SuperHeroImageItem } from './super-items'
 import { Image, PageLayoutSizes } from 'src/common'
+import { useImagePath } from 'src/hooks/use-image-paths'
+import { useAspectRatio } from 'src/hooks/use-aspect-ratio'
 
 /*
 helpers
@@ -64,8 +66,9 @@ Image only
 */
 const splashImageStyles = StyleSheet.create({
     image: {
-        width: '100%',
         flex: 0,
+        height: '100%',
+        resizeMode: 'stretch',
     },
     hidden: {
         opacity: 0,
@@ -74,6 +77,11 @@ const splashImageStyles = StyleSheet.create({
         overflow: 'hidden',
     },
 })
+
+const screenRatio =
+    Dimensions.get('screen').height / Dimensions.get('screen').width
+
+console.log('screenRatio', screenRatio)
 
 const SplashImageItem = ({ article, size, ...tappableProps }: PropTypes) => {
     if (!article.cardImage || !article.cardImageTablet)
@@ -100,9 +108,14 @@ const SplashImageItem = ({ article, size, ...tappableProps }: PropTypes) => {
         <ItemTappable {...tappableProps} {...{ article }} hasPadding={false}>
             <View style={splashImageStyles.overflow}>
                 <ImageResource
-                    style={[splashImageStyles.image]}
+                    style={[
+                        splashImageStyles.image,
+                        // screenRatio < 1.8
+                        //     ? { height: '100%' }
+                        //     : { width: '100%' },
+                    ]}
                     image={cardImage}
-                    setAspectRatio
+                    // setAspectRatio
                     use="full-size"
                     accessibilityLabel={article.headline}
                 />
