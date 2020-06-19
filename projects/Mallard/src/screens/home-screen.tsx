@@ -48,6 +48,8 @@ import { useIssueResponse } from 'src/hooks/use-issue'
 import { IssueWithFronts } from '../../../Apps/common/src'
 import { PathToIssue } from 'src/paths'
 import { Loaded } from 'src/helpers/Loaded'
+import { LoginOverlay } from 'src/components/login/login-overlay'
+import { AppRateOverlayOverlay } from 'src/components/app-rate'
 
 const styles = StyleSheet.create({
     issueListFooter: {
@@ -191,17 +193,24 @@ const IssueRowContainer = React.memo(
         )
 
         return (
-            <IssueRow
-                onPress={onPress}
-                onPressFront={onPressFront}
-                issue={issue}
-                issueDetails={issueDetails}
-                onGoToSettings={() =>
-                    navigation.navigate({
-                        routeName: routeNames.ManageEditions,
-                    })
-                }
-            />
+            <AppRateOverlayOverlay
+                isFocused={() => navigation.isFocused()}
+                onLoginPress={() => navigation.navigate(routeNames.SignIn)}
+                onOpenCASLogin={() => navigation.navigate(routeNames.CasSignIn)}
+                onDismiss={() => navigation.goBack()}
+            >
+                <IssueRow
+                    onPress={onPress}
+                    onPressFront={onPressFront}
+                    issue={issue}
+                    issueDetails={issueDetails}
+                    onGoToSettings={() =>
+                        navigation.navigate({
+                            routeName: routeNames.ManageEditions,
+                        })
+                    }
+                />
+            </AppRateOverlayOverlay>
         )
     },
 )

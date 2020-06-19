@@ -47,7 +47,7 @@ const usePropToRef = <T extends any>(value: T) => {
  * this seems ok for release.
  */
 
-const ModalOpener = ({
+export const ModalOpener = ({
     children,
     isFocused,
     renderModal,
