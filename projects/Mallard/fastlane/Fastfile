@@ -91,7 +91,7 @@ platform :android do
            project_dir: 'android/'
     )
     supply(
-      track: 'internal',
+      track: 'alpha',
       package_name: 'com.guardian.editions'
     )
   end
