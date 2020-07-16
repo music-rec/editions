@@ -5,6 +5,7 @@ import React, {
     useEffect,
     useMemo,
     useRef,
+    useState,
 } from 'react'
 import {
     FlatList,
@@ -52,6 +53,7 @@ import { useIssueResponse } from 'src/hooks/use-issue'
 import {
     issueSummaryToLatestPath,
     useIssueSummary,
+    getIssueSummary,
 } from 'src/hooks/use-issue-summary'
 import { useNavPositionChange } from 'src/hooks/use-nav-position'
 import { useIsPreview } from 'src/hooks/use-settings'
@@ -64,6 +66,7 @@ import { Front as TFront, IssueWithFronts } from '../../../Apps/common/src'
 import { FrontSpec } from './article-screen'
 import { useIssueScreenSize, WithIssueScreenSize } from './issue/use-size'
 import { IssueScreenHeader } from 'src/components/ScreenHeader/IssueScreenHeader/IssueScreenHeader'
+import { useIssue } from 'src/hooks/use-issue-provider'
 
 const styles = StyleSheet.create({
     emptyWeatherSpace: {
@@ -282,8 +285,13 @@ const IssueFronts = ({
     )
 }
 
-const PreviewReloadButton = ({ onPress }: { onPress: () => void }) => {
+const PreviewReloadButton = ({
+    onPress,
+}: {
+    onPress: (path: PathToIssue) => void
+}) => {
     const preview = useIsPreview()
+
     return preview ? <ReloadButton onPress={onPress} /> : null
 }
 
@@ -347,21 +355,40 @@ const IssueScreenWithPath = React.memo(
         path: PathToIssue
         initialFrontKey: string | null
     }) => {
-        const response = useIssueResponse(path)
+        const { issue, getIssue, status, errorMessage } = useIssue()
+        const preview = useIsPreview()
+        useEffect(() => {
+            getIssue(path, preview)
+            console.log('refetched!, ispreview: ', preview)
+        }, [path, getIssue, preview])
 
-        return response({
-            error: handleError,
-            pending: handlePending,
-            success: (issue, { retry }) => {
+        console.log(issue.publishedId)
+
+        // const response = useIssueResponse(path)
+
+        switch (status) {
+            case 'error':
+                return handleError({ message: errorMessage }, '', {
+                    retry: () => getIssue(path, preview),
+                })
+            case 'pending':
+                return handlePending
+            case 'ready':
                 sendPageViewEvent({
                     path: `editions/uk/daily/${issue.key}`,
                 })
+                // console.log('returnedissue', issue)
                 return (
                     <>
                         <PreviewReloadButton
-                            onPress={() => {
+                            onPress={async () => {
                                 clearCache()
-                                retry()
+                                console.log('reloading')
+                                const issueSummary = await getIssueSummary()
+                                path = issueSummaryToLatestPath(issueSummary)
+                                // setCurrentPath(
+                                //     issueSummaryToLatestPath(issueSummary),
+                                // )
                             }}
                         />
                         <IssueScreenHeader issue={issue} />
@@ -422,8 +449,7 @@ const IssueScreenWithPath = React.memo(
                         </WithBreakpoints>
                     </>
                 )
-            },
-        })
+        }
     },
     (prev, next) => pathsAreEqual(prev.path, next.path),
 )
@@ -450,3 +476,80 @@ export const IssueScreen = () => {
         </Container>
     )
 }
+//     return response({
+//         error: handleError,
+//         pending: handlePending,
+//         success: (issue, { retry }) => {
+//             sendPageViewEvent({
+//                 path: `editions/uk/daily/${issue.key}`,
+//             })
+//             return (
+//                 <>
+//                     <PreviewReloadButton
+//                         onPress={(newPath: PathToIssue) => {
+//                             clearCache()
+//                             getIssueSummary()
+//                             retry()
+//                         }}
+//                     />
+//                     <IssueScreenHeader issue={issue} />
+
+//                     <WithBreakpoints>
+//                         {{
+//                             0: () => (
+//                                 <WithLayoutRectangle>
+//                                     {metrics => (
+//                                         <WithIssueScreenSize
+//                                             value={[
+//                                                 PageLayoutSizes.mobile,
+//                                                 metrics,
+//                                             ]}
+//                                         >
+//                                             <IssueFronts
+//                                                 ListHeaderComponent={
+//                                                     <WeatherHeader />
+//                                                 }
+//                                                 issue={issue}
+//                                                 initialFrontKey={
+//                                                     initialFrontKey
+//                                                 }
+//                                             />
+//                                         </WithIssueScreenSize>
+//                                     )}
+//                                 </WithLayoutRectangle>
+//                             ),
+//                             [Breakpoints.tabletVertical]: () => (
+//                                 <View
+//                                     style={{
+//                                         flexDirection: 'row',
+//                                     }}
+//                                 >
+//                                     <WithLayoutRectangle>
+//                                         {metrics => (
+//                                             <WithIssueScreenSize
+//                                                 value={[
+//                                                     PageLayoutSizes.tablet,
+//                                                     metrics,
+//                                                 ]}
+//                                             >
+//                                                 <IssueFronts
+//                                                     ListHeaderComponent={
+//                                                         <WeatherHeader />
+//                                                     }
+//                                                     issue={issue}
+//                                                     initialFrontKey={
+//                                                         initialFrontKey
+//                                                     }
+//                                                 />
+//                                             </WithIssueScreenSize>
+//                                         )}
+//                                     </WithLayoutRectangle>
+//                                 </View>
+//                             ),
+//                         }}
+//                     </WithBreakpoints>
+//                 </>
+//             )
+//         },
+//     })
+// },

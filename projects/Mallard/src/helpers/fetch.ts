@@ -11,6 +11,7 @@ import { cacheClearCache } from './storage'
 import { FSPaths, APIPaths } from 'src/paths'
 import { Front, IssueWithFronts } from '../../../Apps/common/src'
 import { deleteIssueFiles } from 'src/download-edition/clear-issues'
+import { useIsPreview } from 'src/hooks/use-settings'
 
 export type ValidatorFn<T> = (response: any | T) => boolean
 
@@ -54,6 +55,21 @@ const fetchIssueWithFrontsFromFS = async (
         ...issue,
         origin: 'filesystem',
         fronts,
+    }
+}
+
+export const fetchIssue2 = async (
+    localIssueId: Issue['localId'],
+    publishedIssueId: Issue['publishedId'],
+    forceApi = false,
+): Promise<IssueWithFronts> => {
+    const issueOnDevice = await isIssueOnDevice(localIssueId)
+    if (!forceApi && issueOnDevice) {
+        console.log('on device')
+        return fetchIssueWithFrontsFromFS(localIssueId)
+    } else {
+        console.log('hitting api')
+        return fetchIssueWithFrontsFromAPI(publishedIssueId)
     }
 }
 

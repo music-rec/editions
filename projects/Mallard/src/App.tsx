@@ -42,6 +42,7 @@ import { remoteConfigService } from './services/remote-config'
 import analytics from '@react-native-firebase/analytics'
 import { prepFileSystem } from './helpers/files'
 import { EditionProvider } from './hooks/use-edition-provider'
+import { IssueProvider } from './hooks/use-issue-provider'
 import { apolloClient } from './services/apollo-singleton'
 
 analytics().setAnalyticsCollectionEnabled(false)
@@ -132,6 +133,7 @@ const WithProviders = nestProviders(
     NavPositionProvider,
     ConfigProvider,
     EditionProvider,
+    IssueProvider,
 )
 
 const handleIdStatus = (attempt: AnyAttempt<IdentityAuthData>) =>

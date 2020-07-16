@@ -47,6 +47,7 @@ import { IssueWithFronts } from '../../../Apps/common/src'
 import { ApiState } from './settings/api-screen'
 import { useEditions } from 'src/hooks/use-edition-provider'
 import { useEditionsMenuEnabled } from 'src/hooks/use-config-provider'
+import { useIssue } from 'src/hooks/use-issue-provider'
 
 const styles = StyleSheet.create({
     issueListFooter: {
@@ -405,6 +406,7 @@ const IssueListFetchContainer = () => {
     }, [])
 
     const resp = useIssueResponse(issueId)
+    // const { issue, status, errorMessage, getIssue } = useIssue()
     if (!isShown) return <View style={styles.listPlaceholder} />
 
     return resp({

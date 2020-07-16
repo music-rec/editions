@@ -2,10 +2,12 @@ import React from 'react'
 import { View } from 'react-native'
 import { Button, ButtonAppearance } from './Button'
 import { useInsets } from 'src/hooks/use-screen'
+import { useIssueSummary } from 'src/hooks/use-issue-summary'
 export const ReloadButton: React.FC<{
-    onPress: () => void
+    onPress: (path: PathToIssue) => void
 }> = ({ onPress }) => {
     const { top, left } = useInsets()
+    const { issueId } = useIssueSummary()
     return (
         <View
             style={[
@@ -19,7 +21,7 @@ export const ReloadButton: React.FC<{
         >
             <Button
                 appearance={ButtonAppearance.tomato}
-                onPress={onPress}
+                onPress={() => onPress(issueId)}
                 buttonStyles={{ left: 0 }}
             >
                 Reload
