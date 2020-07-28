@@ -6,19 +6,16 @@ import { Breakpoints } from 'src/theme/breakpoints'
 import { color } from 'src/theme/color'
 import { metrics } from 'src/theme/spacing'
 import { families } from 'src/theme/typography'
-import {
-    Article,
-    CreditedImage,
-    MediaAtomElement,
-} from '../../../../../../Apps/common/src'
+import { Article, CreditedImage, MediaAtomElement } from 'src/common'
 import { CssProps, themeColors } from '../helpers/css'
 import { breakSides } from '../helpers/layout'
-import { getHeadline } from './headline'
+import { getHeadline, getHeadlineWithCutout } from './headline'
 import { Line } from './line'
 import { renderMediaAtom } from './media-atoms'
 import { Rating } from './rating'
 import { SportScore } from './sport-score'
 import { getByLineText } from './helpers/getBylineText'
+import { ArticlePillar } from '../../../../../../Apps/common/src'
 
 export interface ArticleHeaderProps {
     headline: string
@@ -83,7 +80,7 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
         pointer-events: none;
     }
 
-    .header:after, .header-immersive-video:after {
+    .lines:after {
         background-image: repeating-linear-gradient(
             to bottom,
             ${color.dimLine},
@@ -180,6 +177,9 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
         padding: 0.25em 0 0.8em;
         border-bottom: 1px solid ${color.dimLine};
         display: block;
+    }
+    .header-kicker-showcase {
+        border-top: 1px solid ${color.dimLine};
     }
     .header h1, .header-immersive-video h1 {
         font-size: 30px;
@@ -291,7 +291,7 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
     }
 
     .header-opinion-flex > :last-child img {
-        width: 240%;
+        width: 200%;
         display: block;
         float: right;
     }
@@ -455,6 +455,9 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
     .header-container[data-type='analysis'] h1 {
         font-family: ${families.headline.light};
     }
+    .header-container[data-type='showcase'] h1 {
+        font-family: ${families.headline.bold};
+    }
     .header-container[data-type='analysis'] h1 .header-top-headline {
         text-decoration: underline;
         text-decoration-color: ${colors.main};
@@ -565,9 +568,17 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
     .header-container[data-type='${ArticleType.Obituary}'] .share-button {
         border: 1px solid ${color.textOverDarkBackground};
     }
+    .showcase-headline h1 {
+        width: 100% !important;
+        max-width: 600px;
+        align-self: flex-end;
+    }
+    .showcase-image {
+        max-width: 200px
+    }
 `
 
-const Image = ({
+export const Image = ({
     image,
     className,
     getImagePath,
@@ -646,18 +657,22 @@ const getStandFirst = (
     headerProps: ArticleHeaderProps,
     publishedId: Issue['publishedId'] | null,
     getImagePath: GetImagePath,
+    withHeadline = true,
 ): string => {
     const cutout =
-        type === ArticleType.Opinion &&
+        (type === ArticleType.Opinion || type === ArticleType.Showcase) &&
         headerProps.bylineImages &&
         headerProps.bylineImages.cutout
+    // console.log(headerProps.headline, articleHeaderType)
     if (articleHeaderType === HeaderType.LargeByline) {
         return html`
             <section class="header-top">
                 <div class="${cutout && `header-opinion-flex`}">
-                    ${getHeadline(articleHeaderType, type, headerProps)}
+                    ${withHeadline &&
+                        getHeadline(articleHeaderType, type, headerProps)}
                     ${publishedId &&
                         cutout &&
+                        withHeadline &&
                         html`
                             <div>
                                 ${Image({
@@ -672,7 +687,8 @@ const getStandFirst = (
     } else {
         return html`
             <section class="header-top">
-                ${getHeadline(articleHeaderType, type, headerProps)}
+                ${withHeadline &&
+                    getHeadline(articleHeaderType, type, headerProps)}
                 ${articleHeaderType === HeaderType.RegularByline &&
                     headerProps.standfirst &&
                     `<p>
@@ -812,11 +828,12 @@ const Header = ({
                         getImagePath,
                     })}
                 <header
-                    class=${immersive &&
+                    class="${immersive &&
                     headerProps.mainMedia &&
                     headerProps.showMedia
                         ? 'header-immersive-video'
                         : 'header'}
+                 lines"
                 >
                     ${headerProps.mainMedia &&
                         (headerProps.showMedia
@@ -847,4 +864,104 @@ const Header = ({
         </div>
     `
 }
-export { Header, getStandFirst }
+
+const HeaderShowcase = ({
+    publishedId,
+    type,
+    headerType,
+    getImagePath,
+    pillar,
+    ...headerProps
+}: {
+    showMedia: boolean
+    publishedId: Issue['publishedId'] | null
+    type: ArticleType
+    headerType: HeaderType
+    canBeShared: boolean
+    getImagePath: GetImagePath
+    pillar: ArticlePillar
+} & ArticleHeaderProps) => {
+    const byLineText = getByLineText(headerType, headerProps)
+    return html`
+        <div class="header-container-line-wrap">
+            ${Line({ zIndex: 10 })}
+            <div
+                class="header-container"
+                data-type="${pillar === 'opinion' &&
+                type === ArticleType.Showcase
+                    ? 'opinion'
+                    : type}"
+            >
+                <header
+                    class="${headerProps.mainMedia && headerProps.showMedia
+                        ? 'header-immersive-video'
+                        : 'header'}
+                "
+                >
+                    ${headerProps.kicker &&
+                        html`
+                            <span class="header-kicker header-kicker-showcase"
+                                >${headerProps.kicker}</span
+                            >
+                        `}
+                    ${getHeadlineWithCutout(
+                        type,
+                        headerType,
+                        headerProps,
+                        publishedId,
+                        getImagePath,
+                    )}
+                    ${headerProps.mainMedia &&
+                        (headerProps.showMedia
+                            ? renderMediaAtom(headerProps.mainMedia)
+                            : null)}
+                </header>
+            </div>
+        </div>
+        ${headerProps.image &&
+            publishedId &&
+            MainMediaImage({
+                articleType: type,
+                className: 'header-image--wide',
+                image: headerProps.image,
+                preserveRatio: true,
+                children: headerProps.starRating
+                    ? Rating(headerProps)
+                    : headerProps.sportScore
+                    ? SportScore({
+                          sportScore: headerProps.sportScore,
+                      })
+                    : undefined,
+                getImagePath,
+            })}
+        <div class="header-container-line-wrap">
+            ${Line({ zIndex: 10 })}
+            <div class="header-container wrapper" data-type="${type}">
+                <header
+                    class="${headerProps.mainMedia && headerProps.showMedia
+                        ? 'header-immersive-video'
+                        : 'header'}
+                     lines
+                    "
+                >
+                    ${getStandFirst(
+                        headerType,
+                        type,
+                        headerProps,
+                        publishedId,
+                        getImagePath,
+                        false,
+                    )}
+                </header>
+                ${hasByLine(byLineText, headerProps.canBeShared) &&
+                    getByLine(
+                        headerType,
+                        headerProps.canBeShared,
+                        headerProps as ArticleHeaderProps,
+                    )}
+                <div class="header-bg"></div>
+            </div>
+        </div>
+    `
+}
+export { Header, HeaderShowcase, getStandFirst }

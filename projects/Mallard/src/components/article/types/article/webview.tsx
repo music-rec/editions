@@ -76,7 +76,7 @@ const WebviewWithArticle = ({
     const html = renderArticle(article.elements, {
         pillar,
         article,
-        type,
+        type: ArticleType.Showcase,
         imageSize,
         showWebHeader: true,
         showMedia: isConnected,

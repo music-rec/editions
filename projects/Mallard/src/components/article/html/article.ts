@@ -8,7 +8,7 @@ import {
     ImageSize,
     Issue,
 } from '../../../common'
-import { Header, ArticleHeaderProps } from './components/header'
+import { Header, HeaderShowcase, ArticleHeaderProps } from './components/header'
 import { Image } from './components/images'
 import { Line } from './components/line'
 import { Pullquote } from './components/pull-quote'
@@ -111,6 +111,7 @@ export const renderArticle = (
         headerProps?: ArticleHeaderProps & { type: ArticleType }
     } & ArticleContentProps,
 ) => {
+    console.log(article.headline, pillar)
     let content, header
     const headerType = article.headerType || HeaderType.RegularByline
     const canBeShared = article.webUrl != null
@@ -153,7 +154,7 @@ export const renderArticle = (
             })
             break
         default:
-            header = Header({
+            header = HeaderShowcase({
                 ...article,
                 type,
                 headerType,
@@ -161,6 +162,7 @@ export const renderArticle = (
                 showMedia,
                 canBeShared,
                 getImagePath,
+                pillar,
             })
             content = renderArticleContent(elements, {
                 showMedia,
