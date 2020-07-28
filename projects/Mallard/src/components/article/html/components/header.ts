@@ -109,6 +109,7 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
         position: relative;
         -webkit-user-select: none;
         -webkit-user-drag: none;
+        clear: both;
     }
     .header-container-line-wrap {
         z-index: 100;
@@ -412,7 +413,7 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
 
     /*opinion*/
     .header-container[data-type='opinion']:after {
-        border-bottom: 1px solid ${color.dimLine};
+        // border-bottom: 1px solid ${color.dimLine};
     }
     .header-container[data-type='opinion'] .header-bg {
         background-color: ${color.palette.opinion.faded};
@@ -574,7 +575,10 @@ export const headerStyles = ({ colors, theme }: CssProps) => css`
         align-self: flex-end;
     }
     .showcase-image {
-        max-width: 200px
+        max-width: 200px;
+    }
+    .header-image {
+        clear: both;
     }
 `
 

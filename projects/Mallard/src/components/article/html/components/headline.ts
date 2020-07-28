@@ -1,8 +1,10 @@
 import { html } from 'src/helpers/webview'
 import { HeaderType, ArticleType, Issue } from 'src/common'
-import { ArticleHeaderProps, Image } from './header'
+import { ArticleHeaderProps, Image, MainMediaImage } from './header'
 import { Quotes } from './icon/quotes'
 import { GetImagePath } from 'src/hooks/use-image-paths'
+import { Rating } from './rating'
+import { SportScore } from './sport-score'
 
 const getHeadline = (
     articleHeaderType: HeaderType,
@@ -43,25 +45,39 @@ const getHeadlineWithCutout = (
         (type === ArticleType.Opinion || type === ArticleType.Showcase) &&
         headerProps.bylineImages &&
         headerProps.bylineImages.cutout
+    const path = getImagePath(cutout)
     return html`
-        <section style="display: flex">
-            <div class="showcase-headline">
-                ${getHeadline(articleHeaderType, type, headerProps)}
-            </div>
+        <section class="james-headline">
             ${publishedId &&
                 cutout &&
                 html`
-                    <div
-                        style="display: flex; flex-direction: column; align-items: flex-end"
-                    >
-                        ${Image({
-                            image: cutout,
-                            className: 'showcase-image',
-                            getImagePath,
-                        })}
-                    </div>
+                    <img
+                        id="cutout"
+                        style="shape-outside: url('${path}'); float:right; max-width: 180px; max-height: 150px; margin-left: 50px;"
+                        src="${path}"
+                    />
                 `}
+            <div class="showcase-headline">
+                ${getHeadline(articleHeaderType, type, headerProps)}
+            </div>
         </section>
+        <script type="text/javascript">
+            function james() {
+                var h1Test = document.querySelector('.james-headline')
+                var compStyles = window.getComputedStyle(h1Test)
+                var h1Height = compStyles.getPropertyValue('height')
+                var inH1Height = parseInt(h1Height)
+                if (inH1Height > 150) {
+                    document.getElementById('cutout').style.marginTop =
+                        inH1Height - 150 + 23
+                    document.getElementById('cutout').style.marginLeft = 50
+                } else {
+                    document.getElementById('cutout').style.marginTop = 20
+                    document.getElementById('cutout').style.marginLeft = 50
+                }
+            }
+            setTimeout(() => james(), 1000)
+        </script>
     `
 }
 
