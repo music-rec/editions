@@ -23,6 +23,7 @@ import { FlexErrorMessage } from 'src/components/layout/ui/errors/flex-error-mes
 import { WithBreakpoints } from 'src/components/layout/ui/sizing/with-breakpoints'
 import { WithLayoutRectangle } from 'src/components/layout/ui/sizing/with-layout-rectangle'
 import { Spinner } from 'src/components/Spinner/Spinner'
+import RNRestart from 'react-native-restart'
 import {
     EMPTY_WEATHER_HEIGHT,
     getValidWeatherData,
@@ -31,7 +32,6 @@ import {
     WEATHER_HEIGHT,
     WEATHER_QUERY as FULL_WEATHER_QUERY,
 } from 'src/components/weather'
-import { clearCache } from 'src/helpers/fetch/cache'
 import {
     FlatCard,
     flattenCollectionsToCards,
@@ -52,7 +52,6 @@ import { useIssueResponse } from 'src/hooks/use-issue'
 import {
     issueSummaryToLatestPath,
     useIssueSummary,
-    getIssueSummary,
 } from 'src/hooks/use-issue-summary'
 import { useNavPositionChange } from 'src/hooks/use-nav-position'
 import { useIsPreview } from 'src/hooks/use-settings'
@@ -362,10 +361,7 @@ const IssueScreenWithPath = React.memo(
                     <>
                         <PreviewReloadButton
                             onPress={async () => {
-                                clearCache()
-                                const issueSummary = await getIssueSummary()
-                                path = issueSummaryToLatestPath(issueSummary)
-                                retry()
+                                RNRestart.Restart()
                             }}
                         />
                         <IssueScreenHeader issue={issue} />
