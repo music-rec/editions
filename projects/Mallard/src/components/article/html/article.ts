@@ -8,7 +8,7 @@ import {
     ImageSize,
     Issue,
 } from '../../../common'
-import { Header, ArticleHeaderProps } from './components/header'
+import { Header, HeaderShowcase, ArticleHeaderProps } from './components/header'
 import { Image } from './components/images'
 import { Line } from './components/line'
 import { Pullquote } from './components/pull-quote'
@@ -155,7 +155,7 @@ export const renderArticle = (
             })
             break
         default:
-            header = Header({
+            header = HeaderShowcase({
                 ...article,
                 type,
                 headerType,

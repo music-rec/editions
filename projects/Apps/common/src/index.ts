@@ -19,7 +19,7 @@ export const articlePillars = [
 ] as const
 
 export enum ArticleType {
-    Article = 'article',
+    Article = 'article', // aka standard
     Longread = 'longread',
     Review = 'review',
     Opinion = 'opinion',
@@ -33,6 +33,7 @@ export enum ArticleType {
     Gallery = 'gallery',
     Feature = 'feature',
     Immersive = 'immersive',
+    Showcase = 'showcase',
 }
 
 export enum HeaderType {
