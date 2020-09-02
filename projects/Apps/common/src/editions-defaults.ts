@@ -27,17 +27,4 @@ Saturday by 6 am (AEST)`,
         topic: 'au',
         notificationUTCOffset: -5,
     },
-    {
-        title: 'US Weekend',
-        subTitle: `Published from New York every 
-Saturday morning by 6am (EST)`,
-        edition: editions.usWeekly,
-        header: {
-            title: 'US',
-            subTitle: 'Weekend',
-        },
-        editionType: 'Regional',
-        topic: 'us',
-        notificationUTCOffset: 8,
-    },
 ]
