@@ -260,6 +260,9 @@ export const EditionProvider = ({
     )
     const apiUrl = editionsEndpoint(useApiUrl() || defaultSettings.apiUrl)
 
+    // load selected edition from async storage
+    getSelectedEdition().then(se => se && setSelectedEdition(se))
+
     /**
      * Default Edition and Selected
      *
