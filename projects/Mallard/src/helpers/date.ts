@@ -6,7 +6,7 @@ const londonTime = (time?: string | number) => {
     return moment.tz('Europe/London')
 }
 
-const localDate = (date: Date): string =>
+const localDateString = (date: Date): string =>
     date.toLocaleDateString(RNLocalize.getLocales()[0].languageTag)
 
-export { londonTime, localDate }
+export { londonTime, localDateString }
