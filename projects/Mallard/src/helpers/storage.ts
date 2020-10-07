@@ -3,7 +3,12 @@ import { Platform, Settings } from 'react-native'
 import * as Keychain from 'react-native-keychain'
 import { IdentityAuthData } from 'src/authentication/authorizers/IdentityAuthorizer'
 import { ReceiptIOS } from 'src/authentication/services/iap'
-import { RegionalEdition, SpecialEdition, EditionsList } from 'src/common'
+import {
+    RegionalEdition,
+    SpecialEdition,
+    EditionsList,
+    NotificationReminderAttempt,
+} from 'src/common'
 import {
     LEGACY_SUBSCRIBER_ID_USER_DEFAULT_KEY,
     LEGACY_SUBSCRIBER_POSTCODE_USER_DEFAULT_KEY,
@@ -91,6 +96,10 @@ const notificationsEnabledCache = createAsyncCache<boolean>(
     'notificationsEnabled',
 )
 
+const notificationReminderAttemptCache = createAsyncCache<
+    NotificationReminderAttempt
+>('notificationReminderAttempt')
+
 /**
  * Creates a simple store (wrapped around the keychain) for tokens.
  *
@@ -159,4 +168,5 @@ export {
     pushRegisteredTokens,
     notificationsEnabledCache,
     showAllEditionsCache,
+    notificationReminderAttemptCache,
 }

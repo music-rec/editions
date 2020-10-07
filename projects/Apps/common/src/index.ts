@@ -575,6 +575,11 @@ export interface EditionsList {
 
 export type Locale = 'en_GB' | 'en_AU'
 
+export interface NotificationReminderAttempt {
+    count: number
+    date: number
+}
+
 export interface EditionInterface {
     title: string
     subTitle: string
