@@ -577,7 +577,7 @@ export type Locale = 'en_GB' | 'en_AU'
 
 export interface NotificationReminderAttempt {
     count: number
-    date: number
+    date: Date
 }
 
 export interface EditionInterface {
