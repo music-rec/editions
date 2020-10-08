@@ -1,17 +1,7 @@
-import { Platform } from 'react-native'
-import PushNotification from 'react-native-push-notification'
 import { notificationReminderAttemptCache } from 'src/helpers/storage'
 import moment from 'moment'
 
-const userHasGrantedPermission = (): boolean => {
-    PushNotification.checkPermissions(permissions => {
-        return permissions === { alert: true, badge: true, sound: true }
-    })
-    return false
-}
-
-const shouldShowReminder = async (): Promise<boolean> => {
-    // TODO: check if permission has been granted and if platform is iOS
+const shouldShowNotificationReminder = async (): Promise<boolean> => {
     const lastReminderAttempt = await notificationReminderAttemptCache.get()
     const oneMonthAgo = moment()
         .subtract(1, 'month')
@@ -57,4 +47,4 @@ const shouldShowReminder = async (): Promise<boolean> => {
     return false
 }
 
-export { shouldShowReminder }
+export { shouldShowNotificationReminder }
