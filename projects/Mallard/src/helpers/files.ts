@@ -106,10 +106,12 @@ export const unzipNamedIssueArchive = async (zipFilePath: string) => {
     const outputPath = FSPaths.issuesDir
 
     try {
+        console.log(outputPath)
         await unzip(zipFilePath, outputPath)
         return RNFS.unlink(zipFilePath)
     } catch (e) {
         e.message = `${e.message} - zipFilePath: ${zipFilePath} - outputPath: ${outputPath}`
+        console.log(e.message)
         errorService.captureException(e)
     }
 }

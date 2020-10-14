@@ -6,6 +6,7 @@ import gql from 'graphql-tag'
 import { useQuery } from 'src/hooks/apollo'
 import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
 import { defaultSettings } from 'src/helpers/settings/defaults'
+import { FSPaths } from 'src/paths'
 
 type QueryValue = { imageSize: ImageSize; apiUrl: string }
 const QUERY = gql`
@@ -29,9 +30,10 @@ const WebviewWithArticle = ({
     // Hold off rendering until we have all the necessary data.
     if (res.loading) return null
 
-    const uri =
-        defaultSettings.appRenderingService + article.key + '?template=editions'
-    console.log(uri)
+    // const uri =
+    //     defaultSettings.appRenderingService + article.key + '?template=editions'
+    
+    const uri = FSPaths.issuesDir + '/index.html'
 
     return (
         <WebView

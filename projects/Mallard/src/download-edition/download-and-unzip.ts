@@ -91,9 +91,22 @@ const runDownload = async (issue: IssueSummary, imageSize: ImageSize) => {
                     filename: 'data.zip',
                     withProgress: false,
                 })
+
+                const jamesmillerDownloadResult = await downloadNamedIssueArchive({
+                    localIssueId: localId,
+                    assetPath: 'zips/daily-edition/2020-10-14/2020-10-14T00%3A32%3A59.118Z/james-miller-test.zip',
+                    filename: 'james-miller-test.zip',
+                    withProgress: false,
+                })
+
                 console.log(
                     'Data download completed with status: ' +
                         dataDownloadResult.statusCode,
+                )
+
+                console.log(
+                    'Data download completed with status: ' +
+                        jamesmillerDownloadResult.statusCode,
                 )
 
                 await pushTracking(
@@ -136,6 +149,14 @@ const runDownload = async (issue: IssueSummary, imageSize: ImageSize) => {
                 )
 
                 await pushTracking('unzipData', 'end', Feature.DOWNLOAD)
+
+                await pushTracking('unzipJames', 'start', Feature.DOWNLOAD)
+
+                await unzipNamedIssueArchive(
+                    `${FSPaths.downloadIssueLocation(localId)}/james-miller-test.zip`,
+                )
+
+                await pushTracking('unzipJames', 'end', Feature.DOWNLOAD)
 
                 await pushTracking('unzipImages', 'start', Feature.DOWNLOAD)
 
