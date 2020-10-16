@@ -32,7 +32,7 @@ import { metrics } from 'src/theme/spacing'
 import { useEditions } from 'src/hooks/use-edition-provider'
 import { pushRegisteredTokens, showAllEditionsCache } from 'src/helpers/storage'
 import { NativeModules } from 'react-native'
-export default NativeModules.CrashyCrashy;
+export default NativeModules.CrashyCrashy
 
 const ButtonList = ({ children }: { children: ReactNode }) => {
     return (
