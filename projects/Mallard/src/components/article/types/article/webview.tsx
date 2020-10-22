@@ -33,7 +33,8 @@ const WebviewWithArticle = ({
     // const uri =
     //     defaultSettings.appRenderingService + article.key + '?template=editions'
     
-    const uri = FSPaths.issuesDir + '/index.html'
+    const uri = FSPaths.issuesDir + '/daily-edition/2020-10-14/jamestest/index.html'
+    // alert(uri)
 
     return (
         <WebView
@@ -43,12 +44,15 @@ const WebviewWithArticle = ({
             scrollEnabled={true}
             source={{
                 uri,
-                baseUrl:
-                    '' /* required as per https://stackoverflow.com/a/51931187/609907 */,
+                baseUrl: ''
+                // baseUrl: FSPaths.issuesDir + '/daily-edition/2020-10-14/jamestest/' /* required as per https://stackoverflow.com/a/51931187/609907 */,
             }}
             ref={_ref}
             onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
             allowFileAccess={true}
+            allowFileAccessFromFileURLs={true}
+            allowingReadAccessToURL={FSPaths.issuesDir}
+            allowUniversalAccessFromFileURLs={true}
         />
     )
 }
