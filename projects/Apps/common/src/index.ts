@@ -7,6 +7,7 @@ export * from './helpers/sizes'
 
 export interface WithKey {
     key: string
+    internalPageCode: number
 }
 
 export const articlePillars = [

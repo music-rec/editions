@@ -10,7 +10,7 @@ import {
     Issue,
 } from '../../../common'
 import { handleAndNotifyOnError } from '../../services/task-handler'
-import { getFront } from '../../utils/backend-client'
+import { getFront, getRenderedContent } from '../../utils/backend-client'
 import { getBucket, ONE_WEEK, upload } from '../../utils/s3'
 import { IssueParams } from '../issue'
 import {
@@ -20,6 +20,7 @@ import {
 } from './helpers/media'
 import pAll = require('p-all')
 import { sleep } from '../../utils/sleep'
+import { getHtmlFromFront } from './helpers/render'
 
 export interface FrontTaskInput extends IssueParams {
     issue: Issue
@@ -95,6 +96,9 @@ export const handler: Handler<
 
     const failedImages = failedImageUseUploads.length
     const success = failedImages === 0
+
+    // server side rendering
+    const html = await getHtmlFromFront(maybeFront)
 
     return {
         message: `${front} and images uploaded ${

@@ -85,3 +85,19 @@ export const getEditions = async (): Promise<Attempt<EditionsList>> => {
     }
     return maybeEditionsList
 }
+
+export const getRenderedContent = async (
+    contentPath: string,
+): Promise<Attempt<string>> => {
+    const path = `${URL}render${contentPath}`
+    console.log(`Attempting to fetch rendered html for ${path}`)
+    const response = await fetch(path)
+    const maybeContentHtml = await attempt(response.text())
+    if (hasFailed(maybeContentHtml)) {
+        return withFailureMessage(
+            maybeContentHtml,
+            `Failed to fetch html for ${path}`,
+        )
+    }
+    return maybeContentHtml
+}
