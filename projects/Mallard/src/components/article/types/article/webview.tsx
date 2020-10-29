@@ -7,6 +7,7 @@ import { useQuery } from 'src/hooks/apollo'
 import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
 import { defaultSettings } from 'src/helpers/settings/defaults'
 import { FSPaths } from 'src/paths'
+import { Platform } from 'react-native'
 
 type QueryValue = { imageSize: ImageSize; apiUrl: string }
 const QUERY = gql`
@@ -33,7 +34,8 @@ const WebviewWithArticle = ({
     // const uri =
     //     defaultSettings.appRenderingService + article.key + '?template=editions'
     
-    const uri = FSPaths.issuesDir + '/daily-edition/2020-10-14/jamestest/index.html'
+    const coreuri = FSPaths.issuesDir + '/daily-edition/2020-10-14/jamestest/index.html'
+    const uri = Platform.OS === 'android' ? 'file:///' + coreuri : coreuri
     // alert(uri)
 
     return (
@@ -52,7 +54,6 @@ const WebviewWithArticle = ({
             allowFileAccess={true}
             allowFileAccessFromFileURLs={true}
             allowingReadAccessToURL={FSPaths.issuesDir}
-            allowUniversalAccessFromFileURLs={true}
         />
     )
 }
