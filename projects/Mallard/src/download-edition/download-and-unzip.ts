@@ -94,7 +94,7 @@ const runDownload = async (issue: IssueSummary, imageSize: ImageSize) => {
 
                 const jamesmillerDownloadResult = await downloadNamedIssueArchive({
                     localIssueId: localId,
-                    assetPath: 'zips/daily-edition/2020-10-14/2020-10-14T00%3A32%3A59.118Z/james-miller-test.zip',
+                    assetPath: 'zips/daily-edition/2020-11-03/2020-11-03T01%3A58%3A29.352Z/james-miller-test.zip',
                     filename: 'james-miller-test.zip',
                     withProgress: false,
                 })

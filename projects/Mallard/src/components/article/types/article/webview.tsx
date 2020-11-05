@@ -34,9 +34,11 @@ const WebviewWithArticle = ({
     // const uri =
     //     defaultSettings.appRenderingService + article.key + '?template=editions'
     
-    const coreuri = FSPaths.issuesDir + '/daily-edition/2020-10-14/jamestest/index.html'
-    const uri = Platform.OS === 'android' ? 'file:///' + coreuri : coreuri
-    // alert(uri)
+
+    const path = `${article.key}`
+    const hash = path.replace(/\//g, '_')
+    const coreuri = FSPaths.issuesDir + '/daily-edition/2020-11-03/html/tabletXL/' + hash + '.html'
+    const uri = Platform.OS === 'android' ? 'file:///' + coreuri : coreuri  
 
     return (
         <WebView
