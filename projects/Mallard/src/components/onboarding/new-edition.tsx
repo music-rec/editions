@@ -7,7 +7,7 @@ import { ButtonAppearance } from '../Button/Button'
 import { SpecialEditionHeaderStyles } from '../../../../Apps/common/src'
 import { ModalButton } from '../Button/ModalButton'
 import DeviceInfo from 'react-native-device-info'
-import { lifestyle } from '@guardian/src-foundations/palette'
+import { brand } from '@guardian/src-foundations/palette'
 
 export enum CardAppearance {
     apricot,
@@ -33,7 +33,7 @@ const modalStyles = (backgroundColor: string, textColor: string) =>
         },
         container: {
             flex: 1,
-            backgroundColor: lifestyle[300],
+            backgroundColor: brand[800],
             overflow: 'hidden',
             padding: 12,
             borderRadius: 5,
@@ -49,14 +49,13 @@ const modalStyles = (backgroundColor: string, textColor: string) =>
             borderStyle: 'solid',
             borderLeftColor: 'transparent',
             borderRightColor: 'transparent',
-            borderBottomColor: lifestyle[300],
+            borderBottomColor: brand[800],
         },
         buttonWrapper: {
             width: '40%',
         },
         background: { backgroundColor: backgroundColor },
-        titleText: { color: textColor },
-        subtitleText: { color: textColor },
+        titleText: { color: 'black' },
     })
 
 const NewEditionCard = ({
