@@ -196,9 +196,7 @@ const createArticleNavigator = (
             front,
             () => animatedValue,
         ),
-        [routeNames.Article]: !supportsTransparentCards()
-            ? wrapInBasicCard(article, () => new Animated.Value(1))
-            : wrapInSlideCard(article, () => animatedValue),
+        [routeNames.Article]: wrapInSlideCard(article, () => animatedValue),
     }
 
     const transitionConfig = (transitionProps: NavigationTransitionProps) => {
@@ -218,14 +216,10 @@ const createArticleNavigator = (
             gesturesEnabled: false,
         },
         headerMode: 'none',
-        ...(supportsTransparentCards()
-            ? {
-                  mode: 'modal',
-                  transparentCard: true,
-                  cardOverlayEnabled: true,
-                  transitionConfig,
-              }
-            : {}),
+        mode: 'modal',
+        transparentCard: true,
+        cardOverlayEnabled: true,
+        transitionConfig,
     })
 }
 

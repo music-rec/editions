@@ -76,7 +76,7 @@ const SliderDots = React.memo(
 
         for (let i = 0; i < numOfItems; i++) {
             const backgroundColor =
-                Platform.OS === 'android' && location === 'article'
+                location === 'article'
                     ? i === newPos
                         ? color
                         : '#DCDCDC'
