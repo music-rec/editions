@@ -33,6 +33,7 @@ const Dismissable = ({
         NavigationInjectedProps
     >
 
+    // Call Article Screen directly and use "useNavigation" here
     return (
         <SlideCard>
             <Navigator navigation={navigation} />
@@ -46,6 +47,8 @@ const BasicCardWrapper = ({
 }: {
     navigator: NavigationContainer
 } & NavigationInjectedProps) => {
+    // Same as Dismissable comment
+
     return (
         <>
             {navigation.getParam('prefersFullScreen') ? (
@@ -72,8 +75,8 @@ const styles = StyleSheet.create({
 })
 
 const wrapInSlideCard: NavigatorWrapper = (navigator, getPosition) => {
-    const Navigator = addStaticRouterWithPosition(navigator, getPosition)
     const Wrapper = ({ navigation }: NavigationInjectedProps) => {
+        // This is where the magic happens
         const position = getPosition()
         const originalPosition = getScreenPositionOfItem(
             navigation.getParam('path').article,
@@ -92,6 +95,7 @@ const wrapInSlideCard: NavigatorWrapper = (navigator, getPosition) => {
             originalPosition,
             window,
         })
+        // All required values for that stop here.
 
         if (navigation.getParam('prefersFullScreen', false)) {
             return (
@@ -120,8 +124,9 @@ const wrapInSlideCard: NavigatorWrapper = (navigator, getPosition) => {
                         },
                     ]}
                 >
+                    {/* Break down the component here instead of abstracting it */}
                     <BasicCardWrapper
-                        navigator={Navigator}
+                        navigator={navigator}
                         navigation={navigation}
                     />
                 </Animated.View>
@@ -158,8 +163,9 @@ const wrapInSlideCard: NavigatorWrapper = (navigator, getPosition) => {
                                 { opacity },
                             ]}
                         >
+                            {/* Break down the component here instead of abstracting it */}
                             <Dismissable
-                                navigator={Navigator}
+                                navigator={navigator}
                                 navigation={navigation}
                             />
                         </Animated.View>

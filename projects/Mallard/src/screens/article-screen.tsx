@@ -184,6 +184,7 @@ ArticleScreen.navigationOptions = ({
     navigation: NavigationScreenProp<{}>
 }) => ({
     title: navigation.getParam('title', 'Loading'),
+    // These are things that are pretty static to an article
     gesturesEnabled: true,
     gestureResponseDistance: {
         vertical: metrics.headerHeight + metrics.slideCardSpacing,

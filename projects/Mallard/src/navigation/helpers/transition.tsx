@@ -28,10 +28,11 @@ export const addStaticRouterWithPosition: NavigatorWrapper = (
         ...props
     }: NavigationInjectedProps) => {
         const position = getPosition()
+        console.log('POSITION: ', position)
         return (
-            <PositionContext.Provider value={position}>
-                <Navigator navigation={navigation} {...props} />
-            </PositionContext.Provider>
+            // <PositionContext.Provider value={position}>
+            <Navigator navigation={navigation} {...props} />
+            // </PositionContext.Provider>
         )
     }
 
