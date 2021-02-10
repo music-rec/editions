@@ -3,20 +3,22 @@ import { SpecialEditionHeaderStyles } from 'src/common'
 import { Header } from 'src/components/layout/header/header'
 import { IssueTitle } from '../issue/issue-title'
 
-export const ScreenHeader = ({
-    headerStyles,
-    leftAction,
-    onPress,
-    rightAction,
-    title,
-    subTitle,
-}: {
+interface Props {
     headerStyles?: SpecialEditionHeaderStyles
     leftAction?: React.ReactElement | null
     onPress?: () => void
     rightAction?: React.ReactElement | null
     subTitle?: string
     title?: string
+}
+
+export const ScreenHeader: React.FC<Props> = ({
+    headerStyles,
+    leftAction,
+    onPress,
+    rightAction,
+    title,
+    subTitle,
 }) => (
     <Header
         onPress={onPress}
