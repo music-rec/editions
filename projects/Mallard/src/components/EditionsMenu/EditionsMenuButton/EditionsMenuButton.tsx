@@ -1,20 +1,22 @@
 import React from 'react'
 import { Editions } from 'src/components/icons/Editions'
-import { TouchableOpacity, StyleSheet } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text } from 'react-native'
 import { color } from 'src/theme/color'
 import { LeftChevron } from 'src/components/icons/LeftChevron'
+import { getFont } from 'src/theme/typography'
+import { metrics } from 'src/theme/spacing'
 
 const styles = (selected: boolean) =>
     StyleSheet.create({
         button: {
-            alignItems: 'center',
             backgroundColor: selected
                 ? color.palette.sport.pastel
                 : 'transparent',
             borderRadius: 24,
             justifyContent: 'center',
-            height: 42,
-            width: 42,
+            height: 55,
+            width: 90,
+            paddingHorizontal: metrics.horizontal,
         },
         label: { color: 'white', ...getFont('sans', 0.5) },
     })
