@@ -16,6 +16,7 @@ const styles = (selected: boolean) =>
             height: 42,
             width: 42,
         },
+        label: { color: 'white', ...getFont('sans', 0.5) },
     })
 
 const EditionsMenuButton = ({
@@ -31,7 +32,14 @@ const EditionsMenuButton = ({
         onPress={onPress}
         style={styles(selected).button}
     >
-        {selected ? <LeftChevron /> : <Editions />}
+        {selected ? (
+            <LeftChevron />
+        ) : (
+            <>
+                <Editions />
+                <Text style={styles(selected).label}>Editions</Text>
+            </>
+        )}
     </TouchableOpacity>
 )
 
