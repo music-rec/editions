@@ -10,6 +10,7 @@ interface Props {
     rightAction?: React.ReactElement | null
     subTitle?: string
     title?: string
+    alignment?: 'drawer'
 }
 
 export const ScreenHeader: React.FC<Props> = ({
@@ -19,12 +20,14 @@ export const ScreenHeader: React.FC<Props> = ({
     rightAction,
     title,
     subTitle,
+    alignment,
 }) => (
     <Header
         onPress={onPress}
         action={rightAction}
         leftAction={leftAction}
         headerStyles={headerStyles}
+        alignment={alignment ?? null}
     >
         {title ? (
             <IssueTitle

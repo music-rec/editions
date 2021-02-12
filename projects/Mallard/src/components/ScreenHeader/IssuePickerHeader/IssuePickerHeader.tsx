@@ -18,6 +18,7 @@ const IssuePickerHeader = withNavigation(
         title: string
     } & NavigationInjectedProps) => (
         <ScreenHeader
+            alignment={'drawer'}
             leftAction={
                 <SettingsButton
                     onPress={() => {

@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.dimmerBackground,
         borderTopWidth: 1,
         borderTopColor: color.line,
+        paddingLeft:90,
     },
     errorMessage: {
         height: ISSUE_FRONT_ERROR_HEIGHT,
@@ -71,7 +72,6 @@ const styles = StyleSheet.create({
     frontTitle: {
         height: '100%',
         paddingTop: ISSUE_FRONT_ROW_HEIGHT * 0.1,
-        paddingHorizontal: metrics.horizontal,
     },
     frontTitleText: {
         flexShrink: 0,
@@ -82,13 +82,13 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: color.line,
         flex: 1,
-        marginLeft: metrics.horizontal,
     },
 
     issueButtonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         flexGrow: 1,
+        width: 90,
         paddingHorizontal: metrics.horizontal,
     },
     issueTitleWrap: {
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         height: ISSUE_ROW_HEADER_HEIGHT,
     },
     issueTitle: {
-        paddingHorizontal: metrics.horizontal,
+        paddingRight: metrics.horizontal,
         paddingVertical: metrics.vertical,
     },
 })

@@ -3,7 +3,7 @@ import { StyleSheet, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
 import { color } from 'src/theme/color'
 import { IssueTitleText } from '../styled-text'
 import { metrics } from 'src/theme/spacing'
-import { families } from 'src/theme/typography'
+import { families, getFont } from 'src/theme/typography'
 import { WithBreakpoints } from '../layout/ui/sizing/with-breakpoints'
 import { Breakpoints } from 'src/theme/breakpoints'
 import { SpecialEditionHeaderStyles } from '../../../../Apps/common/src'
@@ -11,13 +11,14 @@ import { SpecialEditionHeaderStyles } from '../../../../Apps/common/src'
 const splitStyles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         width: '100%',
         alignSelf: 'flex-end',
     },
     inner: {
         flexDirection: 'row',
-        flex: 0,
+        flex:1,
+        justifyContent:'flex-start',
     },
 })
 
@@ -51,8 +52,8 @@ const GridRowSplit = ({
         innerStyle?: ViewStyle
     }) => (
         <View style={[splitStyles.container, style, innerStyle]}>
-            {proxy && <View style={{ flexGrow: 1 }}>{proxy}</View>}
-            <View style={[splitStyles.inner, { width }]}>{children}</View>
+            {proxy && <View>{proxy}</View>}
+            <View style={[splitStyles.inner, { width } ]}>{children}</View>
         </View>
     )
 
@@ -122,38 +123,41 @@ const IssueTitle = React.memo(
         appearance = IssueTitleAppearance.default,
         overwriteStyles,
         style,
-    }: IssueTitleProps & { appearance?: IssueTitleAppearance }) => (
-        <View style={style}>
-            <IssueTitleText
-                style={[
-                    styles.text,
-                    appearances[appearance].title,
-                    overwriteStyles && overwriteStyles.textColorPrimary
-                        ? {
-                              color: overwriteStyles.textColorPrimary,
-                          }
-                        : {},
-                ]}
-            >
-                {title}
-            </IssueTitleText>
-            {!!subtitle && (
+    }: IssueTitleProps & { appearance?: IssueTitleAppearance }) => {
+        return (
+            <View style={style}>
                 <IssueTitleText
                     style={[
                         styles.text,
-                        appearances[appearance].subtitle,
-                        overwriteStyles && overwriteStyles.textColorSecondary
+                        appearances[appearance].title,
+                        overwriteStyles && overwriteStyles.textColorPrimary
                             ? {
-                                  color: overwriteStyles.textColorSecondary,
+                                  color: overwriteStyles.textColorPrimary,
                               }
                             : {},
                     ]}
                 >
-                    {subtitle}
+                    {title}
                 </IssueTitleText>
-            )}
-        </View>
-    ),
+                {!!subtitle && (
+                    <IssueTitleText
+                        style={[
+                            styles.text,
+                            appearances[appearance].subtitle,
+                            overwriteStyles &&
+                            overwriteStyles.textColorSecondary
+                                ? {
+                                      color: overwriteStyles.textColorSecondary,
+                                  }
+                                : {},
+                        ]}
+                    >
+                        {subtitle}
+                    </IssueTitleText>
+                )}
+            </View>
+        )
+    },
 )
 
 export { IssueTitle, GridRowSplit }
