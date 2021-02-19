@@ -1,6 +1,6 @@
 import React from 'react'
 import { Editions } from 'src/components/icons/Editions'
-import { TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import { color } from 'src/theme/color'
 import { LeftChevron } from 'src/components/icons/LeftChevron'
 import { getFont } from 'src/theme/typography'
@@ -14,11 +14,19 @@ const styles = (selected: boolean) =>
                 : 'transparent',
             borderRadius: 24,
             justifyContent: 'center',
-            height: 55,
-            width: 90,
-            paddingHorizontal: metrics.horizontal,
+            height: 42,
+            width: 42,
+            marginLeft: metrics.horizontal,
         },
-        label: { color: 'white', ...getFont('sans', 0.5) },
+        chevronContainer: { alignSelf: 'center' },
+        iconContainer: {
+            top: 8,
+            height: 60,
+            justifyContent: 'space-between',
+            width: 90,
+            marginRight: metrics.horizontal,
+        },
+        label: { color: 'white', ...getFont('sans', 0.5), fontSize: 14 },
     })
 
 const EditionsMenuButton = ({
@@ -35,12 +43,14 @@ const EditionsMenuButton = ({
         style={styles(selected).button}
     >
         {selected ? (
-            <LeftChevron />
+            <View style={styles(selected).chevronContainer}>
+                <LeftChevron />
+            </View>
         ) : (
-            <>
+            <View style={styles(selected).iconContainer}>
                 <Editions />
                 <Text style={styles(selected).label}>Editions</Text>
-            </>
+            </View>
         )}
     </TouchableOpacity>
 )
