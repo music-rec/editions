@@ -16,13 +16,12 @@ const styles = (selected: boolean) =>
             justifyContent: 'center',
             height: 42,
             width: 42,
-            
         },
         iconContainer: {
             top: 8,
             height: 60,
             justifyContent: 'space-between',
-            alignItems:'center',
+            alignItems: 'center',
             width: 55,
             marginRight: metrics.horizontal,
         },
