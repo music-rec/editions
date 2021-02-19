@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     leftAction: {
         width: 90,
         zIndex: 2,
+        paddingLeft: metrics.horizontal,
     },
     centerAction: {
         zIndex: 2,

@@ -16,13 +16,14 @@ const styles = (selected: boolean) =>
             justifyContent: 'center',
             height: 42,
             width: 42,
-            marginLeft: metrics.horizontal,
+            
         },
         iconContainer: {
             top: 8,
             height: 60,
             justifyContent: 'space-between',
-            width: 90,
+            alignItems:'center',
+            width: 55,
             marginRight: metrics.horizontal,
         },
         label: { color: 'white', ...getFont('sans', 0.5), fontSize: 14 },
@@ -42,7 +43,7 @@ const EditionsMenuButton = ({
         style={styles(selected).button}
     >
         {selected ? (
-                <LeftChevron />
+            <LeftChevron />
         ) : (
             <View style={styles(selected).iconContainer}>
                 <Editions />
