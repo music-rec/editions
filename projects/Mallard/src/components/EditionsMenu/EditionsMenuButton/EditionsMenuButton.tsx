@@ -18,7 +18,6 @@ const styles = (selected: boolean) =>
             width: 42,
             marginLeft: metrics.horizontal,
         },
-        chevronContainer: { alignSelf: 'center' },
         iconContainer: {
             top: 8,
             height: 60,
@@ -43,9 +42,7 @@ const EditionsMenuButton = ({
         style={styles(selected).button}
     >
         {selected ? (
-            <View style={styles(selected).chevronContainer}>
                 <LeftChevron />
-            </View>
         ) : (
             <View style={styles(selected).iconContainer}>
                 <Editions />
