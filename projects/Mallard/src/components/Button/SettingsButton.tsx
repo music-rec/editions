@@ -10,7 +10,7 @@ const SettingsButton = ({ onPress }: { onPress: () => void }) => (
         alt="Settings"
         onPress={onPress}
         appearance={ButtonAppearance.skeleton}
-        style={{paddingHorizontal:14}}
+        style={{ paddingHorizontal: 14 }}
     />
 )
 

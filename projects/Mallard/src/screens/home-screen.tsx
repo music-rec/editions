@@ -136,7 +136,7 @@ const IssueRowContainer = React.memo(
         ])
 
         const onPressFront = useCallback(
-            (frontKey) => {
+            frontKey => {
                 if (
                     issueId != null &&
                     issueId.publishedIssueId === publishedId &&
@@ -241,7 +241,7 @@ const IssueListView = withNavigation(
 
             // We want to scroll to the current issue.
             const currentIssueIndex = issueList.findIndex(
-                (issue) =>
+                issue =>
                     issue.localId === localId &&
                     issue.publishedId === publishedId,
             )

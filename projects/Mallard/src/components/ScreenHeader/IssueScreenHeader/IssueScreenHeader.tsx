@@ -42,7 +42,7 @@ const IssueScreenHeader = withNavigation(
             setNewEditionSeen()
             navigateToEditionMenu(navigation)
         }
-        
+
         const getTitles = (): Titles => {
             if (selectedEdition.editionType !== 'Special') {
                 const dateString = getDateString()

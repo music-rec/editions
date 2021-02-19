@@ -86,9 +86,7 @@ const Header = ({
     ...otherProps
 }: HeaderProps) => {
     const { top: marginTop } = useInsets()
-    const isTablet = useMediaQuery(
-        (width) => width >= Breakpoints.tabletVertical,
-    )
+    const isTablet = useMediaQuery(width => width >= Breakpoints.tabletVertical)
     const headerSplitFlex =
         isTablet && alignment !== 'drawer' ? 'flex-end' : 'space-between'
 

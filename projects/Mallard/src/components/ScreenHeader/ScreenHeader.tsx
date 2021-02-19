@@ -27,7 +27,7 @@ export const ScreenHeader: React.FC<Props> = ({
         action={rightAction}
         leftAction={leftAction}
         headerStyles={headerStyles}
-        alignment={alignment ?? null}
+        alignment={alignment ? alignment : null}
     >
         {title ? (
             <IssueTitle

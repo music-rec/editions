@@ -3,7 +3,7 @@ import { StyleSheet, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
 import { color } from 'src/theme/color'
 import { IssueTitleText } from '../styled-text'
 import { metrics } from 'src/theme/spacing'
-import { families, getFont } from 'src/theme/typography'
+import { families } from 'src/theme/typography'
 import { WithBreakpoints } from '../layout/ui/sizing/with-breakpoints'
 import { Breakpoints } from 'src/theme/breakpoints'
 import { SpecialEditionHeaderStyles } from '../../../../Apps/common/src'
@@ -17,8 +17,8 @@ const splitStyles = StyleSheet.create({
     },
     inner: {
         flexDirection: 'row',
-        flex:1,
-        justifyContent:'flex-start',
+        flex: 1,
+        justifyContent: 'flex-start',
     },
 })
 
@@ -53,7 +53,7 @@ const GridRowSplit = ({
     }) => (
         <View style={[splitStyles.container, style, innerStyle]}>
             {proxy && <View>{proxy}</View>}
-            <View style={[splitStyles.inner, { width } ]}>{children}</View>
+            <View style={[splitStyles.inner, { width }]}>{children}</View>
         </View>
     )
 

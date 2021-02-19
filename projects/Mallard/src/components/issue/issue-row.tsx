@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         backgroundColor: color.dimmerBackground,
         borderTopWidth: 1,
         borderTopColor: color.line,
-        paddingLeft:90,
+        paddingLeft: 90,
     },
     errorMessage: {
         height: ISSUE_FRONT_ERROR_HEIGHT,
