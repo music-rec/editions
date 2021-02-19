@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         padding: metrics.horizontal,
         paddingTop: metrics.vertical * 2,
         paddingBottom: metrics.vertical * 8,
-        paddingLeft: 90, 
+        paddingLeft: 90,
     },
     issueListFooterGrid: {
         marginBottom: metrics.vertical,
@@ -136,7 +136,7 @@ const IssueRowContainer = React.memo(
         ])
 
         const onPressFront = useCallback(
-            frontKey => {
+            (frontKey) => {
                 if (
                     issueId != null &&
                     issueId.publishedIssueId === publishedId &&
@@ -241,7 +241,7 @@ const IssueListView = withNavigation(
 
             // We want to scroll to the current issue.
             const currentIssueIndex = issueList.findIndex(
-                issue =>
+                (issue) =>
                     issue.localId === localId &&
                     issue.publishedId === publishedId,
             )
@@ -442,13 +442,16 @@ const IssueListFetchContainer = () => {
 export const HomeScreen = () => {
     const { issueSummary, error } = useIssueSummary()
     const { selectedEdition } = useEditions()
-
     const specialEditionProps = getSpecialEditionProps(selectedEdition)
+    const issueHeaderData =
+        selectedEdition.editionType === 'Special'
+            ? { title: '', subtitle: '' }
+            : { title: 'Recent', subtitle: 'Editions' }
     return (
         <WithAppAppearance value={'tertiary'}>
             <IssuePickerHeader
-                title={selectedEdition.header.title}
-                subTitle={selectedEdition.header.subTitle}
+                title={issueHeaderData.title}
+                subTitle={issueHeaderData.subtitle}
                 headerStyles={
                     specialEditionProps && specialEditionProps.headerStyle
                 }
