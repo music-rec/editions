@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     },
     headerSplit: {
         flexDirection: 'row',
-        flexGrow: 1,
+        flex: 1,
     },
     headerTitle: {
-        paddingRight: metrics.horizontal,
+        marginRight: metrics.horizontal,
     },
 
     centerWrapper: {
@@ -82,7 +82,7 @@ const Header = ({
     headerStyles,
     leftAction,
     layout = 'issue',
-    alignment,
+    alignment = null,
     children,
     ...otherProps
 }: HeaderProps) => {

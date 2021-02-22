@@ -92,7 +92,9 @@ export interface IssueTitleProps {
     title: string
     subtitle?: string
     style?: StyleProp<ViewStyle>
-    overwriteStyles?: SpecialEditionHeaderStyles
+    overwriteStyles?: SpecialEditionHeaderStyles,
+    titleStyle?: StyleProp<ViewStyle>
+    subtitleStyle?: StyleProp<ViewStyle>
 }
 
 const appearances: {
@@ -123,6 +125,8 @@ const IssueTitle = React.memo(
         appearance = IssueTitleAppearance.default,
         overwriteStyles,
         style,
+        titleStyle,
+        subtitleStyle
     }: IssueTitleProps & { appearance?: IssueTitleAppearance }) => {
         return (
             <View style={style}>
@@ -130,6 +134,7 @@ const IssueTitle = React.memo(
                     style={[
                         styles.text,
                         appearances[appearance].title,
+                        titleStyle,
                         overwriteStyles && overwriteStyles.textColorPrimary
                             ? {
                                   color: overwriteStyles.textColorPrimary,
@@ -144,6 +149,7 @@ const IssueTitle = React.memo(
                         style={[
                             styles.text,
                             appearances[appearance].subtitle,
+                            subtitleStyle,
                             overwriteStyles &&
                             overwriteStyles.textColorSecondary
                                 ? {

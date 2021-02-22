@@ -18,14 +18,12 @@ const styles = (selected: boolean) =>
             width: 42,
         },
         iconContainer: {
-            top: 8,
-            height: 60,
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            flex:1,
+            justifyContent: 'space-around',
             width: 55,
             marginRight: metrics.horizontal,
         },
-        label: { color: 'white', ...getFont('sans', 0.5), fontSize: 14 },
+        label: { color: 'white', ...getFont('sans', 0.5), fontSize: 12, lineHeight:14.75, top:8},
     })
 
 const EditionsMenuButton = ({

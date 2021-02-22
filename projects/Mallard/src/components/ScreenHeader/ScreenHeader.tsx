@@ -2,6 +2,7 @@ import React from 'react'
 import { SpecialEditionHeaderStyles } from 'src/common'
 import { Header } from 'src/components/layout/header/header'
 import { IssueTitle } from '../issue/issue-title'
+import { styles } from '../styled-text'
 
 interface Props {
     headerStyles?: SpecialEditionHeaderStyles
@@ -33,6 +34,7 @@ export const ScreenHeader: React.FC<Props> = ({
             <IssueTitle
                 title={title}
                 subtitle={subTitle}
+                subtitleStyle={styles.issueHeavyText}
                 overwriteStyles={headerStyles}
             />
         ) : null}
