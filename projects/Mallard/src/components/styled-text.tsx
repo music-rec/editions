@@ -70,6 +70,10 @@ export const styles = StyleSheet.create({
         flexShrink: 0,
         ...getFont('sans', 0.9),
     },
+    specialEditionTitle: {
+        flexShrink: 0,
+        ...getFont('headline', 1.75, 'light'),
+    },
 })
 
 export const TitlepieceText = ({
@@ -79,7 +83,7 @@ export const TitlepieceText = ({
     children: string[] | string | Element
     style?: StyleProp<TextStyle>
 } & TextProps) => {
-    return <Text {...props} style={[styles.titlepieceText, style]} />
+    return <Text {...props} style={[styles.specialEditionTitle, style]} />
 }
 
 export const IssueTitleText = ({
@@ -89,7 +93,7 @@ export const IssueTitleText = ({
     children: string
     style?: StyleProp<TextStyle>
 } & TextProps) => {
-    return <Text {...props} style={[styles.issueLightText, style]} />
+    return <Text {...props} style={[styles.issueHeavyText, style]} />
 }
 
 export type HeadlineTextProps = {

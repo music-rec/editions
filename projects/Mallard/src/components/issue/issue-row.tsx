@@ -40,7 +40,6 @@ import {
     stopListeningToExistingDownload,
     maybeListenToExistingDownload,
 } from 'src/download-edition/download-and-unzip'
-import {styles as textStyles} from '../styled-text'
 const FRONT_TITLE_FONT = getFont('titlepiece', 1.25)
 const ISSUE_TITLE_FONT = getFont('titlepiece', 1.25)
 
@@ -314,7 +313,6 @@ const IssueRowHeader = React.memo(
                             title={weekday}
                             subtitle={date}
                             appearance={IssueTitleAppearance.tertiary}
-                            titleStyle={textStyles.issueHeavyText}
                         />
                     </Highlight>
                 </View>

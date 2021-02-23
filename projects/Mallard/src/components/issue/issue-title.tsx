@@ -92,7 +92,7 @@ export interface IssueTitleProps {
     title: string
     subtitle?: string
     style?: StyleProp<ViewStyle>
-    overwriteStyles?: SpecialEditionHeaderStyles,
+    overwriteStyles?: SpecialEditionHeaderStyles
     titleStyle?: StyleProp<ViewStyle>
     subtitleStyle?: StyleProp<ViewStyle>
 }
@@ -126,7 +126,7 @@ const IssueTitle = React.memo(
         overwriteStyles,
         style,
         titleStyle,
-        subtitleStyle
+        subtitleStyle,
     }: IssueTitleProps & { appearance?: IssueTitleAppearance }) => {
         return (
             <View style={style}>

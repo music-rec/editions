@@ -34,7 +34,7 @@ export const ScreenHeader: React.FC<Props> = ({
             <IssueTitle
                 title={title}
                 subtitle={subTitle}
-                subtitleStyle={styles.issueHeavyText}
+                titleStyle={styles.issueLightText}
                 overwriteStyles={headerStyles}
             />
         ) : null}
