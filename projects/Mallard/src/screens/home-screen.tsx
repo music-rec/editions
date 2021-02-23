@@ -446,7 +446,7 @@ export const HomeScreen = () => {
     const issueHeaderData =
         selectedEdition.editionType === 'Special'
             ? { title: '', subtitle: '' }
-            : { title: 'Recent', subtitle: 'Editions' }
+            : { title: selectedEdition.title, subtitle: 'Recent Editions' }
     return (
         <WithAppAppearance value={'tertiary'}>
             <IssuePickerHeader
