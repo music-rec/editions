@@ -1,21 +1,11 @@
 import React from 'react'
 import { FlatList, ScrollView } from 'react-native'
 import { EditionId, RegionalEdition, SpecialEdition } from 'src/common'
+import { metrics } from 'src/theme/spacing'
 import { defaultRegionalEditions } from '../../../../Apps/common/src/editions-defaults'
-import { EditionsMenuHeader } from './Header/Header'
+import { IssueButton } from './EditionButton/EditionButton'
 import { ItemSeperator } from './ItemSeperator/ItemSeperator'
-import { RegionButton } from './RegionButton/RegionButton'
-import { SpecialEditionButton } from './SpecialEditionButton/SpecialEditionButton'
-
-export const EDITIONS_MENU_TEXT_LEFT_PADDING = 96
-
-const EditionsMenu = ({
-    navigationPress,
-    regionalEditions,
-    selectedEdition,
-    specialEditions,
-    storeSelectedEdition,
-}: {
+interface Props {
     navigationPress: () => void
     regionalEditions?: RegionalEdition[]
     selectedEdition: EditionId
@@ -23,62 +13,75 @@ const EditionsMenu = ({
     storeSelectedEdition: (
         chosenEdition: RegionalEdition | SpecialEdition,
     ) => void
+}
+
+const EditionsMenu: React.FC<Props> = ({
+    navigationPress,
+    regionalEditions,
+    selectedEdition,
+    specialEditions,
+    storeSelectedEdition,
 }) => {
+    const renderRegionalItem = ({ item }: { item: RegionalEdition }) => {
+        const handlePress = () => {
+            storeSelectedEdition(item)
+            navigationPress()
+        }
+        const isSelected = selectedEdition === item.edition ? true : false
+        return (
+            <IssueButton
+                selected={isSelected}
+                onPress={handlePress}
+                title={item.title}
+                subTitle={item.subTitle}
+            />
+        )
+    }
+
+    const renderSpecialItem = ({ item }: { item: SpecialEdition }) => {
+        const {
+            buttonStyle,
+            buttonImageUri,
+            edition,
+            expiry,
+            title,
+            subTitle,
+        } = item
+
+        const handlePress = () => {
+            storeSelectedEdition(item)
+            navigationPress()
+        }
+        return (
+            <IssueButton
+                title={title}
+                subTitle={subTitle}
+                imageUri={buttonImageUri}
+                expiry={new Date(expiry)}
+                titleColor={buttonStyle.backgroundColor}
+                selected={selectedEdition === edition ? true : false}
+                onPress={handlePress}
+                isSpecial
+            />
+        )
+    }
+
     return (
-        <ScrollView>
-            <EditionsMenuHeader>Regions</EditionsMenuHeader>
+        <ScrollView
+            style={{ paddingTop: 17, paddingHorizontal: metrics.horizontal }}
+        >
             <FlatList
                 data={regionalEditions || defaultRegionalEditions}
-                renderItem={({ item }: { item: RegionalEdition }) => {
-                    return (
-                        <RegionButton
-                            selected={
-                                selectedEdition === item.edition ? true : false
-                            }
-                            onPress={() => {
-                                storeSelectedEdition(item)
-                                navigationPress()
-                            }}
-                            title={item.title}
-                            subTitle={item.subTitle}
-                        />
-                    )
-                }}
+                renderItem={renderRegionalItem}
                 ItemSeparatorComponent={() => <ItemSeperator />}
+                ListFooterComponent={() => <ItemSeperator />}
             />
             {specialEditions && specialEditions.length > 0 && (
                 <>
-                    <EditionsMenuHeader>Special Editions</EditionsMenuHeader>
                     <FlatList
                         data={specialEditions}
-                        renderItem={({ item }: { item: SpecialEdition }) => {
-                            const {
-                                buttonStyle,
-                                buttonImageUri,
-                                edition,
-                                expiry,
-                                title,
-                                subTitle,
-                            } = item
-                            return (
-                                <SpecialEditionButton
-                                    buttonImageUri={buttonImageUri}
-                                    expiry={new Date(expiry)}
-                                    onPress={() => {
-                                        storeSelectedEdition(item)
-                                        navigationPress()
-                                    }}
-                                    title={title}
-                                    selected={
-                                        selectedEdition === edition
-                                            ? true
-                                            : false
-                                    }
-                                    style={buttonStyle}
-                                    subTitle={subTitle}
-                                />
-                            )
-                        }}
+                        renderItem={renderSpecialItem}
+                        ItemSeparatorComponent={() => <ItemSeperator />}
                     />
                 </>
             )}
