@@ -5,7 +5,7 @@ export const EDITIONS_MENU_TEXT_LEFT_PADDING = 96
 const imageWidth = 67
 const imageHeight = 134
 
-const styles = (selected: boolean, special = false, titleColor:string) => {
+const styles = (selected: boolean, special: boolean, titleColor: string) => {
     return StyleSheet.create({
         container: {
             borderColor: selected ? brand[400] : neutral[86],
