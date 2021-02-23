@@ -72,11 +72,11 @@ type HeaderProps = {
     action?: ReactNode
     leftAction?: ReactNode
     layout?: 'issue' | 'center'
-    alignment: 'drawer' | null
+    alignment?: 'drawer' | null
     children: ReactNode
 } & TouchableHeaderProps
 
-const Header = ({
+const Header: React.FC<HeaderProps> = ({
     action,
     theme,
     headerStyles,
@@ -85,7 +85,7 @@ const Header = ({
     alignment = null,
     children,
     ...otherProps
-}: HeaderProps) => {
+}) => {
     const { top: marginTop } = useInsets()
     const isTablet = useMediaQuery(width => width >= Breakpoints.tabletVertical)
     const headerSplitFlex =
