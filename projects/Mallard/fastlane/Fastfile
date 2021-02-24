@@ -20,6 +20,20 @@
 # end
 
 platform :ios do
+  lane :make_asc_key do
+    encoded_api_key = ENV["ASC_API_KEY"]
+    decoded_api_key = Base64.strict_decode64(encoded_api_key)
+    path_to_api_key_file = "api_key.p8"
+    File.open("../" + path_to_api_key_file, "w") { |f| f.write decoded_api_key }
+    app_store_connect_api_key(
+        key_id: ENV["ASC_API_KEY_ID"],
+        issuer_id: ENV["ASC_API_KEY_ISSUER_ID"],
+        key_filepath: path_to_api_key_file,
+        duration: 1200, # optional
+        in_house: false # optional but may be required if using match/sigh
+    )
+  end
+    
   desc "Push a new beta build to TestFlight"
   lane :beta do
 
@@ -46,9 +60,12 @@ platform :ios do
       path: "ios/Mallard.xcodeproj",
     )
 
+    api_key = make_asc_key
+      
+    currentNumber = latest_testflight_build_number(api_key: api_key)
     increment_build_number(
       xcodeproj: "ios/Mallard.xcodeproj",
-      build_number: latest_testflight_build_number.to_i + 1
+      build_number: currentNumber.to_i + 1
     )
 
     ENV["SPACESHIP_SKIP_2FA_UPGRADE"] = "1"
@@ -68,6 +85,7 @@ platform :ios do
       }
     )
     upload_to_testflight(
+        api_key: api_key,
         distribute_external: true,
         notify_external_testers: true,
         skip_waiting_for_build_processing: true,
