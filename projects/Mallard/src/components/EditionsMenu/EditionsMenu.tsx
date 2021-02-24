@@ -58,7 +58,7 @@ const EditionsMenu: React.FC<Props> = ({
                 subTitle={subTitle}
                 imageUri={buttonImageUri}
                 expiry={new Date(expiry)}
-                titleColor={buttonStyle.backgroundColor}
+                titleColor={buttonStyle.title.color}
                 selected={selectedEdition === edition ? true : false}
                 onPress={handlePress}
                 isSpecial
