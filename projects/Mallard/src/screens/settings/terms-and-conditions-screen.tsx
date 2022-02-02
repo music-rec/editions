@@ -1,15 +1,16 @@
-import React from 'react'
-import { DefaultInfoTextWebview } from './default-info-text-webview'
+/* eslint-disable import/order */
+import React from 'react';
+import { HeaderScreenContainer } from 'src/components/Header/Header';
+import { TERMS_HEADER_TITLE } from 'src/helpers/words';
+import { DefaultInfoTextWebview } from './default-info-text-webview';
 
-const termsAndConditionsHtml = require('src/constants/settings/terms-of-service.json')
-    .bodyHtml
+const termsAndConditionsHtml =
+	require('src/constants/settings/terms-of-service.json').bodyHtml;
 
 const TermsAndConditionsScreen = () => (
-    <DefaultInfoTextWebview html={termsAndConditionsHtml} />
-)
+	<HeaderScreenContainer title={TERMS_HEADER_TITLE} actionLeft={true}>
+		<DefaultInfoTextWebview html={termsAndConditionsHtml} />
+	</HeaderScreenContainer>
+);
 
-TermsAndConditionsScreen.navigationOptions = {
-    title: 'Terms & Conditions',
-}
-
-export { TermsAndConditionsScreen }
+export { TermsAndConditionsScreen };

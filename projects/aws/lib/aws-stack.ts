@@ -4,14 +4,19 @@ import lambda = require('@aws-cdk/aws-lambda')
 import { Code } from '@aws-cdk/aws-lambda'
 import s3 = require('@aws-cdk/aws-s3')
 import iam = require('@aws-cdk/aws-iam')
-import { CfnOutput, Duration, Tag } from '@aws-cdk/core'
+import { CfnOutput, Duration, Tag, App } from '@aws-cdk/core'
 import acm = require('@aws-cdk/aws-certificatemanager')
 import { Effect } from '@aws-cdk/aws-iam'
 import { constructTriggeredStepFunction } from './listener'
+import { CfnEventBusPolicy } from '@aws-cdk/aws-events'
+import { GuStack } from '@guardian/cdk/lib/constructs/core/stack'
+import { GuStackProps } from '@guardian/cdk/lib/constructs/core/stack'
+import { GuVpc } from '@guardian/cdk/lib/constructs/ec2'
 
-export class EditionsStack extends cdk.Stack {
-    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+export class EditionsStack extends GuStack {
+    constructor(scope: App, id: string, props: GuStackProps) {
         super(scope, id, props)
+
         const stackParameter = new cdk.CfnParameter(this, 'stack', {
             type: 'String',
             description: 'Stack',
@@ -37,6 +42,16 @@ export class EditionsStack extends cdk.Stack {
                 allowedValues: ['prod', 'code'],
             },
         )
+
+        const vpcIdParameter = new cdk.CfnParameter(this, 'vpcId', {
+            type: 'String',
+            description: 'ID of VPC to deploy editions into',
+        })
+
+        const subnets = new cdk.CfnParameter(this, 'subnets', {
+            type: 'List<AWS::EC2::Subnet::Id>',
+            description: 'subnets to deploy this stack into',
+        })
 
         const capiKeyParameter = new cdk.CfnParameter(this, 'capi', {
             type: 'String',
@@ -106,7 +121,10 @@ export class EditionsStack extends cdk.Stack {
             {
                 type: 'String',
                 description: 'Proof Archive Bucket',
-                allowedValues: ['editions-proof-prod', 'editions-proof-code'],
+                allowedValues: [
+                    'editions-proofed-prod',
+                    'editions-proofed-code',
+                ],
             },
         )
 
@@ -116,7 +134,10 @@ export class EditionsStack extends cdk.Stack {
             {
                 type: 'String',
                 description: 'Publish Archive Bucket',
-                allowedValues: ['editions-store-prod', 'editions-store-code'],
+                allowedValues: [
+                    'editions-published-code',
+                    'editions-published-prod',
+                ],
             },
         )
 
@@ -145,10 +166,16 @@ export class EditionsStack extends cdk.Stack {
             },
         )
 
+        const vpc = GuVpc.fromId(this, 'vpc', {
+            vpcId: vpcIdParameter.valueAsString,
+        })
+
+        const privateSubnets = GuVpc.subnets(this, subnets.valueAsList)
+
         const deployBucket = s3.Bucket.fromBucketName(
             this,
-            'editions-dist',
-            'editions-dist',
+            'mobile-dist',
+            'mobile-dist',
         )
 
         const frontsAccess = iam.Role.fromRoleArn(
@@ -197,14 +224,16 @@ export class EditionsStack extends cdk.Stack {
                 `Editions${titleCasePublicationStage}Backend`,
                 {
                     functionName: `editions-${publicationStage}-backend-${stageParameter.valueAsString}`,
-                    runtime: lambda.Runtime.NODEJS_10_X,
+                    runtime: lambda.Runtime.NODEJS_14_X,
                     memorySize: 512,
                     timeout: Duration.seconds(60),
                     code: Code.bucket(
                         deployBucket,
-                        `${stackParameter.valueAsString}/${stageParameter.valueAsString}/backend/backend.zip`,
+                        `${stackParameter.valueAsString}/${stageParameter.valueAsString}/editions-backend/editions-backend.zip`,
                     ),
                     handler: 'index.handler',
+                    vpc: vpc,
+                    vpcSubnets: { subnets: privateSubnets },
                     environment: {
                         frontsStage: frontsStageParameter.valueAsString,
                         CAPI_KEY: capiKeyParameter.valueAsString,
@@ -232,10 +261,10 @@ export class EditionsStack extends cdk.Stack {
                         }),
                         new iam.PolicyStatement({
                             resources: [
-                                `arn:aws:s3:::editions-store-${lowerCaseStageParameter.valueAsString}/*`,
-                                `arn:aws:s3:::editions-proof-${lowerCaseStageParameter.valueAsString}/*`,
-                                `arn:aws:s3:::editions-proof-${lowerCaseStageParameter.valueAsString}`,
-                                `arn:aws:s3:::editions-store-${lowerCaseStageParameter.valueAsString}`,
+                                `arn:aws:s3:::editions-published-${lowerCaseStageParameter.valueAsString}/*`,
+                                `arn:aws:s3:::editions-proofed-${lowerCaseStageParameter.valueAsString}/*`,
+                                `arn:aws:s3:::editions-proofed-${lowerCaseStageParameter.valueAsString}`,
+                                `arn:aws:s3:::editions-published-${lowerCaseStageParameter.valueAsString}`,
                             ],
                             actions: [
                                 's3:PutObject',
@@ -346,5 +375,12 @@ export class EditionsStack extends cdk.Stack {
             publishedBucket,
             frontsAccess.roleArn,
         )
+
+        // Allow CMS Fronts account to put cloudwatch events in this stack
+        new CfnEventBusPolicy(this, 'cmsFronts-access', {
+            action: 'events:PutEvents',
+            principal: cmsFrontsAccountIdParameter.valueAsString,
+            statementId: `cmsFronts-putevents-${stageParameter.valueAsString}`,
+        })
     }
 }

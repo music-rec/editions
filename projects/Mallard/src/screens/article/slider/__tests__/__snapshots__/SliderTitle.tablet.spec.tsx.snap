@@ -23,8 +23,8 @@ exports[`SliderTitle - iOS - Tablet should display a Front SliderTitle with the 
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 38,
-          "lineHeight": 42,
+          "fontSize": 28,
+          "lineHeight": 32,
         }
       }
     >
@@ -35,8 +35,8 @@ exports[`SliderTitle - iOS - Tablet should display a Front SliderTitle with the 
         Object {
           "color": "grey",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 38,
-          "lineHeight": 42,
+          "fontSize": 28,
+          "lineHeight": 32,
         }
       }
     >
@@ -52,6 +52,8 @@ exports[`SliderTitle - iOS - Tablet should display a Front SliderTitle with the 
     }
   >
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -63,6 +65,8 @@ exports[`SliderTitle - iOS - Tablet should display a Front SliderTitle with the 
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -74,6 +78,8 @@ exports[`SliderTitle - iOS - Tablet should display a Front SliderTitle with the 
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -93,7 +99,7 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
   style={
     Object {
       "alignSelf": "center",
-      "maxWidth": 800,
+      "maxWidth": 740,
       "paddingLeft": 0,
       "width": "100%",
     }
@@ -111,8 +117,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -123,8 +129,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
         Object {
           "color": "grey",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -141,6 +147,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
     }
   >
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -152,6 +160,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -163,6 +173,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -182,7 +194,7 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
   style={
     Object {
       "alignSelf": "center",
-      "maxWidth": 800,
+      "maxWidth": 740,
       "paddingLeft": 0,
       "width": "100%",
     }
@@ -200,8 +212,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -217,6 +229,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
     }
   >
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -228,6 +242,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -239,6 +255,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with a
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -258,7 +276,7 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with t
   style={
     Object {
       "alignSelf": "center",
-      "maxWidth": 800,
+      "maxWidth": 740,
       "paddingLeft": 0,
       "width": "100%",
     }
@@ -276,8 +294,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with t
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -288,8 +306,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with t
         Object {
           "color": "grey",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -305,6 +323,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with t
     }
   >
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -316,6 +336,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with t
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -327,6 +349,8 @@ exports[`SliderTitle - iOS - Tablet should display an Article SliderTitle with t
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -364,8 +388,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 38,
-          "lineHeight": 42,
+          "fontSize": 28,
+          "lineHeight": 32,
         }
       }
     >
@@ -376,8 +400,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
         Object {
           "color": "grey",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 38,
-          "lineHeight": 42,
+          "fontSize": 28,
+          "lineHeight": 32,
         }
       }
     >
@@ -394,6 +418,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
     }
   >
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -405,6 +431,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -416,6 +444,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -453,8 +483,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 38,
-          "lineHeight": 42,
+          "fontSize": 28,
+          "lineHeight": 32,
         }
       }
     >
@@ -470,6 +500,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
     }
   >
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -481,6 +513,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -492,6 +526,8 @@ exports[`SliderTitle - iOS - Tablet should display an Front SliderTitle with a s
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "rgba(220, 220, 220, 1)",
@@ -511,7 +547,7 @@ exports[`SliderTitle - iOS - Tablet should display an default SliderTitle with a
   style={
     Object {
       "alignSelf": "center",
-      "maxWidth": 800,
+      "maxWidth": 740,
       "paddingLeft": 0,
       "width": "100%",
     }
@@ -529,8 +565,8 @@ exports[`SliderTitle - iOS - Tablet should display an default SliderTitle with a
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -541,8 +577,8 @@ exports[`SliderTitle - iOS - Tablet should display an default SliderTitle with a
         Object {
           "color": "grey",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -558,6 +594,8 @@ exports[`SliderTitle - iOS - Tablet should display an default SliderTitle with a
     }
   >
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -569,6 +607,8 @@ exports[`SliderTitle - iOS - Tablet should display an default SliderTitle with a
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -580,6 +620,8 @@ exports[`SliderTitle - iOS - Tablet should display an default SliderTitle with a
       }
     />
     <View
+      collapsable={false}
+      nativeID="animatedComponent"
       style={
         Object {
           "backgroundColor": "#DCDCDC",
@@ -599,7 +641,7 @@ exports[`SliderTitle - iOS - Tablet should display no dots when numOfItems is 1 
   style={
     Object {
       "alignSelf": "center",
-      "maxWidth": 800,
+      "maxWidth": 740,
       "paddingLeft": 0,
       "width": "100%",
     }
@@ -617,8 +659,8 @@ exports[`SliderTitle - iOS - Tablet should display no dots when numOfItems is 1 
         Object {
           "color": "#000000",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >
@@ -629,8 +671,8 @@ exports[`SliderTitle - iOS - Tablet should display no dots when numOfItems is 1 
         Object {
           "color": "grey",
           "fontFamily": "GTGuardianTitlepiece-Bold",
-          "fontSize": 30,
-          "lineHeight": 33,
+          "fontSize": 20,
+          "lineHeight": 22,
         }
       }
     >

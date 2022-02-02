@@ -1,223 +1,217 @@
-import { IssueSummary, ImageSize } from '../../../Apps/common/src'
-import { pushTracking } from 'src/notifications/push-tracking'
-import { Feature } from '../../../Apps/common/src/logging'
+import retry from 'async-retry';
+import type { DLStatus } from 'src/helpers/files';
 import {
-    downloadNamedIssueArchive,
-    unzipNamedIssueArchive,
-    DLStatus,
-} from 'src/helpers/files'
-import { errorService } from 'src/services/errors'
-import ApolloClient from 'apollo-client'
-import { DownloadBlockedStatus, NetInfo } from 'src/hooks/use-net-info'
-import { localIssueListStore } from 'src/hooks/use-issue-on-device'
-import gql from 'graphql-tag'
-import { FSPaths } from 'src/paths'
-import retry from 'async-retry'
-import { deleteIssue } from './clear-issues-and-editions'
-
-type DlBlkQueryValue = { netInfo: Pick<NetInfo, 'downloadBlocked'> }
-const DOWNLOAD_BLOCKED_QUERY = gql`
-    {
-        netInfo @client {
-            downloadBlocked @client
-        }
-    }
-`
+	downloadNamedIssueArchive,
+	unzipNamedIssueArchive,
+} from 'src/helpers/files';
+import { localIssueListStore } from 'src/hooks/use-issue-on-device';
+import type { NetInfoState } from 'src/hooks/use-net-info-provider';
+import { DownloadBlockedStatus } from 'src/hooks/use-net-info-provider';
+import { pushTracking } from 'src/notifications/push-tracking';
+import { FSPaths } from 'src/paths';
+import { errorService } from 'src/services/errors';
+import type { ImageSize, IssueSummary } from '../../../Apps/common/src';
+import { deleteIssue } from './clear-issues-and-editions';
 
 // Cache of current downloads
-const dlCache: {
-    [key: string]: {
-        promise: Promise<void>
-        progressListeners: ((status: DLStatus) => void)[]
-    }
-} = {}
+const dlCache: Record<
+	string,
+	{
+		promise: Promise<void>;
+		progressListeners: Array<(status: DLStatus) => void>;
+	}
+> = {};
 
 export const maybeListenToExistingDownload = (
-    issue: IssueSummary,
-    onProgress: (status: DLStatus) => void = () => {},
+	issue: IssueSummary,
+	onProgress: (status: DLStatus) => void = () => {},
 ) => {
-    const dl = dlCache[issue.localId]
-    if (dlCache[issue.localId]) {
-        dl.progressListeners.push(onProgress)
-        return dl.promise
-    }
-    return false
-}
+	const dl = dlCache[issue.localId];
+	if (dlCache[issue.localId]) {
+		dl.progressListeners.push(onProgress);
+		return dl.promise;
+	}
+	return false;
+};
 
 export const stopListeningToExistingDownload = (
-    issue: IssueSummary,
-    listener: (status: DLStatus) => void,
+	issue: IssueSummary,
+	listener: (status: DLStatus) => void,
 ) => {
-    const dl = dlCache[issue.localId]
-    if (dlCache[issue.localId]) {
-        const index = dl.progressListeners.indexOf(listener)
-        if (index < 0) return
-        dl.progressListeners.splice(index, 1)
-    }
-}
+	const dl = dlCache[issue.localId];
+	if (dlCache[issue.localId]) {
+		const index = dl.progressListeners.indexOf(listener);
+		if (index < 0) return;
+		dl.progressListeners.splice(index, 1);
+	}
+};
 
 // for testing
 export const updateListeners = (localId: string, status: DLStatus) => {
-    const listeners = (dlCache[localId] || {}).progressListeners || []
-    listeners.forEach(listener => listener(status))
-}
+	const listeners = (dlCache[localId] || {}).progressListeners || [];
+	listeners.forEach((listener) => listener(status));
+};
 
 const runDownload = async (issue: IssueSummary, imageSize: ImageSize) => {
-    const { assets, localId } = issue
+	const { assets, assetsSSR, localId } = issue;
 
-    try {
-        if (!assets) {
-            await pushTracking('noAssets', 'complete', Feature.DOWNLOAD)
-            return
-        }
+	try {
+		if (!assets || !assetsSSR) {
+			await pushTracking('noAssets', 'complete');
+			return;
+		}
 
-        await pushTracking(
-            'attemptDataDownload',
-            JSON.stringify({ localId, assets: assets.data }),
-            Feature.DOWNLOAD,
-        )
+		await retry(
+			async () => {
+				// --- Data Download ---
 
-        await retry(
-            async () => {
-                // We are not asking for progress update during Data bundle download (to avoid false visual completion)
-                // So, instead we are artificially triggering a small progress update to render some visual change
-                updateListeners(localId, {
-                    type: 'download',
-                    data: 0.5,
-                })
-                const dataDownloadResult = await downloadNamedIssueArchive({
-                    localIssueId: localId,
-                    assetPath: assets.data,
-                    filename: 'data.zip',
-                    withProgress: false,
-                })
-                console.log(
-                    'Data download completed with status: ' +
-                        dataDownloadResult.statusCode,
-                )
+				await pushTracking(
+					'attemptDataDownload',
+					JSON.stringify({ localId, assets: assets.data }),
+				);
 
-                await pushTracking(
-                    'attemptDataDownload',
-                    'completed',
-                    Feature.DOWNLOAD,
-                )
+				// We are not asking for progress update during Data bundle download (to avoid false visual completion)
+				// So, instead we are artificially triggering a small progress update to render some visual change
+				updateListeners(localId, {
+					type: 'download',
+					data: 0.5,
+				});
+				const dataDownloadResult = await downloadNamedIssueArchive({
+					localIssueId: localId,
+					assetPath: assets.data,
+					filename: 'data.zip',
+					withProgress: false,
+				});
+				console.log(
+					`Data download completed with status: ${dataDownloadResult.statusCode}`,
+				);
 
-                await pushTracking(
-                    'attemptMediaDownload',
-                    JSON.stringify({ localId, assets: assets[imageSize] }),
-                    Feature.DOWNLOAD,
-                )
+				await pushTracking('attemptDataDownload', 'completed');
 
-                const dlImg = await downloadNamedIssueArchive({
-                    localIssueId: localId,
-                    assetPath: assets[imageSize] as string,
-                    filename: 'media.zip',
-                    withProgress: true,
-                })
-                console.log(
-                    'Image download completed with status: ' + dlImg.statusCode,
-                )
+				// --- HTML Download ---
 
-                await pushTracking(
-                    'attemptMediaDownload',
-                    'completed',
-                    Feature.DOWNLOAD,
-                )
+				await pushTracking(
+					'attemptHTMLDownload',
+					JSON.stringify({ localId, assets: assetsSSR.html }),
+				);
 
-                updateListeners(localId, {
-                    type: 'unzip',
-                    data: 'start',
-                })
+				await downloadNamedIssueArchive({
+					localIssueId: localId,
+					assetPath: assetsSSR.html,
+					filename: 'html.zip',
+					withProgress: false,
+				});
 
-                await pushTracking('unzipData', 'start', Feature.DOWNLOAD)
+				await pushTracking('attemptHTMLDownload', 'completed');
 
-                await unzipNamedIssueArchive(
-                    `${FSPaths.downloadIssueLocation(localId)}/data.zip`,
-                )
+				// --- Media Download ---
 
-                await pushTracking('unzipData', 'end', Feature.DOWNLOAD)
+				await pushTracking(
+					'attemptMediaDownload',
+					JSON.stringify({ localId, assets: assetsSSR[imageSize] }),
+				);
 
-                await pushTracking('unzipImages', 'start', Feature.DOWNLOAD)
+				await downloadNamedIssueArchive({
+					localIssueId: localId,
+					assetPath: assetsSSR[imageSize] as string,
+					filename: 'media.zip',
+					withProgress: true,
+				});
 
-                await unzipNamedIssueArchive(
-                    `${FSPaths.downloadIssueLocation(localId)}/media.zip`,
-                )
+				await pushTracking('attemptMediaDownload', 'completed');
 
-                await pushTracking('unzipImages', 'end', Feature.DOWNLOAD)
+				updateListeners(localId, {
+					type: 'unzip',
+					data: 'start',
+				});
 
-                return 'success'
-            },
-            {
-                retries: 2,
-            },
-        )
+				// --- Data Unzip ---
 
-        await pushTracking('downloadAndUnzip', 'complete', Feature.DOWNLOAD)
-        updateListeners(localId, { type: 'success' }) // null is unstarted or end
-    } catch (error) {
-        await pushTracking(
-            'downloadAndUnzipError',
-            JSON.stringify(error),
-            Feature.DOWNLOAD,
-        )
-        errorService.captureException(error)
-        updateListeners(localId, { type: 'failure', data: error })
-        console.log('Download error: ', error)
+				await pushTracking('unzipData', 'start');
 
-        // To avoid having part of issue data on the device (i.e. when image bundle failed to unzip)
-        // we are clearing the folder, so user does not experience article without image, for example.
-        deleteIssue(localId)
-    }
-}
+				await unzipNamedIssueArchive(
+					`${FSPaths.downloadIssueLocation(localId)}/data.zip`,
+				);
+
+				await pushTracking('unzipData', 'end');
+
+				// --- HTML Unzip ---
+
+				await pushTracking('unzipHTML', 'start');
+
+				await unzipNamedIssueArchive(
+					`${FSPaths.downloadIssueLocation(localId)}/html.zip`,
+				);
+
+				await pushTracking('unzipHTML', 'end');
+
+				// --- Image Unzip ---
+
+				await pushTracking('unzipImages', 'start');
+
+				await unzipNamedIssueArchive(
+					`${FSPaths.downloadIssueLocation(localId)}/media.zip`,
+				);
+
+				await pushTracking('unzipImages', 'end');
+
+				return 'success';
+			},
+			{
+				retries: 2,
+			},
+		);
+
+		await pushTracking('downloadAndUnzip', 'complete');
+		updateListeners(localId, { type: 'success' }); // null is unstarted or end
+	} catch (error) {
+		await pushTracking('downloadAndUnzipError', JSON.stringify(error));
+		errorService.captureException(error);
+		updateListeners(localId, { type: 'failure', data: error });
+		console.log('Download error: ', error);
+
+		// To avoid having part of issue data on the device (i.e. when image bundle failed to unzip)
+		// we are clearing the folder, so user does not experience article without image, for example.
+		deleteIssue(localId);
+	}
+};
 
 // This caches downloads so that if there is one already running you
 // will get a reference to that rather promise than triggering a new one
 export const downloadAndUnzipIssue = async (
-    client: ApolloClient<object>,
-    issue: IssueSummary,
-    imageSize: ImageSize,
-    onProgress: (status: DLStatus) => void = () => {},
-    run = runDownload,
+	issue: IssueSummary,
+	imageSize: ImageSize,
+	downloadBlocked: NetInfoState['downloadBlocked'],
+	onProgress: (status: DLStatus) => void = () => {},
+	run = runDownload,
 ) => {
-    const queryResult = await client.query<DlBlkQueryValue>({
-        query: DOWNLOAD_BLOCKED_QUERY,
-    })
-    const {
-        netInfo: { downloadBlocked },
-    } = queryResult.data
+	if (downloadBlocked !== DownloadBlockedStatus.NotBlocked) {
+		await pushTracking(
+			'downloadBlocked',
+			DownloadBlockedStatus[downloadBlocked],
+		);
+		return;
+	}
 
-    if (downloadBlocked !== DownloadBlockedStatus.NotBlocked) {
-        await pushTracking(
-            'downloadBlocked',
-            DownloadBlockedStatus[downloadBlocked],
-            Feature.DOWNLOAD,
-        )
-        return
-    }
+	const { localId } = issue;
+	const promise = maybeListenToExistingDownload(issue, onProgress);
+	if (promise) return promise;
 
-    const { localId } = issue
-    const promise = maybeListenToExistingDownload(issue, onProgress)
-    if (promise) return promise
+	const createDownloadPromise = async () => {
+		try {
+			await run(issue, imageSize);
+			localIssueListStore.add(localId);
+		} finally {
+			await pushTracking('completeAndDeleteCache', 'completed');
+			delete dlCache[localId];
+		}
+	};
 
-    const createDownloadPromise = async () => {
-        try {
-            await run(issue, imageSize)
-            localIssueListStore.add(localId)
-        } finally {
-            await pushTracking(
-                'completeAndDeleteCache',
-                'completed',
-                Feature.DOWNLOAD,
-            )
-            delete dlCache[localId]
-        }
-    }
+	const downloadPromise = createDownloadPromise();
 
-    const downloadPromise = createDownloadPromise()
-
-    dlCache[localId] = {
-        promise: downloadPromise,
-        progressListeners: [onProgress],
-    }
-    return downloadPromise
-}
+	dlCache[localId] = {
+		promise: downloadPromise,
+		progressListeners: [onProgress],
+	};
+	return downloadPromise;
+};

@@ -90,7 +90,7 @@ describe('handleAndNotifyInternal', () => {
         const event: PublishEvent = {
             ...input.issuePublication,
             status: 'Failed',
-            message: 'Error: error',
+            message: `Error: error`,
             timestamp: now.format(),
         }
         expect(dependencies.sendPublishStatusToTopic).toBeCalledWith(event)

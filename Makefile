@@ -23,10 +23,15 @@ test: $(patsubst %, test-%, $(PROJECTS))
 #
 # Overrides
 #
-
 build-Mallard:
 	@echo "\n👟 $@ 🦆\n"
 	@echo "\nThis is not yet handled by make\n"
+
+validate-Mallard:
+	@echo "\n👟🧶 $@ ESLINT 🦆\n"
+	cd projects/Mallard && yarn lint
+	@echo "\n👟🚂 $@ TSC 🦆\n"
+	cd projects/Mallard && yarn tsc --noEmit --skipLibCheck
 #
 # Project commands
 #
@@ -37,7 +42,7 @@ validate-%: projects/%/node_modules node_modules
 	cd projects/$* && yarn tsc --noEmit --skipLibCheck
 fix-%: node_modules projects/%/node_modules node_modules
 	@echo "\n👟 $@ 🦆\n"
-	yarn eslint 'projects/$*/**/*.{ts,tsx}' --parser-options=project:./projects/$*/tsconfig.json --fix
+	yarn eslint 'projects/$*/**/*.{ts,tsx}' --parser-options=project:./projects/$*/tsconfig.json --fix	
 test-%: projects/%/node_modules
 	@echo "\n👟 $@ 🦆\n"
 	cd projects/$* && yarn test

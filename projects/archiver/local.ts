@@ -1,4 +1,3 @@
-import MemWatch from 'node-memwatch'
 import * as main from './main'
 import { Handler, Context } from 'aws-lambda'
 import { IssueParams } from './src/tasks/issue'
@@ -13,15 +12,7 @@ Where function is one of those named in main.ts and the inputJson is
 a small JSON document that should be used as input for the function.
 */
 //When run from terminal
-MemWatch.on('stats', stats => {
-    console.log('GC ran', JSON.stringify(stats))
-})
-MemWatch.on('leak', ev => {
-    console.error('LEAK LEAK LEAK>>>')
 
-    console.error(JSON.stringify(ev, null, 2))
-    console.error('>>>LEAK LEAK LEAK')
-})
 console.log('Node process running on', process.pid)
 const task = process.argv[2]
 const json = process.argv[3]
@@ -32,11 +23,11 @@ if (!(task in main)) {
 }
 
 const handlers = (main as unknown) as {
-    [key: string]: Handler<IssueParams, {}>
+    [key: string]: Handler<IssueParams, unknown>
 }
 const handler = handlers[task]
 
-const run = handler(JSON.parse(json), {} as Context, () => {}) as Promise<any> // eslint-disable-line @typescript-eslint/no-explicit-any
+const run = handler(JSON.parse(json), {} as Context, () => null) as Promise<any> // eslint-disable-line @typescript-eslint/no-explicit-any
 
 run.then(x => {
     console.log(x)

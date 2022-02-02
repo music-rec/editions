@@ -53,7 +53,7 @@ export const s3EditionClient = () => {
         return new S3({
             region: 'eu-west-1',
             credentials: new SharedIniFileCredentials({
-                profile: 'frontend',
+                profile: 'mobile',
             }),
         })
     }
@@ -61,7 +61,7 @@ export const s3EditionClient = () => {
 
 interface S3Response {
     text: () => Promise<string>
-    json: () => Promise<{}>
+    json: () => Promise<unknown>
     lastModified?: Date
     etag: string | undefined
 }
@@ -227,9 +227,8 @@ export const s3Put = async (path: Path, data: string) => {
         .promise()
         .catch(error => {
             console.error(
-                `S3 putObject failed. bucket ${getEditionsBucket(
-                    path.bucket,
-                )} key: ${path.key} `,
+                `S3 putObject failed. bucket ${path.bucket},
+                 key: ${path.key} `,
                 error,
             )
             throw error

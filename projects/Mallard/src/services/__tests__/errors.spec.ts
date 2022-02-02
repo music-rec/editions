@@ -1,175 +1,124 @@
-import { ErrorServiceImpl } from '../errors'
-import gql from 'graphql-tag'
-import Observable from 'zen-observable'
+import type { ErrorServiceImpl } from '../errors';
 
 jest.mock('src/helpers/release-stream', () => ({
-    isInBeta: () => false,
-}))
+	isInBeta: () => false,
+}));
 jest.mock('@sentry/react-native', () => ({
-    init: jest.fn(),
-    captureException: jest.fn(() => {}),
-    setTag: jest.fn(() => {}),
-    setExtra: jest.fn(() => {}),
-}))
-
-const QUERY = gql('{ gdprAllowPerformance @client }')
+	init: jest.fn(),
+	captureException: jest.fn(() => {}),
+	setTag: jest.fn(() => {}),
+	setExtra: jest.fn(() => {}),
+}));
 
 describe('errorService', () => {
-    let errorService: ErrorServiceImpl
-    let Sentry: any
-    let apolloClient: any
-    let setMockedConsent: (value: boolean) => void
-    let consentFetchPromise: Promise<void>
+	let errorService: ErrorServiceImpl;
+	let Sentry: any;
 
-    beforeEach(() => {
-        jest.resetModules()
+	beforeEach(() => {
+		jest.resetModules();
 
-        errorService = require('../errors').errorService
-        Sentry = require('@sentry/react-native')
+		errorService = require('../errors').errorService;
+		Sentry = require('@sentry/react-native');
+	});
 
-        let hasConsent = false
-        const observers: any = []
+	it('should not do anything before calling `init`', async () => {
+		await Promise.resolve();
+		errorService.captureException(new Error());
 
-        const notify = () => {
-            observers.forEach((observer: any) =>
-                observer.next({
-                    data: { gdprAllowPerformance: hasConsent },
-                }),
-            )
-        }
+		expect(Sentry.init).not.toHaveBeenCalled();
+		expect(Sentry.captureException).not.toHaveBeenCalled();
+	});
 
-        setMockedConsent = (value: boolean) => {
-            hasConsent = value
-            notify()
-        }
+	it('should default to not having consent', () => {
+		errorService.init({ hasConsent: null });
 
-        const watchQuery = (opts: any) => {
-            expect(opts.query).toEqual(QUERY)
-            return new Observable(observer => {
-                observers.push(observer)
-                consentFetchPromise = Promise.resolve().then(notify)
-            })
-        }
-        apolloClient = { watchQuery }
-    })
+		errorService.captureException(new Error());
 
-    it('should not do anything before calling `init`', async () => {
-        await Promise.resolve()
-        errorService.captureException(new Error())
+		expect(Sentry.init).not.toHaveBeenCalled();
+		expect(Sentry.captureException).not.toHaveBeenCalled();
+	});
 
-        expect(Sentry.init).not.toHaveBeenCalled()
-        expect(Sentry.captureException).not.toHaveBeenCalled()
-    })
+	it('should install the if consent is set to true', async () => {
+		errorService.init({ hasConsent: true });
 
-    it('should default to not having consent', () => {
-        errorService.init(apolloClient)
+		expect(Sentry.init).toHaveBeenCalledTimes(1);
+	});
 
-        errorService.captureException(new Error())
+	it('should not install without consent', async () => {
+		errorService.init({ hasConsent: false });
 
-        expect(Sentry.init).not.toHaveBeenCalled()
-        expect(Sentry.captureException).not.toHaveBeenCalled()
-    })
+		expect(Sentry.init).not.toHaveBeenCalled();
+	});
 
-    it('should install the if consent is set to true', async () => {
-        setMockedConsent(true)
-        errorService.init(apolloClient)
-        await consentFetchPromise
+	it('should not fire errors without consent', async () => {
+		errorService.init({ hasConsent: false });
 
-        expect(Sentry.init).toHaveBeenCalledTimes(1)
-    })
+		errorService.captureException(new Error());
+		expect(Sentry.captureException).not.toHaveBeenCalled();
+	});
 
-    it('should not install without consent', async () => {
-        errorService.init(apolloClient)
-        await consentFetchPromise
+	it('should fire errors with consent', async () => {
+		errorService.init({ hasConsent: true });
 
-        expect(Sentry.init).not.toHaveBeenCalled()
-    })
+		errorService.captureException(new Error());
+		expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+	});
 
-    it('should install only after consent is set to true', async () => {
-        errorService.init(apolloClient)
-        await consentFetchPromise
+	it('should start firing errors if consent is granted in the app', async () => {
+		errorService.init({ hasConsent: false });
 
-        setMockedConsent(true)
-        expect(Sentry.init).toHaveBeenCalledTimes(1)
-    })
+		errorService.captureException(new Error());
+		expect(Sentry.captureException).not.toHaveBeenCalled();
 
-    it('should not fire errors without consent', async () => {
-        errorService.init(apolloClient)
-        await consentFetchPromise
+		errorService.init({ hasConsent: true });
 
-        errorService.captureException(new Error())
-        expect(Sentry.captureException).not.toHaveBeenCalled()
-    })
+		errorService.captureException(new Error());
+		expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+	});
 
-    it('should fire errors with consent', async () => {
-        setMockedConsent(true)
-        errorService.init(apolloClient)
-        await consentFetchPromise
+	it('should stop firing errors if consent is revoked in the app', async () => {
+		errorService.init({ hasConsent: true });
 
-        errorService.captureException(new Error())
-        expect(Sentry.captureException).toHaveBeenCalledTimes(1)
-    })
+		errorService.captureException(new Error());
+		expect(Sentry.captureException).toHaveBeenCalledTimes(1);
 
-    it('should start firing errors if consent is granted in the app', async () => {
-        errorService.init(apolloClient)
-        await consentFetchPromise
+		errorService.init({ hasConsent: false });
+		errorService.captureException(new Error());
+		expect(Sentry.captureException).toHaveBeenCalledTimes(1);
+	});
 
-        errorService.captureException(new Error())
-        expect(Sentry.captureException).not.toHaveBeenCalled()
+	it('should queue errors that happen while waiting to determine whether we have consent and send them if we do', async () => {
+		errorService.init({ hasConsent: null });
 
-        setMockedConsent(true)
-        errorService.captureException(new Error())
-        expect(Sentry.captureException).toHaveBeenCalledTimes(1)
-    })
+		errorService.captureException(new Error());
+		errorService.captureException(new Error());
 
-    it('should stop firing errors if consent is revoked in the app', async () => {
-        setMockedConsent(true)
-        errorService.init(apolloClient)
-        await consentFetchPromise
+		expect(Sentry.captureException).not.toHaveBeenCalled();
 
-        errorService.captureException(new Error())
-        expect(Sentry.captureException).toHaveBeenCalledTimes(1)
+		errorService.init({ hasConsent: true });
 
-        setMockedConsent(false)
-        errorService.captureException(new Error())
-        expect(Sentry.captureException).toHaveBeenCalledTimes(1)
-    })
+		expect(Sentry.captureException).toHaveBeenCalledTimes(2);
+	});
 
-    it('should queue errors that happen while waiting to determine whether we have consent and send them if we do', async () => {
-        setMockedConsent(true)
-        errorService.init(apolloClient)
+	it('Crashlytics: should default to not having consent', async () => {
+		errorService.init({ hasConsent: null });
+		await Promise.resolve();
 
-        errorService.captureException(new Error())
-        errorService.captureException(new Error())
+		errorService.captureException(new Error());
 
-        expect(Sentry.captureException).not.toHaveBeenCalled()
+		const crashlytics = errorService.crashlytics;
+		expect(
+			crashlytics.setCrashlyticsCollectionEnabled,
+		).toHaveBeenCalledWith(false);
 
-        await consentFetchPromise
+		expect(crashlytics.recordError).not.toHaveBeenCalled();
+	});
 
-        expect(Sentry.captureException).toHaveBeenCalledTimes(2)
-    })
+	it('Crashlytics: should send exception to crashlytics', async () => {
+		errorService.init({ hasConsent: true });
 
-    it('Crashlytics: should default to not having consent', async () => {
-        errorService.init(apolloClient)
-        await Promise.resolve()
+		errorService.captureException(new Error());
 
-        errorService.captureException(new Error())
-
-        const crashlytics = errorService.crashlytics
-        expect(
-            crashlytics.setCrashlyticsCollectionEnabled,
-        ).toHaveBeenCalledWith(false)
-
-        expect(crashlytics.recordError).not.toHaveBeenCalled()
-    })
-
-    it('Crashlytics: should send exception to crashlytics', async () => {
-        setMockedConsent(true)
-        errorService.init(apolloClient)
-        await consentFetchPromise
-
-        errorService.captureException(new Error())
-
-        expect(errorService.crashlytics.recordError).toBeCalled()
-    })
-})
+		expect(errorService.crashlytics.recordError).toBeCalled();
+	});
+});

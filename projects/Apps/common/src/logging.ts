@@ -29,7 +29,7 @@ export enum OS {
 }
 
 export interface MallardLogFormat {
-    timestamp: Date
+    timestamp?: Date
     level: Level
     message: string
     app: string
@@ -48,4 +48,6 @@ export interface MallardLogFormat {
     casCode: CASExpiry['subscriptionCode'] | null
     iAP: boolean
     feature?: Feature
+    isConnected: boolean
+    isPoorConnection: boolean
 }

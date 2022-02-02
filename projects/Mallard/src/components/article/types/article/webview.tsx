@@ -1,126 +1,86 @@
-import React, { useState } from 'react'
-import { WebView, WebViewProps } from 'react-native-webview'
-import { ArticleType } from 'src/common'
-import { useArticle } from 'src/hooks/use-article'
-import { Article, PictureArticle, GalleryArticle, ImageSize } from 'src/common'
-import { renderArticle } from '../../html/article'
-import { onShouldStartLoadWithRequest } from './helpers'
-import { useApolloClient } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
-import { useQuery } from 'src/hooks/apollo'
-import { FSPaths, APIPaths, PathToArticle } from 'src/paths'
-import { Platform } from 'react-native'
-import { Image, ImageUse, IssueOrigin } from 'src/common'
-import { useLargeDeviceMemory } from 'src/hooks/use-config-provider'
-import { defaultSettings } from 'src/helpers/settings/defaults'
-import { useIsAppsRendering } from 'src/hooks/use-config-provider'
-type QueryValue = { imageSize: ImageSize; apiUrl: string }
-const QUERY = gql`
-    {
-        imageSize @client
-        apiUrl @client
-    }
-`
+import React, { useState } from 'react';
+import { Platform } from 'react-native';
+import type { WebViewProps } from 'react-native-webview';
+import { WebView } from 'react-native-webview';
+import type {
+	Article,
+	GalleryArticle,
+	IssueOrigin,
+	PictureArticle,
+} from 'src/common';
+import { useLargeDeviceMemory } from 'src/hooks/use-config-provider';
+import { useNetInfo } from 'src/hooks/use-net-info-provider';
+import type { PathToArticle } from 'src/paths';
+import { FSPaths } from 'src/paths';
+import WebviewError from 'src/screens/webview-error-screen';
+import { onShouldStartLoadWithRequest } from './helpers';
 
 const WebviewWithArticle = ({
-    article,
-    path,
-    type,
-    _ref,
-    topPadding,
-    origin,
-    ...webViewProps
+	article,
+	path,
+	previewParam,
+	htmlFolderInS3,
+	_ref,
+	origin,
+	...webViewProps
 }: {
-    article: Article | PictureArticle | GalleryArticle
-    path: PathToArticle
-    type: ArticleType
-    _ref?: (ref: WebView) => void
-    topPadding: number
-    origin: IssueOrigin
+	article: Article | PictureArticle | GalleryArticle;
+	path: PathToArticle;
+	previewParam: string;
+	htmlFolderInS3: string;
+	_ref?: (ref: WebView) => void;
+	origin: IssueOrigin;
 } & WebViewProps & { onScroll?: any }) => {
-    const client = useApolloClient()
-    // This line ensures we don't re-render the article when
-    // the network connection changes, see the comments around
-    // `fetchImmediate` where it is defined
-    const data = client.readQuery<{ netInfo: { isConnected: boolean } }>({
-        query: gql('{ netInfo @client { isConnected @client } }'),
-    })
-    const [isConnected] = useState(
-        data != null ? data.netInfo.isConnected : false,
-    )
-    const { isAppsRendering } = useIsAppsRendering()
+	const { localIssueId } = path;
+	const largeDeviceMemory = useLargeDeviceMemory();
+	const [isReady, setIsReady] = useState(false);
+	const { isConnected } = useNetInfo();
 
-    // FIXME: pass this as article data instead so it's never out-of-sync?
-    const [, { pillar }] = useArticle()
+	const updateSource = () => {
+		// On Android there is a potential race condition where url did get set before
+		// webview file system permission did get set and as result local html file fails to load
+		// within the webview.
+		// Github issue: https://github.com/react-native-webview/react-native-webview/issues/656#issuecomment-551312436
+		setIsReady(true);
+	};
 
-    const largeDeviceMemory = useLargeDeviceMemory()
+	// Online: Url to load direct from s3 (when bundle is not downloaded)
+	// When app runs in Preview Mode the url points to backend and backend needs to know
+	// which front the articles belongs to properly render an article with correct overrides from the fronts tool
+	let uri = `${htmlFolderInS3}/${article.internalPageCode}.html${previewParam}`;
 
-    const res = useQuery<QueryValue>(QUERY)
-    // Hold off rendering until we have all the necessary data.
-    if (res.loading) return null
-    const { imageSize, apiUrl } = res.data
-    const { localIssueId, publishedIssueId } = path
+	// Offline/Downloaded: load from file system
+	if (origin === 'filesystem') {
+		const htmlUri = `${FSPaths.issueRoot(localIssueId)}/html/${
+			article.internalPageCode
+		}.html`;
+		uri = Platform.OS === 'android' ? 'file://' + htmlUri : htmlUri;
+	}
 
-    const getImagePath = (
-        image?: Image,
-        use: ImageUse = 'full-size',
-        forceRemotePath = false,
-    ) => {
-        if (image == null) return undefined
+	console.log(`URL (${origin}): ${uri}`);
 
-        const issueId = publishedIssueId
+	// if the device is offline and the Issue is not downloaded show a user friendly error message
+	if (!isConnected && origin == 'api') return <WebviewError />;
 
-        if (forceRemotePath) {
-            // Duplicates the below, but we want an early return
-            const imagePath = APIPaths.image(issueId, imageSize, image, use)
-            return `${apiUrl}${imagePath}`
-        }
+	return (
+		<WebView
+			{...webViewProps}
+			bounces={largeDeviceMemory ? true : false}
+			originWhitelist={['*']}
+			scrollEnabled={true}
+			source={isReady ? { uri: uri } : undefined}
+			ref={_ref}
+			onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+			allowFileAccess={true}
+			allowUniversalAccessFromFileURLs={true}
+			allowingReadAccessToURL={FSPaths.issuesDir}
+			cacheEnabled={false}
+			cacheMode={'LOAD_NO_CACHE'}
+			onLoadStart={() => {
+				updateSource();
+			}}
+		/>
+	);
+};
 
-        if (origin === 'filesystem') {
-            const fs = FSPaths.image(localIssueId, imageSize, image, use)
-            return Platform.OS === 'android' ? 'file:///' + fs : fs
-        }
-
-        const imagePath = APIPaths.image(issueId, imageSize, image, use)
-        return `${apiUrl}${imagePath}`
-    }
-
-    const html = renderArticle(article.elements, {
-        pillar,
-        article,
-        type,
-        imageSize,
-        showWebHeader: true,
-        showMedia: isConnected,
-        publishedId: publishedIssueId || null,
-        topPadding,
-        getImagePath,
-    })
-
-    const clientRenderingSource = {
-        html,
-        baseUrl:
-            '' /* required as per https://stackoverflow.com/a/51931187/609907 */,
-    }
-
-    const appsRenderingSource = {
-        uri: `${defaultSettings.appsRenderingService}${article.key}?editions`,
-    }
-
-    const source = isAppsRendering ? appsRenderingSource : clientRenderingSource
-
-    return (
-        <WebView
-            {...webViewProps}
-            bounces={largeDeviceMemory ? true : false}
-            originWhitelist={['*']}
-            scrollEnabled={true}
-            source={source}
-            ref={_ref}
-            onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-            allowFileAccess={true}
-        />
-    )
-}
-
-export { WebviewWithArticle }
+export { WebviewWithArticle };

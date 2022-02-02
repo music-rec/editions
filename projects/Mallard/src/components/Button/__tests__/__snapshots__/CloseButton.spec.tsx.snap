@@ -6,6 +6,7 @@ exports[`CloseButton should display a CloseButton with an alternative appearance
   accessibilityLabel="Accessibility Label"
   accessibilityRole="button"
   accessible={true}
+  collapsable={false}
   focusable={true}
   hitSlop={
     Object {
@@ -15,7 +16,7 @@ exports[`CloseButton should display a CloseButton with an alternative appearance
       "top": 10,
     }
   }
-  isTVSelectable={true}
+  nativeID="animatedComponent"
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -83,6 +84,7 @@ exports[`CloseButton should display a default CloseButton 1`] = `
   accessibilityLabel="Accessibility Label"
   accessibilityRole="button"
   accessible={true}
+  collapsable={false}
   focusable={true}
   hitSlop={
     Object {
@@ -92,7 +94,7 @@ exports[`CloseButton should display a default CloseButton 1`] = `
       "top": 10,
     }
   }
-  isTVSelectable={true}
+  nativeID="animatedComponent"
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}

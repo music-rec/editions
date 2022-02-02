@@ -1,102 +1,138 @@
-import React, { useContext } from 'react'
-import { List } from 'src/components/lists/list'
-import { NavigationInjectedProps } from 'react-navigation'
-import { ScrollContainer } from 'src/components/layout/ui/container'
-import { routeNames } from 'src/navigation/routes'
-import { WithAppAppearance } from 'src/theme/appearance'
-import { RightChevron } from 'src/components/icons/RightChevron'
-import { Heading } from 'src/components/layout/ui/row'
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext } from 'react';
+import { AccessContext } from 'src/authentication/AccessContext';
+import { HeaderScreenContainer } from 'src/components/Header/Header';
+import { RightChevron } from 'src/components/icons/RightChevron';
+import { ScrollContainer } from 'src/components/layout/ui/container';
+import { Heading, Row, Separator } from 'src/components/layout/ui/row';
 import {
-    createSupportMailto,
-    copyDiagnosticInfo,
-} from 'src/helpers/diagnostics'
+	copyDiagnosticInfo,
+	createSupportMailto,
+} from 'src/helpers/diagnostics';
 import {
-    ISSUE_EMAIL,
-    SUBSCRIPTION_EMAIL,
-    READERS_EMAIL,
-    APPS_FEEDBACK_EMAIL,
-    DIAGNOSTICS_TITLE,
-} from 'src/helpers/words'
-import { AccessContext } from 'src/authentication/AccessContext'
-import { useApolloClient } from '@apollo/react-hooks'
-import { useToast } from 'src/hooks/use-toast'
+	APPS_FEEDBACK_EMAIL,
+	DIAGNOSTICS_TITLE,
+	HELP_HEADER_TITLE,
+	ISSUE_EMAIL,
+	READERS_EMAIL,
+	SUBSCRIPTION_EMAIL,
+} from 'src/helpers/words';
+import { useGdprSettings } from 'src/hooks/use-gdpr';
+import { useNetInfo } from 'src/hooks/use-net-info-provider';
+import { useToast } from 'src/hooks/use-toast';
+import { RouteNames } from 'src/navigation/NavigationModels';
+import { WithAppAppearance } from 'src/theme/appearance';
 
 export interface OnCompletionToast {
-    (msg: string): void
+	(msg: string): void;
 }
 
-const HelpScreen = ({ navigation }: NavigationInjectedProps) => {
-    const { showToast } = useToast()
-    const { attempt } = useContext(AccessContext)
-    const client = useApolloClient()
+const HelpScreen = () => {
+	const navigation = useNavigation();
+	const { showToast } = useToast();
+	const { attempt } = useContext(AccessContext);
 
-    const showToastCallback: OnCompletionToast = (msg: string) => {
-        showToast(msg)
-    }
+	const showToastCallback: OnCompletionToast = (msg: string) => {
+		showToast(msg);
+	};
+	const {
+		isConnected,
+		isPoorConnection,
+		type,
+		downloadBlocked,
+		isInternetReachable,
+	} = useNetInfo();
+	const netInfo = {
+		isConnected,
+		isPoorConnection,
+		type,
+		downloadBlocked,
+		isInternetReachable,
+	};
+	const {
+		gdprAllowEssential,
+		gdprAllowPerformance,
+		gdprAllowFunctionality,
+		gdprConsentVersion,
+	} = useGdprSettings();
+	const gdprSettings = {
+		gdprAllowEssential,
+		gdprAllowPerformance,
+		gdprAllowFunctionality,
+		gdprConsentVersion,
+	};
 
-    return (
-        <WithAppAppearance value={'settings'}>
-            <ScrollContainer>
-                <List
-                    data={[
-                        {
-                            key: 'Frequently Asked Questions',
-                            title: 'Frequently Asked Questions',
-                            onPress: () => {
-                                navigation.navigate(routeNames.FAQ)
-                            },
-                            proxy: <RightChevron />,
-                        },
-                    ]}
-                />
-                <Heading>Contact us</Heading>
-                <List
-                    data={[
-                        createSupportMailto(
-                            client,
-                            'Report an issue',
-                            ISSUE_EMAIL,
-                            attempt,
-                            DIAGNOSTICS_TITLE,
-                        ),
-                        createSupportMailto(
-                            client,
-                            'Subscription, payment and billing issues',
-                            SUBSCRIPTION_EMAIL,
-                            attempt,
-                        ),
-                        createSupportMailto(
-                            client,
-                            'Comment or query about an article',
-                            READERS_EMAIL,
-                            attempt,
-                        ),
-                        createSupportMailto(
-                            client,
-                            'Send feedback',
-                            APPS_FEEDBACK_EMAIL,
-                            attempt,
-                        ),
-                    ]}
-                />
-                <Heading>Diagnostics</Heading>
-                <List
-                    data={[
-                        copyDiagnosticInfo(
-                            client,
-                            'Copy diagnostic information',
-                            attempt,
-                            showToastCallback,
-                        ),
-                    ]}
-                />
-            </ScrollContainer>
-        </WithAppAppearance>
-    )
-}
+	return (
+		<HeaderScreenContainer title={HELP_HEADER_TITLE} actionLeft={true}>
+			<WithAppAppearance value={'settings'}>
+				<ScrollContainer>
+					<Row
+						title="Frequently Asked Questions"
+						onPress={() => navigation.navigate(RouteNames.FAQ)}
+						proxy={<RightChevron />}
+					/>
+					<Separator />
 
-HelpScreen.navigationOptions = {
-    title: 'Help',
-}
+					<Heading>Contact us</Heading>
+					<Separator />
+					<Row
+						{...createSupportMailto(
+							'Report an issue',
+							ISSUE_EMAIL,
+							attempt,
+							netInfo,
+							gdprSettings,
+							DIAGNOSTICS_TITLE,
+						)}
+					/>
+					<Separator />
+					<Row
+						{...createSupportMailto(
+							'Subscription, payment and billing issues',
+							SUBSCRIPTION_EMAIL,
+							attempt,
+							netInfo,
+							gdprSettings,
+						)}
+					/>
+					<Separator />
+					<Row
+						{...createSupportMailto(
+							'Comment or query about an article',
+							READERS_EMAIL,
+							attempt,
+							netInfo,
+							gdprSettings,
+						)}
+					/>
+					<Separator />
+					<Row
+						{...createSupportMailto(
+							'Send feedback',
+							APPS_FEEDBACK_EMAIL,
+							attempt,
+							netInfo,
+							gdprSettings,
+						)}
+					/>
+					<Separator />
 
-export { HelpScreen }
+					<Heading>Diagnostics</Heading>
+					<Separator />
+					<Row
+						{...copyDiagnosticInfo(
+							'Copy diagnostic information',
+							attempt,
+							netInfo,
+							gdprSettings,
+							showToastCallback,
+						)}
+					/>
+					<Separator />
+				</ScrollContainer>
+			</WithAppAppearance>
+		</HeaderScreenContainer>
+	);
+};
+
+export { HelpScreen };

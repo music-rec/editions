@@ -28,9 +28,19 @@ const createCMSFrontsS3Client = () => {
     })
 }
 
-export const s3 = new S3({
+const s3DefaultCredentials = new S3({
     region: 'eu-west-1',
 })
+
+const s3MobileCredentials = new S3({
+    region: 'eu-west-1',
+    credentials: new SharedIniFileCredentials({ profile: 'mobile' }),
+})
+
+export const s3 =
+    process.env.stage === 'CODE' || process.env.stage === 'PROD'
+        ? s3DefaultCredentials
+        : s3MobileCredentials
 
 export type Bucket = {
     name: string
@@ -42,16 +52,16 @@ export const getBucket = (bucket: string): Bucket => {
         if (!!process.env.proofBucket) {
             return { name: process.env.proofBucket, context: bucket }
         } else {
-            return { name: 'editions-store-code', context: 'default' }
+            return { name: 'editions-published-code', context: 'default' }
         }
     } else if (bucket === 'publish') {
         if (!!process.env.publishBucket) {
             return { name: process.env.publishBucket, context: bucket }
         } else {
-            return { name: 'editions-store-code', context: 'default' }
+            return { name: 'editions-published-code', context: 'default' }
         }
     } else {
-        return { name: 'editions-store-code', context: 'default' }
+        return { name: 'editions-published-code', context: 'default' }
     }
 }
 
@@ -106,28 +116,32 @@ function cacheControlHeader(maxAge: number | undefined): string {
     return 'private'
 }
 
+export const ONE_MONTH = 3600 * 24 * 30
 export const ONE_WEEK = 3600 * 24 * 7
 export const ONE_MINUTE = 60
 export const FIVE_SECONDS = 5
 
 export const upload = (
     key: string,
-    body: {} | Buffer,
+    body: any | Buffer | string,
     bucket: Bucket,
-    mime: 'image/jpeg' | 'application/json' | 'application/zip',
+    mime: 'image/jpeg' | 'application/json' | 'application/zip' | 'text/html',
     maxAge: number | undefined,
 ): Promise<{ etag: string }> => {
     return new Promise((resolve, reject) => {
-        s3.upload(
+        console.log(
+            `Uploading ${key} to bucket ${bucket.name} with maxAge ${maxAge}`,
+        )
+        return s3.upload(
             {
-                Body: body instanceof Buffer ? body : JSON.stringify(body),
+                Body: mime != 'application/json' ? body : JSON.stringify(body),
                 Bucket: bucket.name,
                 Key: `${key}`,
                 ACL: 'public-read',
                 ContentType: mime,
                 CacheControl: cacheControlHeader(maxAge),
             },
-            (err, data) => {
+            (err: Error, data: S3.ManagedUpload.SendData) => {
                 if (err) {
                     console.error(
                         `S3 upload of s3://${bucket.name}/${key} failed with`,
@@ -174,7 +188,7 @@ export const copy = (
     key: string | undefined,
     inputBucket: Bucket,
     outputBucket: Bucket,
-): Promise<{}> => {
+): Promise<unknown> => {
     return new Promise((resolve, reject) => {
         if (key == undefined) {
             console.log('Copy request ignored due to undefined key')
@@ -240,9 +254,11 @@ export const recursiveCopy = async (
     baseKey: string | undefined,
     inputBucket: Bucket,
     outputBucket: Bucket,
-): Promise<{}[]> => {
+): Promise<unknown[]> => {
     console.log(
-        `Recursively copying ${baseKey} from ${inputBucket} to ${outputBucket}`,
+        `Recursively copying ${baseKey} from ${JSON.stringify(
+            inputBucket,
+        )} to ${JSON.stringify(outputBucket)}`,
     )
     if (baseKey == undefined) {
         console.log('Recursive copy request ignored due to undefined base key')

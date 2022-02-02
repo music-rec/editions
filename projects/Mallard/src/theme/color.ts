@@ -1,17 +1,16 @@
-import { palette } from '@guardian/pasteup/palette'
+import { palette } from '@guardian/pasteup/palette';
 import {
-    neutral,
-    brand,
-    text,
-    brandText,
-    background,
-    brandBackground,
-    border,
-    brandBorder,
-    news,
-    opinion,
-    sport,
-} from '@guardian/src-foundations/palette'
+	border,
+	brand,
+	brandBackground,
+	brandBorder,
+	brandText,
+	neutral,
+	news,
+	opinion,
+	sport,
+	text,
+} from '@guardian/src-foundations/palette';
 
 /*
 Roles for colors.  Prefer using these over the palette.  It makes it easier
@@ -23,53 +22,53 @@ put that in the <Spinner /> component.
 */
 
 export const color = {
-    /*
-    Backgrounds
-    */
-    background: background.primary,
-    text: text.primary,
-    dimBackground: neutral[93],
-    dimmerBackground: neutral[86],
-    dimText: neutral[20],
-    darkBackground: neutral[20],
-    photoBackground: neutral[7],
-    textOverPhotoBackground: background.primary,
-    textOverDarkBackground: background.primary,
-    artboardBackground: neutral[7],
-    skeleton: neutral[60],
+	/*
+	Backgrounds
+	*/
+	background: neutral[100],
+	text: text.primary,
+	dimBackground: neutral[93],
+	dimmerBackground: neutral[86],
+	dimText: neutral[20],
+	darkBackground: neutral[20],
+	photoBackground: neutral[7],
+	textOverPhotoBackground: neutral[100],
+	textOverDarkBackground: neutral[100],
+	artboardBackground: neutral[7],
+	skeleton: neutral[60],
 
-    /*
-    Brand (our blue)
-    */
-    textOverPrimary: brandText.primary,
-    primary: brandBackground.primary,
-    primaryDarker: brand[300],
+	/*
+	Brand (our blue)
+	*/
+	textOverPrimary: brandText.primary,
+	primary: brandBackground.primary,
+	primaryDarker: brand[300],
 
-    /*
-    Border colors
-    */
-    line: border.primary,
-    dimLine: border.secondary,
-    lineOverPrimary: brandBorder.primary,
+	/*
+	Border colors
+	*/
+	line: border.primary,
+	dimLine: border.secondary,
+	lineOverPrimary: brandBorder.primary,
 
-    /*
-    Error messages and icons.
-    */
-    error: text.error,
+	/*
+	Error messages and icons.
+	*/
+	error: text.error,
 
-    /*
-    Onboarding & button UI.
-    */
-    ui: {
-        tomato: news[500],
-        apricot: opinion[500],
-        shark: sport[400],
-        sea: '#279DDC',
-        supportBlue: '#41A9E0',
-    },
+	/*
+	Onboarding & button UI.
+	*/
+	ui: {
+		tomato: news[500],
+		apricot: opinion[500],
+		shark: sport[400],
+		sea: '#279DDC',
+		supportBlue: '#41A9E0',
+	},
 
-    /*
-    The palette is available to use, but prefer using the name.
-    */
-    palette,
-}
+	/*
+	The palette is available to use, but prefer using the name.
+	*/
+	palette,
+};
